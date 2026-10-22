@@ -1,0 +1,25 @@
+protocol_id: CDR-v1
+stage: context_effect_feasibility_pilot_analysis
+expected_models: [gpt4o_mini, llama4_scout]
+expected_dialogues:
+  - cdr-v1-budget-001
+  - cdr-v1-incident-001
+  - cdr-v1-cohort-001
+expected_conditions: [self_history, oracle_history, state_summary]
+expected_turns_per_dialogue: 12
+expected_primary_records_per_model: 108
+expected_total_records_per_model: 108
+
+minimum_success_rate: 1.0
+minimum_strict_final_marker_rate: 0.99
+minimum_stored_answer_agreement_rate: 0.99
+maximum_truncations: 0
+
+minimum_context_penalty_for_expansion: 0.10
+minimum_self_history_first_failures_for_expansion: 2
+minimum_models_meeting_phenomenon_gate: 1
+
+pass_authorizes: >-
+  Preparation and call-free preflight of a larger calibration-only CDR-v1
+  metric pilot. It does not authorize that run, development or holdout access,
+  or an early-warning claim.

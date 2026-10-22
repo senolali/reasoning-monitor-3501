@@ -1,0 +1,49 @@
+protocol_id: CDR-v1.4
+stage: fresh_calibration_replication_analysis
+expected_models: [gpt4o_mini, llama4_scout]
+expected_dialogues:
+  - cdr-v14-budget-001
+  - cdr-v14-budget-002
+  - cdr-v14-budget-003
+  - cdr-v14-incident-001
+  - cdr-v14-incident-002
+  - cdr-v14-incident-003
+  - cdr-v14-cohort-001
+  - cdr-v14-cohort-002
+  - cdr-v14-cohort-003
+expected_conditions: [user_only_history, state_summary]
+expected_turns_per_dialogue: 12
+expected_records_per_model: 216
+expected_post_baseline_pairs_per_model: 99
+max_output_tokens: 2048
+
+minimum_success_rate: 1.0
+minimum_strict_final_marker_rate: 0.99
+minimum_stored_answer_agreement_rate: 0.99
+maximum_truncations: 0
+maximum_token_ceiling_hits: 0
+
+# Absolute control solvability is an assay-validity check, not the effect test.
+# It is frozen at 0.90 before replication; the primary inference remains the
+# cluster-level paired contrast and exact sign-flip test.
+minimum_state_summary_accuracy: 0.90
+minimum_mean_dialogue_history_load_gap: 0.10
+maximum_one_sided_sign_flip_p: 0.05
+minimum_positive_dialogue_gaps: 7
+minimum_models_meeting_primary_gate: 2
+
+early_turn_start: 2
+early_turn_end: 6
+late_turn_start: 7
+late_turn_end: 12
+minimum_mean_longitudinal_interaction: 0.05
+maximum_longitudinal_sign_flip_p: 0.05
+minimum_positive_dialogue_interactions: 6
+minimum_models_meeting_longitudinal_gate: 1
+require_nonnegative_interaction_all_models: true
+
+pass_authorizes: >-
+  Call-free metric-trajectory analysis and preparation of an early-warning
+  calibration plan on the combined calibration evidence. It does not authorize
+  further paid calls, development or holdout access, or a scientific claim.
+

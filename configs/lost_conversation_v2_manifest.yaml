@@ -1,0 +1,47 @@
+protocol_id: LIC-RQ-v2
+stage: frozen_call_free_manifest
+execution_authorized: false
+source_design: configs/lost_conversation_v1_design.yaml
+source_audit: results/lost_conversation_v1_audit/sample_options.json
+source_semantic_audit: results/lost_conversation_v1_audit/semantic_audit.json
+output_dir: results/lost_conversation_v2_manifest
+sample_option_tasks: 48
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+conditions: [dialogue_history, fresh_prefix]
+k_repeats: 5
+l_paraphrases: 2
+temperature: 0.7
+max_output_tokens: 2048
+es_window: 5
+revelation_order: source_shard_id
+termination: all_shards_no_correctness_stop
+primary_response_index: 0
+analysis:
+  independent_unit: source_task
+  primary_endpoint: paired_final_turn_success
+  early_warning_target: final_turn_failure
+  pre_final_candidate_metrics: [CS, LS, SS]
+  final_turn_metrics: [CQ, CS, RS, LS, ES, SS]
+  complete_case_summary: RQ6_mean
+  missingness_policy: no_imputation
+  multiplicity: holm_within_frozen_metric_family
+  covariates: [turn, information_fraction, context_length]
+  plots: [CQ, CS, RS, LS, ES, SS, RQ6_mean]
+integration:
+  purpose: transport_cache_extraction_real_scorers_and_plot_integrity
+  effect_gate: false
+  require_all_three_models: true
+  require_resume_reuse: true
+  require_progress_eta: true
+  require_png_and_pdf: true
+science:
+  task_count: 48
+  selection_may_depend_on_integration_effect: false
+  start_requires_new_explicit_approval: true
+

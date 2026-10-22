@@ -1,0 +1,72 @@
+protocol_id: CDR-v1.2
+stage: user_only_history_mechanism_probe
+seed: 20260928
+bank_path: configs/selections/controlled_dialogue_stream_v1.json
+bank_file_sha256: f18be9c6bddb2b9798cf1cebca3a7f1fda5226a6cce2b001278f7a20188f46c6
+selected_dialogue_ids:
+  - cdr-v1-budget-001
+  - cdr-v1-incident-001
+  - cdr-v1-cohort-001
+turns_per_dialogue: 12
+condition: user_only_history
+history_transport: packed_user_only_context
+resume: true
+expected_calls_per_model: 36
+expected_total_calls: 72
+max_output_tokens_per_call: 512
+maximum_output_token_ceiling: 36864
+output_dir: results/controlled_dialogue_v1_2_user_only_probe
+
+system_prompt: >-
+  You are participating in a continuing, exact-scored case. Treat every prior
+  user update as authoritative unless a later user turn explicitly corrects
+  it. Reconstruct the running state from the complete user history and give
+  concise reasoning. The final non-empty line must be exactly
+  FINAL_ANSWER: <integer>.
+
+existing_packed_pilot_records:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_gpt4o_mini.jsonl
+    sha256: 6e5bb23fd48a20b7d0917bbd168b7f0886ca9eac09daa8ed5e9bfd9606b3139b
+  llama4_scout:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_llama4_scout.jsonl
+    sha256: 55711e9c016c47abb9ca5e052f34607da5361af63800f2d9de6607582532081e
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.0
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama4_scout
+    model: aws/llama4_scout-17b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.0
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+
+production_probes:
+  gpt4o_mini:
+    path: results/probe_gpt4o_mini_production.json
+    sha256: 7ea55e3a9b8b6d4b5ee12fc95956ac5624982e69518e3fbd5f20ed1df3f4fe6c
+    provider_model: openai/gpt4o_mini
+  llama4_scout:
+    path: results/probe_llama4_scout_production.json
+    sha256: 8d0731c9e640e7e587799acffc8f6aa5d9be46fc7f96be4c12a67602567a27ea
+    provider_model: aws/llama4_scout-17b
+

@@ -1,0 +1,24 @@
+{
+  "analysis": "section64_proposal_s1_metric_health_selection",
+  "created_at": "2026-09-21",
+  "selection_rule": "Per-dataset seed-42 shuffled ranks 31-35, round-robin GSM8K/ARC-Challenge/MATH; disjoint from Sections 58, 61, and 62",
+  "source_stream_sequence_sha256": "791e6090518090213559432c62ad2d6fe7a30588311f3a9cf816276f63a78cca",
+  "selected_sequence_sha256": "9ef33e895ac902ea42383e30f4812231c76297635f468c8c91a1fb4d5333d1a5",
+  "sequence": [
+    {"dataset": "gsm8k", "qid": "gsm8k-00131", "selection_role": "disjoint_rank_31"},
+    {"dataset": "arc_challenge", "qid": "arc_challenge-00130", "selection_role": "disjoint_rank_31"},
+    {"dataset": "math", "qid": "math-precalculus-00003", "selection_role": "disjoint_rank_31"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00174", "selection_role": "disjoint_rank_32"},
+    {"dataset": "arc_challenge", "qid": "arc_challenge-00239", "selection_role": "disjoint_rank_32"},
+    {"dataset": "math", "qid": "math-intermediate_algebra-00009", "selection_role": "disjoint_rank_32"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00163", "selection_role": "disjoint_rank_33"},
+    {"dataset": "arc_challenge", "qid": "arc_challenge-00206", "selection_role": "disjoint_rank_33"},
+    {"dataset": "math", "qid": "math-geometry-00029", "selection_role": "disjoint_rank_33"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00159", "selection_role": "disjoint_rank_34"},
+    {"dataset": "arc_challenge", "qid": "arc_challenge-00052", "selection_role": "disjoint_rank_34"},
+    {"dataset": "math", "qid": "math-number_theory-00033", "selection_role": "disjoint_rank_34"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00041", "selection_role": "disjoint_rank_35"},
+    {"dataset": "arc_challenge", "qid": "arc_challenge-00030", "selection_role": "disjoint_rank_35"},
+    {"dataset": "math", "qid": "math-counting_and_probability-00009", "selection_role": "disjoint_rank_35"}
+  ]
+}

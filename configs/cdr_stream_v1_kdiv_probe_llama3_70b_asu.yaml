@@ -1,0 +1,36 @@
+protocol_id: CDR-Stream-v1-kdiv-probe-llama3-70b
+# Llama-3 70B K-diversity probe. The context-capacity probe (CDR_STREAM_DESIGN
+# §19) showed that aws/llama3-70b and aws/llama3-8b accept the full 100-turn packed
+# history (gateway prompt tokens up to 37,139; oldest message recalled at turn 100).
+# Design, prompts (Llama pilot turns 1..88, hash-verified), K=3 and the frozen gate
+# are identical to the Scout and Maverick probes. A pass permits only a G1
+# calibration of this model (same frozen items and rule), then a fresh pilot.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gate_passed
+authorization_recorded_at: "2026-10-03"
+authorization_scope: kdiv_probe_90_calls_llama3_70b_only
+pilot_config: configs/cdr_stream_v1_pilot_asu.yaml
+pilot_records_sha256: e227cf8a903bba755a32bec4d371afa8c7f3709a5e552afacaa68eff362f6ef6
+pilot_model: llama4_scout
+turns: [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88]
+k: 3
+candidate:
+  name: llama3_70b
+  provider_model: aws/llama3-70b
+  probe: results/probe_llama3_70b_production.json
+  send_seed: true
+gate_k_diversity: 0.80
+gate_contract_validity: 0.90
+output_dir: results/cdr_stream_v1_kdiv_probe_llama3_70b
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+# Fewer workers and a 60 s minimum wait after HTTP 429 (lesson from the Scout probe).
+workers: 4
+max_retries: 6
+rate_limit_backoff_s: 65

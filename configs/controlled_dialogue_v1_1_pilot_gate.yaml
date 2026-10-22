@@ -1,0 +1,21 @@
+protocol_id: CDR-v1.1
+stage: packed_context_effect_feasibility_pilot_preflight
+paid_calls_authorized: false
+
+expected_sha256:
+  results/controlled_dialogue_v1_1_transport_probe/data/transport_probe_assessment.json: a1def0a236e5c46b79fcc12dc046f591d9bb91ca863f0d4777b7f1f41da765ec
+  results/controlled_dialogue_v1_1_transport_retry/transport_retry_llama4_scout.json: 40513e30f93979ec6755b659b0600a81f643ddf31ea42df162dabc21e0ad5096
+  results/controlled_dialogue_v1_1_transport_retry/transport_retry_assessment.json: 72b470592b10e5336d2e1f49c17555775edbbbcfc64ee7dcd18f4aef3dadebb0
+  configs/controlled_dialogue_v1_1_pilot_asu.yaml: a792a76a034cfa5e8aa669900f34fb9eee3c718544a25a48f00ebed5c1aa2c85
+  configs/controlled_dialogue_v1_1_pilot_analysis_gate.yaml: 23fc640d3f6216538627ad5444d409ad54818b074f265b3a34331a9c9566823a
+  src/reasoning_monitor/packed_dialogue_experiment.py: 86c644e65a0af259927377b3b2696fc84ef7808b961eed59542be3746e44760f
+  src/reasoning_monitor/evaluation/packed_dialogue_pilot.py: 4ea3c25ae409a0439a1662dd1a10715126c78e7829cb52e59eb123f4429f7dd5
+  scripts/run_packed_dialogue_stream_pilot.py: b1f02076f9d3912743b1b19b57f0368c6d7467b9c5724c28043d11804359d802
+  scripts/assess_packed_dialogue_pilot.py: 64fd815fcd682ec2d8a827afb99ecba07a7ffc835432f8d1ba280625736b4368
+  scripts/estimate_packed_dialogue_campaign.py: 71c6bed538c39b16890cb145d8ea348b69687f2169aebd0171b11c64bff4dd54
+  scripts/preflight_packed_dialogue_pilot.py: 4052def1c4f92edc07539c462d7e492a098f9fe857e25b4bcdc6aabbf54a93b5
+
+pass_authorizes: >-
+  Explicit investigator consideration of the fresh 216-call calibration-only
+  CDR-v1.1 pilot. It does not itself authorize paid calls, development or
+  holdout access, or a scientific context-degradation or early-warning claim.

@@ -1,0 +1,11 @@
+section: 68
+policy_path: configs/semantic_answer_policy_v1.yaml
+cases_path: configs/semantic_answer_policy_v1_cases.json
+expected_policy_name: semantic-v1
+expected_policy_sha256: d823546b24df250c0f20fd7577e5ec04f94897616472a716dde2b5577e57db58
+expected_cases_sha256: 90e27a6a5446cc7e66d8bd88389ada776b6678b78875a7d4ca2a6f16f8b11c37
+expected_case_count: 20
+require_all_cases: true
+require_explicit_units_on_both: true
+historical_default_must_remain_none: true
+pass_authorizes: preregistration of a fresh disjoint semantic-RS development holdout only

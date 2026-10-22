@@ -1,0 +1,25 @@
+Large language models (LLMs) are increasingly used in multi-turn settings in
+which a task unfolds over many exchanges. Their own earlier replies and an
+accumulating task state become part of the context they reason from. We ask
+whether this degrades reasoning success, and whether the degradation can be
+detected early from measures of reasoning quality.
+
+We combine two complementary, prospectively frozen studies. Study~1 uses short,
+sharded math tasks from the Lost in Conversation benchmark. Each of three models
+answers every turn twice with identical user information, with and without its
+own prior replies. Study~2 is a purpose-built, 100-turn benchmark with exact
+per-turn answers, calibrated difficulty and scheduled difficulty shifts. Its
+dialogues are answered either from the full dialogue history or from a verified
+state summary.
+
+Retaining assistant replies lowered final success in Study~1, significantly for
+two of three models. In Study~2, accuracy under full history fell sharply within
+about twenty turns, even when difficulty was held fixed. A verified state
+summary preserved accuracy \pending{for all three models}. Neither the
+reasoning-quality metrics we examined nor a paired process measure warned of
+these failures in a robust, model-general way. Coherence and stability even
+rose as accuracy fell.
+
+Long interactions can therefore degrade LLM reasoning in ways that single-stream
+quality monitoring does not reveal. Compact, verified state representations are
+a promising mitigation.

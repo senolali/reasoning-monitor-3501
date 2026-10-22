@@ -1,0 +1,18 @@
+# Section 52: call-free structural audit and frozen SuperGPQA pilot pools.
+# This file does not authorise or execute any model calls.
+section: 52
+dataset_id: m-a-p/SuperGPQA
+revision: 4430d4458112c7d4497fdcf94d7cc223313d6acf
+expected_sha256: 28b998e70205ee95e540317b5adc06a06552a3961fb50b153df126b833f7a910
+data_path: data/raw/m-a-p___SuperGPQA/4430d4458112c7d4497fdcf94d7cc223313d6acf/SuperGPQA-all.jsonl
+output_dir: results/supergpqa_pool_audit
+
+# Hold the chance baseline fixed across difficulty tiers.
+required_option_count: 10
+
+# Select the subfield with the largest minimum clean tier count. Ties are
+# resolved by total size and then lexical hierarchy, never by model outcomes.
+selection_seed: 52
+pilot_queries_per_tier: 20
+validation_queries_per_tier: 20
+

@@ -1,0 +1,5465 @@
+{
+  "protocol_id": "DBQR-RQ-v1",
+  "split": "practice",
+  "source_sha256": "5a238e756f04b7796f16938fff3f1154c2401c8051a9ff35556e2574ffe91c1f",
+  "label_blind": true,
+  "cases": [
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 1,
+      "qid": "chat-1-01/question-01",
+      "question": "Was Caterpillar's average total revenue higher or lower than Realogy's lowest net income from 2019 to 2021?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8cd0515c684cc484c4d8f37ef32f2b2a9c00c967a624520385bbdbfcb74d8431"
+      },
+      "table_member": "practice/tables/chat-1-01/question-01.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 2,
+      "qid": "chat-1-01/question-02",
+      "question": "By how much?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8cd0515c684cc484c4d8f37ef32f2b2a9c00c967a624520385bbdbfcb74d8431"
+      },
+      "table_member": "practice/tables/chat-1-01/question-02.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 3,
+      "qid": "chat-1-01/question-03",
+      "question": "Comparing to the highest net income, how much?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8cd0515c684cc484c4d8f37ef32f2b2a9c00c967a624520385bbdbfcb74d8431"
+      },
+      "table_member": "practice/tables/chat-1-01/question-03.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 4,
+      "qid": "chat-1-01/question-04",
+      "question": "What about sum instead of average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8cd0515c684cc484c4d8f37ef32f2b2a9c00c967a624520385bbdbfcb74d8431"
+      },
+      "table_member": "practice/tables/chat-1-01/question-04.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 5,
+      "qid": "chat-1-01/question-05",
+      "question": "Sum of Piedmont Office Realty Trust's total revenue instead of Caterpillar",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8cd0515c684cc484c4d8f37ef32f2b2a9c00c967a624520385bbdbfcb74d8431"
+      },
+      "table_member": "practice/tables/chat-1-01/question-05.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 6,
+      "qid": "chat-1-01/question-06",
+      "question": "2018 to 2022 instead of 2019 to 2021",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 5
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "integer": 5
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 5
+            },
+            "missing_cells": 0
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 1,
+              "columns": 5
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "integer": 5
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 5
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "6871b8da1826e253920c9928e1932b5ac384ef75ca4679c9d6c50051cd48c3c2"
+      },
+      "table_member": "practice/tables/chat-1-01/question-06.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 7,
+      "qid": "chat-1-01/question-07",
+      "question": "What would be the sum if 2022 was not included?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 1,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 1
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "8edbebdf96d6fc9be85202021fcffa23e826dafe4ddacede8b08b314c8213798"
+      },
+      "table_member": "practice/tables/chat-1-01/question-07.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 8,
+      "qid": "chat-1-01/question-08",
+      "question": "How much different was Caterpillar's sum to Realogy for the same years?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 2,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "b04d8a0c903aaf327f9e4d58cb8da2680de942ce870c59f2ed73de0c5d6187f0"
+      },
+      "table_member": "practice/tables/chat-1-01/question-08.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 9,
+      "qid": "chat-1-01/question-09",
+      "question": "What would it be if 2022 was not excluded?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 2,
+              "columns": 5
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "integer": 5
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 2,
+            "dtype_counts": {
+              "float64": 5
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "a68b1e90cae805e51f88b1364346327f7e9174ad641430da080a0c42e5bd7cc6"
+      },
+      "table_member": "practice/tables/chat-1-01/question-09.pkl"
+    },
+    {
+      "dialogue_id": "chat-1-01",
+      "turn": 10,
+      "qid": "chat-1-01/question-10",
+      "question": "List the differences by year (do not sum)",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 2,
+              "columns": 5
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "integer": 5
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 2,
+            "dtype_counts": {
+              "float64": 5
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "a68b1e90cae805e51f88b1364346327f7e9174ad641430da080a0c42e5bd7cc6"
+      },
+      "table_member": "practice/tables/chat-1-01/question-10.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 1,
+      "qid": "chat-2-01/question-01",
+      "question": "Among companies reporting combined corporate overhead expenses of at least 300M during the four-year period starting from 2018, what is their overall average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 951,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 951,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 951,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 454
+          }
+        ],
+        "schema_sha256": "1c01980612f8b2fffba342a76438ae1d625f8e6405329ea01a2c736db69a4285"
+      },
+      "table_member": "practice/tables/chat-2-01/question-01.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 2,
+      "qid": "chat-2-01/question-02",
+      "question": "How many companies are included?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 951,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 951,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 951,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 454
+          }
+        ],
+        "schema_sha256": "1c01980612f8b2fffba342a76438ae1d625f8e6405329ea01a2c736db69a4285"
+      },
+      "table_member": "practice/tables/chat-2-01/question-02.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 3,
+      "qid": "chat-2-01/question-03",
+      "question": "How many of them reported investments in marketable equity securities of more than 500M in 2022?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 951,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 951,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 951
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 951,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 454
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 101,
+              "columns": 1
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 101,
+                  "label_kinds": {
+                    "string": 101
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 101
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "integer": 1
+                  }
+                }
+              ],
+              "years": [
+                2022
+              ]
+            },
+            "year_candidates": [
+              2022
+            ],
+            "entity_count": 101,
+            "dtype_counts": {
+              "float64": 1
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "f2b04b500290414a7bd226a7308db3dbdea0fdd426483f71a4909d638f09155f"
+      },
+      "table_member": "practice/tables/chat-2-01/question-03.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 4,
+      "qid": "chat-2-01/question-04",
+      "question": "Calculate the overall average investments in marketable equity securities the same way you did in the first question with 3B as the threshold.",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 161,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 161,
+                  "label_kinds": {
+                    "string": 161
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 161
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 161,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 194
+          }
+        ],
+        "schema_sha256": "bf632aa113bd81d0d7ed14b65bb783723ab1484e5dcfd3fa16f75e3cd3bb7c76"
+      },
+      "table_member": "practice/tables/chat-2-01/question-04.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 5,
+      "qid": "chat-2-01/question-05",
+      "question": "Are there more or less companies reporting investments in marketable equity securities above the threshold in 2021 compared to 2022?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 132,
+              "columns": 2
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 132,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "integer": 2
+                  }
+                }
+              ],
+              "years": [
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2021,
+              2022
+            ],
+            "entity_count": 132,
+            "dtype_counts": {
+              "float64": 2
+            },
+            "missing_cells": 39
+          }
+        ],
+        "schema_sha256": "7591706e40dc8670b451905158240192c7aabe4bf5e3121007060e72ab093389"
+      },
+      "table_member": "practice/tables/chat-2-01/question-05.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 6,
+      "qid": "chat-2-01/question-06",
+      "question": "Instead of comparing, what is the ratio of 2021 to 2022?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 132,
+              "columns": 2
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 132,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "integer": 2
+                  }
+                }
+              ],
+              "years": [
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2021,
+              2022
+            ],
+            "entity_count": 132,
+            "dtype_counts": {
+              "float64": 2
+            },
+            "missing_cells": 39
+          }
+        ],
+        "schema_sha256": "7591706e40dc8670b451905158240192c7aabe4bf5e3121007060e72ab093389"
+      },
+      "table_member": "practice/tables/chat-2-01/question-06.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 7,
+      "qid": "chat-2-01/question-07",
+      "question": "Change the threshold to 800M and below. What's the ratio?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 132,
+              "columns": 2
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 132,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "integer": 2
+                  }
+                }
+              ],
+              "years": [
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2021,
+              2022
+            ],
+            "entity_count": 132,
+            "dtype_counts": {
+              "float64": 2
+            },
+            "missing_cells": 39
+          }
+        ],
+        "schema_sha256": "7591706e40dc8670b451905158240192c7aabe4bf5e3121007060e72ab093389"
+      },
+      "table_member": "practice/tables/chat-2-01/question-07.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 8,
+      "qid": "chat-2-01/question-08",
+      "question": "What is the 2022 average for those within the threshold?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 101,
+              "columns": 1
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 101,
+                  "label_kinds": {
+                    "string": 101
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 101
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "integer": 1
+                  }
+                }
+              ],
+              "years": [
+                2022
+              ]
+            },
+            "year_candidates": [
+              2022
+            ],
+            "entity_count": 101,
+            "dtype_counts": {
+              "float64": 1
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "70edaa46b180c771f5726630e3279787d2f7d9728720dace195be426f235a26a"
+      },
+      "table_member": "practice/tables/chat-2-01/question-08.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 9,
+      "qid": "chat-2-01/question-09",
+      "question": "And for 2021?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 124,
+              "columns": 1
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 124,
+                  "label_kinds": {
+                    "string": 124
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 124
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "integer": 1
+                  }
+                }
+              ],
+              "years": [
+                2021
+              ]
+            },
+            "year_candidates": [
+              2021
+            ],
+            "entity_count": 124,
+            "dtype_counts": {
+              "float64": 1
+            },
+            "missing_cells": 0
+          }
+        ],
+        "schema_sha256": "782cf123c12a666a3b1b6518c71d4886466bf37a9adde9cbff97e177d29566fe"
+      },
+      "table_member": "practice/tables/chat-2-01/question-09.pkl"
+    },
+    {
+      "dialogue_id": "chat-2-01",
+      "turn": 10,
+      "qid": "chat-2-01/question-10",
+      "question": "Which year is higher, 2022 or 2021?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 132,
+              "columns": 2
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 132,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 132
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "integer": 2
+                  }
+                }
+              ],
+              "years": [
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2021,
+              2022
+            ],
+            "entity_count": 132,
+            "dtype_counts": {
+              "float64": 2
+            },
+            "missing_cells": 39
+          }
+        ],
+        "schema_sha256": "7591706e40dc8670b451905158240192c7aabe4bf5e3121007060e72ab093389"
+      },
+      "table_member": "practice/tables/chat-2-01/question-10.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 1,
+      "qid": "chat-3-01/question-01",
+      "question": "What are the top three companies by security deposits in the pharmaceutical preparations industry from 2020 to 2022 combined?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 17,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 17,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 22
+          }
+        ],
+        "schema_sha256": "99d9e036ae44a0abfad8d8f07acda9c3df0e2bb8e96bd37764c82db69b1d9d20"
+      },
+      "table_member": "practice/tables/chat-3-01/question-01.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 2,
+      "qid": "chat-3-01/question-02",
+      "question": "Is their average of combined security deposits higher or lower than the top three in the real estate investment trusts industry during the same years?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 17,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 17,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 22
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 5,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "22909a37e3873741662d71752eaa49a4e0f1a7c1099d23abf2c89b0705522392"
+      },
+      "table_member": "practice/tables/chat-3-01/question-02.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 3,
+      "qid": "chat-3-01/question-03",
+      "question": "How much is that difference?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 17,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 17,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 22
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 5,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "22909a37e3873741662d71752eaa49a4e0f1a7c1099d23abf2c89b0705522392"
+      },
+      "table_member": "practice/tables/chat-3-01/question-03.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 4,
+      "qid": "chat-3-01/question-04",
+      "question": "What about the top two, how much?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 17,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 17,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 17
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 22
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 5,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 5,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 5
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "22909a37e3873741662d71752eaa49a4e0f1a7c1099d23abf2c89b0705522392"
+      },
+      "table_member": "practice/tables/chat-3-01/question-04.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 5,
+      "qid": "chat-3-01/question-05",
+      "question": "Forget about the top two. I only want those in New York. How much is the difference?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 2,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 1
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 2
+          }
+        ],
+        "schema_sha256": "6d90b863b92c7b4f724e73f5e7db5340a1692a829ad4836558eef4246becda36"
+      },
+      "table_member": "practice/tables/chat-3-01/question-05.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 6,
+      "qid": "chat-3-01/question-06",
+      "question": "Expand the locations to include Delaware and Massachusetts too. How much is the difference now?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 7,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 7,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 7
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 3,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "856256c3e7ab1911380a727781d8b0daa90be5d05894075a38fa6b23b89b2c42"
+      },
+      "table_member": "practice/tables/chat-3-01/question-06.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 7,
+      "qid": "chat-3-01/question-07",
+      "question": "In addition to the locations, I want only those reporting security deposits at least one time(s) during the period. How much is the difference?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 7,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 7,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 7
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 3,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "856256c3e7ab1911380a727781d8b0daa90be5d05894075a38fa6b23b89b2c42"
+      },
+      "table_member": "practice/tables/chat-3-01/question-07.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 8,
+      "qid": "chat-3-01/question-08",
+      "question": "How many companies are involved in this calculation?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 7,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 7,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 7
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 3,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "856256c3e7ab1911380a727781d8b0daa90be5d05894075a38fa6b23b89b2c42"
+      },
+      "table_member": "practice/tables/chat-3-01/question-08.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 9,
+      "qid": "chat-3-01/question-09",
+      "question": "Limit the scope further to those reporting at least two time(s). How many now?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 7,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 7,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 7
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 3,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "856256c3e7ab1911380a727781d8b0daa90be5d05894075a38fa6b23b89b2c42"
+      },
+      "table_member": "practice/tables/chat-3-01/question-09.pkl"
+    },
+    {
+      "dialogue_id": "chat-3-01",
+      "turn": 10,
+      "qid": "chat-3-01/question-10",
+      "question": "And how much is the difference in the averages of combined security deposits?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 7,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 7,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 7
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 7
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 3,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 2,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 2,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                },
+                {
+                  "position": 3,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 3
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 1,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 3
+          }
+        ],
+        "schema_sha256": "856256c3e7ab1911380a727781d8b0daa90be5d05894075a38fa6b23b89b2c42"
+      },
+      "table_member": "practice/tables/chat-3-01/question-10.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 1,
+      "qid": "chat-4-01/question-01",
+      "question": "During the three-year period starting 2020, which year had the most companies reporting long-term debt maturities over 1B?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          }
+        ],
+        "schema_sha256": "8266f3df04d6996e22c4cbf19db3cab9f1be15a7b8f159a6044f29d0fb0534c4"
+      },
+      "table_member": "practice/tables/chat-4-01/question-01.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 2,
+      "qid": "chat-4-01/question-02",
+      "question": "Remove companies that reported long-term debt maturities below 500M any year during the period. Which year?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          }
+        ],
+        "schema_sha256": "8266f3df04d6996e22c4cbf19db3cab9f1be15a7b8f159a6044f29d0fb0534c4"
+      },
+      "table_member": "practice/tables/chat-4-01/question-02.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 3,
+      "qid": "chat-4-01/question-03",
+      "question": "Repeat the same calculation (without removing companies) on net cash provided by (used in) investing activities with a threshold of 300M. Is it the same year as long-term debt maturities, yes or no?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2183,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2183,
+                  "label_kinds": {
+                    "string": 2183
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2183
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 2183,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 338
+          }
+        ],
+        "schema_sha256": "b6c58fd61f727a99b010106af2125a7de8d8a9c54ca940f62e48ec9cba903d8b"
+      },
+      "table_member": "practice/tables/chat-4-01/question-03.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 4,
+      "qid": "chat-4-01/question-04",
+      "question": "Maintain the removal rule on the long-term debt maturities and apply another rule on the net cash provided by (used in) investing activities with a threshold of 1.5B. How much different is the 2020-2022 average long-term debt maturities to the 2019-2021 average net cash provided by (used in) investing activities?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "813e88119c0d004f855b90a47fb53851b918a7d93fc680bf9798c11604293bdf"
+      },
+      "table_member": "practice/tables/chat-4-01/question-04.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 5,
+      "qid": "chat-4-01/question-05",
+      "question": "If we doubled all long-term debt maturities below 300M and all net cash provided by (used in) investing activities below 1.2B before removing companies, how much would the difference be?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "813e88119c0d004f855b90a47fb53851b918a7d93fc680bf9798c11604293bdf"
+      },
+      "table_member": "practice/tables/chat-4-01/question-05.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 6,
+      "qid": "chat-4-01/question-06",
+      "question": "With the adjusted values, how many companies were removed from both lists?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "813e88119c0d004f855b90a47fb53851b918a7d93fc680bf9798c11604293bdf"
+      },
+      "table_member": "practice/tables/chat-4-01/question-06.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 7,
+      "qid": "chat-4-01/question-07",
+      "question": "If we did not remove these companies, with the adjusted values, how much would the difference be?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "813e88119c0d004f855b90a47fb53851b918a7d93fc680bf9798c11604293bdf"
+      },
+      "table_member": "practice/tables/chat-4-01/question-07.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 8,
+      "qid": "chat-4-01/question-08",
+      "question": "What about the difference of just the top ten companies by their adjusted averages during the period?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "813e88119c0d004f855b90a47fb53851b918a7d93fc680bf9798c11604293bdf"
+      },
+      "table_member": "practice/tables/chat-4-01/question-08.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 9,
+      "qid": "chat-4-01/question-09",
+      "question": "With no removal, what are the top ten companies by the adjusted average long-term debt maturities?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 440,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 440,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 440
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2020,
+                2021,
+                2022
+              ]
+            },
+            "year_candidates": [
+              2020,
+              2021,
+              2022
+            ],
+            "entity_count": 440,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 117
+          }
+        ],
+        "schema_sha256": "8266f3df04d6996e22c4cbf19db3cab9f1be15a7b8f159a6044f29d0fb0534c4"
+      },
+      "table_member": "practice/tables/chat-4-01/question-09.pkl"
+    },
+    {
+      "dialogue_id": "chat-4-01",
+      "turn": 10,
+      "qid": "chat-4-01/question-10",
+      "question": "And for net cash provided by (used in) investing activities?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 2176,
+              "columns": 3
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 2176,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 2176
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 3,
+                  "label_kinds": {
+                    "integer": 3
+                  }
+                }
+              ],
+              "years": [
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 2176,
+            "dtype_counts": {
+              "float64": 3
+            },
+            "missing_cells": 242
+          }
+        ],
+        "schema_sha256": "df86b5c1cd3afe80b73ad2194076132c25109d671d48f41064a86157139e6b38"
+      },
+      "table_member": "practice/tables/chat-4-01/question-10.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 1,
+      "qid": "chat-5-01/question-01",
+      "question": "Suppose all companies in the services-packaged software industry reported estimated revenue expected to be recognized in the future for backlog related performance obligations 20% higher than they actually did from 2018 to 2021, and any companies with average current other accrued liabilities (after adjustment) during the period above 200M should be excluded from the analysis. What are the top and bottom five companies by combined estimated revenue expected to be recognized in the future for backlog related performance obligations during the period? (merge them togher into one list)",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-01.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 2,
+      "qid": "chat-5-01/question-02",
+      "question": "How much different between the four-year averages of the combined estimated revenue expected to be recognized in the future for backlog related performance obligations of the top and bottom five?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-02.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 3,
+      "qid": "chat-5-01/question-03",
+      "question": "Apply the 20% increase to current other accrued liabilities as well, what is the average of the combined estimated revenue expected to be recognized in the future for backlog related performance obligations of the top five?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-03.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 4,
+      "qid": "chat-5-01/question-04",
+      "question": "Change the increase to 50% for current other accrued liabilities. What is the average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-04.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 5,
+      "qid": "chat-5-01/question-05",
+      "question": "Adjust the increase for estimated revenue expected to be recognized in the future for backlog related performance obligations to 45% from 2018 to 2020 and maintain the same increment rate for the rest. What is the average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-05.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 6,
+      "qid": "chat-5-01/question-06",
+      "question": "Adjust the current other accrued liabilities's cutoff threshold to 100M. What is the average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-06.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 7,
+      "qid": "chat-5-01/question-07",
+      "question": "Remove companies with average current other accrued liabilities below 10M from the analysis as well. What is the average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-07.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 8,
+      "qid": "chat-5-01/question-08",
+      "question": "Decrease all companies' current other accrued liabilities by 50% from their reported values from 2019 to 2021. Maintain the adjusted values for the rest of the data. What is the average?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-08.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 9,
+      "qid": "chat-5-01/question-09",
+      "question": "What about the average of the top three?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-09.pkl"
+    },
+    {
+      "dialogue_id": "chat-5-01",
+      "turn": 10,
+      "qid": "chat-5-01/question-10",
+      "question": "After all the steps you have taken, how many companies are not in the top three?",
+      "schema": {
+        "schema_version": "DBQR-SCHEMA-v1",
+        "tables": [
+          {
+            "alias": "table_1",
+            "shape": {
+              "rows": 89,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 89,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 89
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 89,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 149
+          },
+          {
+            "alias": "table_2",
+            "shape": {
+              "rows": 60,
+              "columns": 4
+            },
+            "row_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 60,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                },
+                {
+                  "position": 1,
+                  "name": null,
+                  "cardinality": 1,
+                  "label_kinds": {
+                    "string": 60
+                  }
+                }
+              ],
+              "years": []
+            },
+            "column_axis": {
+              "levels": [
+                {
+                  "position": 0,
+                  "name": null,
+                  "cardinality": 4,
+                  "label_kinds": {
+                    "integer": 4
+                  }
+                }
+              ],
+              "years": [
+                2018,
+                2019,
+                2020,
+                2021
+              ]
+            },
+            "year_candidates": [
+              2018,
+              2019,
+              2020,
+              2021
+            ],
+            "entity_count": 60,
+            "dtype_counts": {
+              "float64": 4
+            },
+            "missing_cells": 49
+          }
+        ],
+        "schema_sha256": "f8bd4cb1244bee5093dae327def1feba94ff99b14ca1661bfc90e328916d0b9e"
+      },
+      "table_member": "practice/tables/chat-5-01/question-10.pkl"
+    }
+  ],
+  "manifest_sha256": "209b2316fc085c2faf281d061d7e3cb6854c1c32a0979a13d992eed3aaed2768"
+}

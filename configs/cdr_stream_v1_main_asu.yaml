@@ -1,0 +1,53 @@
+protocol_id: CDR-Stream-v1-main
+stage: main_acquisition
+# Main CDR-Stream acquisition: 90 holdout dialogues (30 per core model: GPT-4o-mini,
+# Llama-3 70B, Gemma 3 12B), core scenarios S0-E, S0-H, S1, S2, S3, 100 turns, K=3,
+# L=2, control arm: 54,000 calls. Bound to the Llama-3 mappings file and the new
+# main manifest (GPT/Gemma units identical to the original main manifest).
+# Truncation policy (frozen 2026-10-03 BEFORE any main-run output, for ALL models;
+# DEVIATIONS_FROM_PROPOSAL first entry): any response that reaches the 2,048-token
+# ceiling is kept verbatim in the record but scored as MISSING (never imputed,
+# never retried); a truncated PRIMARY enters later packed history as
+# "[TRUNCATED_PRIMARY_RESPONSE]". Paid execution is locked; check the ASU monthly
+# budget first.
+execution_authorized: true
+authorization_recorded_at: "2026-10-03"
+authorization_scope: main_acquisition_54000_calls
+truncation_policy: truncated_primary_placeholder_v1
+ladder_version: v2
+bank_path: configs/selections/cdr_stream_v1_bank_v2.json
+bank_sha256: bf3799d4d6fda5dbc354b54a9627bd4745160c2e097f160ece60bd9154195e53
+mappings_path: results/cdr_stream_v1_mappings_llama3.json
+mappings_sha256: 4ab2af3d7af6deff18af72baf3cd349bd30bee133ee4185ca33c8e6efea8a68b
+manifest_path: results/cdr_stream_v1_prep_llama3/manifest_main.json
+manifest_sha256: 5351be89f927e36d4ef2e83eda61410747252d19edeb5dc575d0a842b0299c47
+output_dir: results/cdr_stream_v1_main
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 3
+l_paraphrases: 2
+control_calls: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 6
+# Not part of the fingerprint.
+workers: 16
+tokens_per_minute: 600000   # 80% of the documented 750k project limit
+rate_limit_backoff_s: 65    # minimum wait after HTTP 429 (gateway TPM window)
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+    send_seed: true
+  - name: llama3_70b
+    provider_model: aws/llama3-70b
+    probe: results/probe_llama3_70b_production.json
+    send_seed: true
+  - name: gemma3_12b_it
+    provider_model: aws/gemma3_12b_it
+    probe: results/probe_gemma3_12b_it_production.json
+    send_seed: true

@@ -1,0 +1,21 @@
+analysis: section51_gpt_trace_reparse_sensitivity
+source_result_dir: results/e2h_final_holdout_gpt4o_mini
+model: gpt4o_mini
+dataset: e2h_amc
+tag: ST2_gpt4o_mini_seed48_W10
+metrics: [LS, SS]
+parser: structured_paragraphs_v1
+paragraph_boundary: blank_lines
+merge_display_math_with_previous: true
+fallback_sentence_boundary: punctuation_followed_by_whitespace
+max_segments: null
+preserve_final_answer: true
+window_size: 10
+detector_strategy: proposal_mapping
+refit_detectors: false
+reference_metric: CQ
+phase_length: 30
+transitions:
+  - {name: easy_to_medium, change_point: 30, interval_end: 60}
+  - {name: medium_to_hard, change_point: 60, interval_end: 90}
+

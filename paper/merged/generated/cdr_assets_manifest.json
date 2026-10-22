@@ -1,0 +1,9 @@
+{
+  "results\\cdr_stream_v1_main\\analysis_stage_a\\turn_metrics.csv": "23ededd0f8c7f471210c8d112b16781bfeccfa309073748e4e0e386da0b87757",
+  "results\\cdr_stream_v1_main\\analysis_stage_a\\h1.json": "e1a4d784449ab916d9a89782e96fadbb23f8839c062a1cea197974362c16ec90",
+  "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\result.json": "3cff05ae1c618fad67c132024659a3b5656f0246cf084d1d6fa5900df56bbef9",
+  "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\early_signal\\summary.json": "2305c672b14698c0682ae04e4953437bfceb44aad26c5c514dcdb15f66f2073d",
+  "results\\cdr_stream_v1_power\\power_grid.csv": "ff6551943673ffe84e40065eb6b2554ad23e4038e5114aa3a85bcc4f452d7566",
+  "results\\cdr_stream_v1_mappings_llama3.json": "4ab2af3d7af6deff18af72baf3cd349bd30bee133ee4185ca33c8e6efea8a68b",
+  "results\\lost_conversation_v2_science\\crl_incremental_posthoc\\assessment.json": "e798820dc697f1a368fb7c76bf52302072372f15bfefcdaa799b0fd62183fe68"
+}

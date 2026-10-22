@@ -1,0 +1,20 @@
+protocol_id: CDR-v1.3
+stage: nine_dialogue_primary_validation_preflight
+paid_calls_authorized: false
+
+expected_sha256:
+  configs/controlled_dialogue_v1_3_primary_validation_asu.yaml: fc4f2fbfb748ea33323922bdad51958a932aca250a3443bf4adb5ca11a664ee7
+  configs/controlled_dialogue_v1_3_primary_validation_analysis_gate.yaml: e77709b6ab21cb17d849ed3bab5ef86d4e558776e89111cae9c29d25ccff1215
+  configs/selections/controlled_dialogue_stream_v1.json: f18be9c6bddb2b9798cf1cebca3a7f1fda5226a6cce2b001278f7a20188f46c6
+  src/reasoning_monitor/primary_dialogue_validation.py: d72bfc0911f17f58ddf6206d10da0c0d4652d98b678c772c2683448065dc1660
+  src/reasoning_monitor/evaluation/primary_dialogue_validation.py: 083444db1d02fae3886d954c1d719297ae3bd22642954285970e787863a5edde
+  scripts/run_primary_dialogue_validation.py: de64bc7333ac6e30bd3282e1b090ed9d57cda1eab5e05c8a39bd2a12c45d1132
+  scripts/assess_primary_dialogue_validation.py: 5b112503d8fb4c0f0249d5de0144a039bb2bd6358583ec457142bd24274febe1
+  scripts/estimate_primary_dialogue_validation.py: 5f82cdf949b43cb4744f20fc723d9bbeca98e56dc9b9c3ff9d3de86f8b5ac098
+  scripts/preflight_primary_dialogue_validation.py: 5bc967147d6bb2b2a90c5fcb25022b89291cf8910a75a748d7cea75283dd18cc
+
+pass_authorizes: >-
+  Explicit investigator consideration of the frozen 432-call CDR-v1.3
+  calibration validation. It does not itself authorize paid calls, the
+  conditional self-history arm, development or holdout access, or a
+  scientific claim.

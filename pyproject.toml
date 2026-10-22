@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reasoning-monitor"
+version = "0.2.1"
+description = "Multidimensional reasoning-quality monitoring for LLM query streams under concept drift"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Ali Şenol"}]
+keywords = ["llm", "concept-drift", "reasoning", "evaluation", "streaming"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # Pinned exactly: rqeval owns all six scoring functions, so an unpinned
+    # upgrade would silently redefine the measurements this project reports.
+    # Bumping it is a protocol change — record it in DEVIATIONS.
+    "rqeval==2.0.3",        # metric scoring (installs metrics.* to site-packages)
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "scipy>=1.10",
+    "sympy>=1.12,<2",
+    "antlr4-python3-runtime>=4.11,<4.12",
+    "matplotlib>=3.7",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+datasets = [
+    "datasets>=2.14",
+    "truststore>=0.9; platform_system == 'Windows'",
+]
+nli = ["torch>=2.0", "transformers>=4.35", "sentencepiece"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.1"]
+all = ["reasoning-monitor[datasets,nli,dev]"]
+
+[project.scripts]
+reasoning-monitor = "reasoning_monitor.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/senolali/reasoning-monitor"
+Issues = "https://github.com/senolali/reasoning-monitor/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 95
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test fixtures are deliberately terse: one-line lambda builders for Sample
+# objects, `l` for the paraphrase count (it mirrors the L in the protocol), and
+# unused loop counters in "feed the window N times" loops.  The rules stay on
+# for src/, where they matter.
+"tests/*" = ["E731", "E741", "B007", "F401"]

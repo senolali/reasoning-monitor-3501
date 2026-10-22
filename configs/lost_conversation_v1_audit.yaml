@@ -1,0 +1,35 @@
+protocol_id: LIC-RQ-v1
+execution_authorized: false
+design_path: configs/lost_conversation_v1_design.yaml
+semantic_review_path: configs/lost_conversation_v1_semantic_review.json
+output_dir: results/lost_conversation_v1_audit
+sampling_seed: LIC-RQ-v1-input-audit-20261001
+integration_tasks: 4
+science_task_options: [24, 48, 64]
+# Input-only audit of completed campaigns, including already evaluated historic
+# E2H final runs. Never open still-closed CDR/RAT development/holdout banks.
+completed_campaigns:
+  - results/live_pilot
+  - results/methodology_pilot
+  - results/main_models_pilot
+  - results/step_band_calibration_llama
+  - results/step_band_calibration_gpt_mistral
+  - results/e2h_stepband_llama_kl_pilot
+  - results/proposal_s1_pilot_gpt_llama
+  - results/proposal_s1_kl_validation_gpt_llama
+  - results/e2h_benchmark_calibration_main_models
+  - results/e2h_extreme_calibration_gpt_llama
+  - results/e2h_amc_calibration_gpt4o_mini
+  - results/e2h_amc_calibration_gpt4o_mini_retry
+  - results/e2h_final_holdout_gpt4o_mini
+  - results/e2h_final_holdout_llama3_8b
+  - results/e2h_final_holdout_mistral_7b
+  - results/proposal_s1_answer_first_pilot
+  - results/proposal_s1_answer_last_calibration
+  - results/proposal_s1_answer_last_validation
+  - results/proposal_s1_format_stress
+  - results/proposal_s1_llama4_scout_stress
+  - results/proposal_s1_llama4_scout_validation
+  - results/proposal_s1_mistral_validation
+  - results/proposal_s1_metric_health_gpt_llama4
+  - results/proposal_s1_paraphrase_health_gpt_llama4

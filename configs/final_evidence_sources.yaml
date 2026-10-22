@@ -1,0 +1,84 @@
+section: 69
+analysis: section69_final_evidence_synthesis
+no_model_calls: true
+sources:
+  - id: section47_gpt_gate
+    path: results/e2h_final_holdout_gpt4o_mini/data/e2h_final_holdout_gate.csv
+    sha256: c066502647be67c807f96e845bfbbd9fcaa18fb47eaa0d41094b28c92dd79a0a
+  - id: section47_llama3_gate
+    path: results/e2h_final_holdout_llama3_8b/data/e2h_final_holdout_gate.csv
+    sha256: 06794f68af84a8f34f4e2b999a6c9ced2f30e790408abe83f7cf7a6214cd308c
+  - id: section47_mistral_gate
+    path: results/e2h_final_holdout_mistral_7b/data/e2h_final_holdout_gate.csv
+    sha256: 1c918c88ffa63521507f50e6bcd01a0d2db0c660fd8c6c87808220de5a9de280
+  - id: section49_manifest
+    path: results/e2h_final_holdout_gpt4o_mini/section49_detector_manifest.json
+    sha256: 45118ee08e234e3e6c4ed27c87182816c61563dfd93eee10401a6e82e541b1f0
+  - id: section49_gate
+    path: results/e2h_final_holdout_gpt4o_mini/data/section49_early_warning_gate.csv
+    sha256: e8bde5bba9f03cb71d6d4b62d302f7ccbc50ee861bd8ba85f4c9cd7919f8cf36
+  - id: section51_manifest
+    path: results/e2h_final_holdout_gpt4o_mini/section51_trace_reparse_manifest.json
+    sha256: 8054f56bf92a2fabda85aeac821cc20c0963b8e55558d4323b95e2e547d356a5
+  - id: section51_gate
+    path: results/e2h_final_holdout_gpt4o_mini/data/section51_trace_reparse_gate.csv
+    sha256: 8441fb6b96a6b99ea130fbbeac386f427e2355f141f18e89da76788f984d019d
+  - id: section55_parsing_audit
+    path: results/proposal_s1_parsing_audit/section55_s1_parsing_audit.json
+    sha256: 81657c7e05be4874a377de960eb3f031fe0acf032f306c3a858103045c179452
+  - id: section56_answer_first
+    path: results/proposal_s1_answer_first_pilot/section56_s1_answer_first_assessment.json
+    sha256: 1c6689b115a6b1087a0067ebfadf5cfce602d68f3876ec75ed5473ada8456476
+  - id: section57_answer_last
+    path: results/proposal_s1_answer_last_calibration/section57_s1_answer_last_assessment.json
+    sha256: 0794e29b28819709edf7c3879bad35139947a1fe8cfc9e58368b7e87982028f4
+  - id: section58_validation
+    path: results/proposal_s1_answer_last_validation/section58_s1_answer_last_assessment.json
+    sha256: e56d799c78d9fd18b1914a9ab86fe7ef20e5c667b39b810f454bb2bfbd944f2f
+  - id: section59_format_stress
+    path: results/proposal_s1_format_stress/section59_format_stress_assessment.json
+    sha256: 2137560062567b12760f49add2a8aa6e0594f276f62cc9ef35d37a6e20010218
+  - id: section60_llama4_stress
+    path: results/proposal_s1_llama4_scout_stress/section60_format_stress_assessment.json
+    sha256: 3ec39672a39622f3091f418141c0e67e05174113a7604f835d8c1fe877ff541b
+  - id: section61_llama4_validation
+    path: results/proposal_s1_llama4_scout_validation/section61_s1_answer_last_assessment.json
+    sha256: 63b6760a2c7e81dc3eda31af519ae415c648d475e30d9e9c54f08baa3926b73a
+  - id: section62_mistral_validation
+    path: results/proposal_s1_mistral_validation/section62_s1_answer_last_assessment.json
+    sha256: d354fd42166ce420f969fbdaf66a3fd56d59741d5db78b8017f6c7175cd17ab3
+  - id: section63_mistral_format
+    path: results/proposal_s1_mistral_format_audit/assessment.json
+    sha256: 55f22cdd916daa842e01d289d10e3d8beb050758a4273e4ce87be6ad57dfd1bf
+  - id: section64_metric_health
+    path: results/proposal_s1_metric_health_gpt_llama4/metric_health_assessment.json
+    sha256: c53c11247991a2f72802a53e403b09d152cd974171e308752586306af7276c48
+  - id: section65_failure_audit
+    path: results/proposal_s1_metric_health_gpt_llama4/section65_failure_audit/assessment.json
+    sha256: fc2b27ee22ed9b3d05bfbea4d692208741d51eb769f16dd5c56dbf8e3bf7a3b2
+  - id: section66_paraphrase_health
+    path: results/proposal_s1_paraphrase_health_gpt_llama4/paraphrase_health_assessment.json
+    sha256: ffa66303478203d70b4c78728ae64bc9633be3a696b8fc62a09acfa1e9e9f838
+  - id: section67_semantic_audit
+    path: results/proposal_s1_paraphrase_health_gpt_llama4/section67_semantic_audit/assessment.json
+    sha256: 0228017772fd64c2798291a379346789b3c3637c955c73ad64b65ba892af45fe
+  - id: section66_llama4_seed_probe
+    path: results/probe_llama4_scout_seeded_sampling.json
+    sha256: 0d278e0f485829d329851e6bc22c90f9833022cb4412f30cf2bb64e07684ab5a
+  - id: section68_policy_gate
+    path: configs/semantic_answer_policy_v1_gate.yaml
+    sha256: 3f89a5e30c8733d186c471a45719401bd9c03251c020309a0ce90a998f995012
+  - id: section68_policy
+    path: configs/semantic_answer_policy_v1.yaml
+    sha256: d823546b24df250c0f20fd7577e5ec04f94897616472a716dde2b5577e57db58
+  - id: section68_cases
+    path: configs/semantic_answer_policy_v1_cases.json
+    sha256: 90e27a6a5446cc7e66d8bd88389ada776b6678b78875a7d4ca2a6f16f8b11c37
+stop_rule:
+  final_section: 69
+  additional_paid_pilot_authorized: false
+  section70_authorized: false
+  exception: >-
+    Reopen only if a newly demonstrated software defect invalidates immutable
+    evidence used by this synthesis; scientific disappointment or a desire for
+    another dataset is not sufficient.

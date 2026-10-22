@@ -1,0 +1,27 @@
+protocol_id: RAT-v1
+stage: calibration_analysis
+expected_models: [gpt4o_mini, llama4_scout, mistral_7b]
+expected_queries_per_model: 144
+expected_families: 24
+expected_l_paraphrases: 3
+expected_records_per_model: 576
+max_reasoning_lines: 8
+
+minimum_success_rate: 1.0
+minimum_final_marker_rate: 0.99
+minimum_stored_answer_agreement_rate: 0.99
+maximum_truncations: 0
+maximum_step_contract_violations: 0
+
+minimum_level_one_correct: 16
+minimum_first_failures: 6
+minimum_censored_families: 4
+minimum_event_templates: 2
+minimum_distinct_predictor_values: 3
+minimum_passing_models: 2
+
+pass_authorizes: >-
+  Preparation and call-free preflight of a development-split campaign only.
+  Calibration outcomes may be used for operational repair and frozen ridge
+  tuning, but do not support the early-warning claim and do not authorize
+  development or holdout model calls without explicit investigator approval.

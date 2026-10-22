@@ -1,0 +1,25 @@
+# Frozen before any Section 59 target-model response is generated or inspected.
+section: 59
+expected_models: [gpt4o_mini, llama3_8b]
+expected_seed: 42
+expected_window_size: 5
+expected_queries_per_model: 10
+expected_sequence_sha256: 1a71ba588cd589bb0a07a1801d9a16c518c31e6066d44a0371e439e789213a37
+expected_failure_qids:
+  - math-precalculus-00037
+  - math-intermediate_algebra-00000
+  - math-precalculus-00035
+  - math-intermediate_algebra-00026
+expected_control_qids:
+  - math-prealgebra-00041
+  - math-precalculus-00038
+  - math-geometry-00020
+  - math-precalculus-00021
+  - math-prealgebra-00002
+  - math-number_theory-00038
+max_output_tokens: 2048
+minimum_success_rate: 1.0
+minimum_final_line_marker_rate: 1.0
+minimum_stored_answer_agreement_rate: 1.0
+maximum_truncations: 0
+maximum_step_contract_violations: 0

@@ -1,0 +1,15 @@
+protocol_id: CDR-v1.3
+stage: posthoc_capacity_and_threshold_sensitivity
+source_assessment:
+  path: results/controlled_dialogue_v1_3_primary_validation/data/primary_validation_assessment.json
+  sha256: 617e38629156f3f6f97dd929b02152be47326a3b1e1d425c6ace810728a2d145
+source_records:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_3_primary_validation/data/records_CDR13_gpt4o_mini.jsonl
+    sha256: 4968c0b26bca5d2ffd68b80a94ac8476e0d59fb360395324e90af2fe2a20f022
+  llama4_scout:
+    path: results/controlled_dialogue_v1_3_primary_validation/data/records_CDR13_llama4_scout.jsonl
+    sha256: 7ad5d44840de45b969fd4b80340e0a2afae876a061f8df876edd212868cf1b99
+analysis_gate_path: configs/controlled_dialogue_v1_3_primary_validation_analysis_gate.yaml
+output_path: results/controlled_dialogue_v1_3_primary_validation/data/primary_validation_sensitivity.json
+

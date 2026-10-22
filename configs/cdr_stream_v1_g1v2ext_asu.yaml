@@ -1,0 +1,68 @@
+protocol_id: CDR-Stream-v1-G1v2ext
+stage: g1v2ext_single_turn_difficulty_calibration
+g1_version: v2ext
+# Extension of G1 v2 after investigator decisions (2026-10-03):
+#  - Mistral-7B replaced as third core model by Gemma 4 31B IT (asu-air,
+#    open weights, ASU-hosted). Claude 4.5 Sonnet was tried first, but the
+#    technical smoke showed gateway/classifier truncation on lab_protocol;
+#    its smoke records are preserved under superseded_claude45_smoke/.
+#    Claude Sonnet 5 becomes the proposal's frontier external validation model
+#    (separate config cdr_stream_v1_g1v2frontier_asu.yaml).
+#  - schedule_constraints replaced by the shallower milestone_chains logic
+#    template (option 2b).
+# Identical prompt, v2 ladder, targets, bands, gaps, trend test and exclusion
+# rule. Gemma is calibrated on the frozen v2 items of the three shared
+# templates (regenerated bit-identically and checked) plus milestone_chains;
+# GPT-4o-mini and Llama-4 Scout only on milestone_chains.
+execution_authorized: false
+outcome: primary_completed_and_relocked_2026-10-03
+authorization_recorded_at: "2026-10-03"
+authorization_scope: gemma_probe_1_call_and_g1v2ext_primary_2160_calls_smoke_first
+g1b_execution_authorized: false
+g1b_outcome: completed_and_relocked_2026-10-03_gemma_not_retained
+g1b_authorization_recorded_at: "2026-10-03"
+g1b_authorization_scope: gemma_g1b_180_calls_three_cells_levels_13_14
+g1b_cells:
+  - gemma4_31b_it|inventory_logistics
+  - gemma4_31b_it|lab_protocol
+  - gemma4_31b_it|milestone_chains
+items_path: configs/selections/cdr_stream_v1_g1v2ext_items.json
+items_sha256: d943ab9f0263bb815f1874119b94164354751be807657ddec7e178ff014dbed8
+shared_items:
+  path: configs/selections/cdr_stream_v1_g1v2_items.json
+  sha256: d8cb886ef69a0b81f2d78951b625322c43a00a21ca3a783d844dfb9d168790a6
+  templates: [budget_ledger, inventory_logistics, lab_protocol]
+combine_with:
+  - results/cdr_stream_v1_g1v2/assessment.json
+mappings_output: results/cdr_stream_v1_mappings.json
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1v2ext
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls (ASU allows 8). Not part of the fingerprint.
+workers: 8
+order_seed: 20261009
+models:
+  - name: gemma4_31b_it
+    provider_model: asu-air/gemma4_31b_it
+    probe: results/probe_gemma4_31b_it_production.json
+    templates: [budget_ledger, inventory_logistics, lab_protocol, milestone_chains]
+    # Investigator decision: try sending the per-call seed. If the gateway
+    # rejects it, the smoke test trips the breaker and this is set to false.
+    send_seed: true
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+    templates: [milestone_chains]
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+    templates: [milestone_chains]

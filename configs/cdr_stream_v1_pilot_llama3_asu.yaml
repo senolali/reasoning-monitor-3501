@@ -1,0 +1,43 @@
+protocol_id: CDR-Stream-v1-pilot-llama3-70b
+stage: technical_pilot
+# Fresh technical pilot for Llama-3 70B, which replaced Llama-4 Scout through the
+# investigator's recorded deviation (DEVIATIONS_FROM_PROPOSAL, 2026-10-03). One
+# calibration-split S1 staircase dialogue (the same skeleton Scout's pilot used,
+# inventory_logistics index 0, here with the 70B mapping E5/M9/H10), full 100
+# turns, K=3, L=2, control arm: 600 calls. The UNCHANGED CDR_STREAM_DESIGN §14 gate
+# applies, including zero truncation; the G1 truncation override does NOT extend
+# to this gate. Technical only; accuracy and effects are not read, and the pilot
+# dialogue is never part of the main sample. Paid execution is locked.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gate_failed_two_truncations
+authorization_recorded_at: "2026-10-03"
+authorization_scope: technical_pilot_600_calls_llama3_70b_only
+ladder_version: v2
+bank_path: configs/selections/cdr_stream_v1_bank_v2.json
+bank_sha256: bf3799d4d6fda5dbc354b54a9627bd4745160c2e097f160ece60bd9154195e53
+mappings_path: results/cdr_stream_v1_mappings_llama3.json
+mappings_sha256: 4ab2af3d7af6deff18af72baf3cd349bd30bee133ee4185ca33c8e6efea8a68b
+manifest_path: results/cdr_stream_v1_prep_llama3/manifest_pilot.json
+manifest_sha256: ed839b374cc6b50a56bd9cdd1bb3b8108e040f369b9c231060dcee33f65f29fb
+output_dir: results/cdr_stream_v1_pilot_llama3
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 3
+l_paraphrases: 2
+control_calls: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 6
+# Not part of the fingerprint.
+workers: 8
+tokens_per_minute: 600000   # 80% of the documented 750k project limit
+rate_limit_backoff_s: 65    # minimum wait after HTTP 429 (gateway TPM window)
+models:
+  - name: llama3_70b
+    provider_model: aws/llama3-70b
+    probe: results/probe_llama3_70b_production.json
+    send_seed: true

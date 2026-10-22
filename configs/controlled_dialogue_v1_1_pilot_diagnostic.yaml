@@ -1,0 +1,19 @@
+analysis: cdr_v1_1_call_free_exploratory_diagnostic
+no_model_calls: true
+claim_supporting_analysis: false
+sources:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_gpt4o_mini.jsonl
+    sha256: 6e5bb23fd48a20b7d0917bbd168b7f0886ca9eac09daa8ed5e9bfd9606b3139b
+  llama4_scout:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_llama4_scout.jsonl
+    sha256: 55711e9c016c47abb9ca5e052f34607da5361af63800f2d9de6607582532081e
+assessment:
+  path: results/controlled_dialogue_v1_1_pilot/data/controlled_dialogue_v1_1_pilot_assessment.json
+  sha256: 90610457595937e191378514edbc6d5621dacf69cc622b2cb2e1ed7394d84f85
+decision_scope: >-
+  Descriptive diagnosis and preparation of a prospectively frozen,
+  format-matched successor design. This analysis cannot change the failed
+  CDR-v1.1 gate, authorize paid calls, open development or holdout, or support
+  a scientific context-degradation or early-warning claim.
+

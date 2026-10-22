@@ -1,0 +1,22 @@
+protocol_id: LIC-RQ-v1
+stage: call_free_design
+execution_authorized: false
+source:
+  repository: https://github.com/microsoft/lost_in_conversation
+  revision: c865793fe34a929d316119b0451d01bd9183bcfd
+  path: data/external/lost_in_conversation/sharded_instructions_600_c865793.json
+  sha256: 6667a3ab2b013d51d7808ac913e24b2db843a0288da6a8c5cbddec89d6163f1e
+  paper: https://arxiv.org/abs/2505.06120
+  dataset_card: https://huggingface.co/datasets/microsoft/lost_in_conversation
+models: [gpt4o_mini, llama4_scout]
+conditions: [dialogue_history, fresh_prefix]
+k_repeats: 5
+l_paraphrases: 2
+temperature: 0.7
+max_output_tokens: 2048
+es_window: 5
+revelation_order: source_shard_id
+termination: all_shards_no_correctness_stop
+primary_response_index: 0
+system_prompt: You are a helpful assistant.
+output_dir: results/lost_conversation_v1_preparation

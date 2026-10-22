@@ -1,0 +1,25 @@
+protocol_id: CDR-Stream-v1-main-analysis
+# Call-free analysis of the main acquisition (CDR_STREAM_ANALYSIS_PROTOCOL.md).
+# protocol_frozen becomes true only after explicit investigator approval of the
+# protocol, which must happen before any main-run metric is computed.
+protocol_frozen: true
+records_path: results/cdr_stream_v1_main/data/records.jsonl
+fingerprint: e5a9895be395fa0020256b18e158caf6ec42417a1a261749582f74c099507cbe
+planned_calls: 54000
+manifest_path: results/cdr_stream_v1_prep_llama3/manifest_main.json
+manifest_sha256: 5351be89f927e36d4ef2e83eda61410747252d19edeb5dc575d0a842b0299c47
+mappings_path: results/cdr_stream_v1_mappings_llama3.json
+mappings_sha256: 4ab2af3d7af6deff18af72baf3cd349bd30bee133ee4185ca33c8e6efea8a68b
+output_dir: results/cdr_stream_v1_main/analysis
+synthetic_output_dir: results/cdr_stream_v1_analysis_synthetic
+# Stage A (protocol §12, frozen 2026-10-04): the first 25,115 checkpoint lines
+# (25,039 successful calls) as they stood at the budget pause; the hash is over
+# exactly those bytes, so Stage A stays reproducible after acquisition resumes.
+stage_a_lines: 25115
+stage_a_prefix_sha256: 5e1b66ccf791c0fa521c72437069dd4a8544c93a97e02e212da11ffe0e644b09
+stage_a_available:
+  gpt4o_mini: [CQ, CS, RS, LS, ES, SS, CQ_ctrl]
+  llama3_70b: [CQ, LS, ES]
+  gemma3_12b_it: [CQ, LS, ES]
+stage_a_output_dir: results/cdr_stream_v1_main/analysis_stage_a
+protocol_sha256: 684fecef7c29d29a5b33712de011c99a56fac9f6e5584c36dc6e55e7ac4968c6

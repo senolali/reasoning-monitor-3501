@@ -1,0 +1,24 @@
+protocol_id: CDR-v1.2
+stage: user_only_history_mechanism_analysis
+expected_models: [gpt4o_mini, llama4_scout]
+expected_records_per_model: 36
+max_output_tokens: 512
+minimum_success_rate: 1.0
+minimum_strict_final_marker_rate: 0.99
+minimum_stored_answer_agreement_rate: 0.99
+maximum_truncations: 0
+maximum_token_ceiling_hits: 0
+
+# Frozen before user-only outputs. All contrasts exclude turn 1.
+minimum_history_load_gap: 0.10
+maximum_one_sided_exact_p: 0.05
+minimum_user_only_failure_dialogues: 2
+minimum_models_meeting_history_load_gate: 2
+
+pass_authorizes: >-
+  Call-free preparation of a fresh validation using the nine remaining
+  calibration dialogues and the self-history, user-only-history and
+  state-summary conditions. It does not authorize that paid run, development
+  or holdout access, or a scientific context-degradation or early-warning
+  claim.
+

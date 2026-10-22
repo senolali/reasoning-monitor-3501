@@ -1,0 +1,52 @@
+protocol_id: RAT-v1
+stage: post_calibration_signal_diagnostic
+status: FROZEN_BEFORE_SIGNAL_ANALYSIS
+no_model_calls: true
+claim_supporting_analysis: false
+
+expected_source_sha256:
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_analysis.py: ddb62b5969e70f2fbeef700d5a22cff24e89dc9be9c2404d55c99f659ff30378
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_diagnostic.py: 85a8f6d9008e2f4323ed718e0a8108484940d284a0d1ec7636a4e483d2ac477a
+  scripts/diagnose_risk_adjusted_trajectory_signal.py: f2ba33b5fe2e83837f11f4d13d03ae394d7ecada5559e2740074a0a355c74362
+
+expected_models: [gpt4o_mini, llama4_scout]
+excluded_models:
+  mistral_7b: >-
+    The frozen calibration gate failed strict final-marker observability,
+    level-one entry, censoring, and step-contract checks.
+expected_split: calibration
+expected_queries_per_model: 144
+
+sources:
+  gpt4o_mini:
+    path: results/risk_adjusted_trajectory_v1_calibration/data/per_query_RAT_gpt4o_mini_seed20260926_W6.csv
+    sha256: 58b64bc82f7d3882ad1db3989a546d5b2dacb677251834af206b6fb920c8dddc
+  llama4_scout:
+    path: results/risk_adjusted_trajectory_v1_calibration/data/per_query_RAT_llama4_scout_seed20260926_W6.csv
+    sha256: a2f965cf556616f6812744846feb12e112261f2a1bbfe058d0d26604e645c73d
+
+analysis:
+  implementation: src/reasoning_monitor/evaluation/risk_adjusted_trajectory_analysis.py
+  diagnostic_implementation: src/reasoning_monitor/evaluation/risk_adjusted_trajectory_diagnostic.py
+  estimator: discrete_time_hazard_logistic_ridge
+  baseline_predictors: [trajectory_level, task_template, model]
+  full_predictors: [trajectory_level, task_template, model, RS, LS, ES]
+  ridge_c_grid: [0.01, 0.1, 1.0, 10.0]
+  outer_splits: 4
+  inner_splits: 3
+  grouping_unit: family_id
+  seed: 20260926
+  score: out_of_fold_log_loss_improvement
+
+decision:
+  minimum_combined_mean_improvement: 0.0
+  minimum_combined_positive_folds: 3
+  minimum_model_mean_improvement: 0.0
+
+decision_scope: >-
+  A pass supports preparation and call-free preflight of a versioned RAT-v1.1
+  development-split campaign for GPT-4o-mini and Llama-4 Scout. It does not
+  relabel the RAT-v1 calibration gate, authorize paid calls, open the holdout,
+  or support a scientific early-warning claim.
+
+output_path: results/risk_adjusted_trajectory_v1_calibration/data/rat_v1_calibration_signal_diagnostic.json

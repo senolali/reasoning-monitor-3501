@@ -1,0 +1,47 @@
+protocol_id: CDR-Stream-v1-user-only
+# User-only history arm (CDR_STREAM_USER_ONLY_PROTOCOL.md): same 90 held-out
+# dialogues, every prior user turn, no assistant replies, K=1. The model option
+# (A: GPT-4o-mini + Gemma 3 12B; B: + Llama-3 70B) is fixed here at approval,
+# before any user-only response exists, and defines the Holm families.
+execution_authorized: false
+authorization_recorded_at: null
+model_option: null          # "A" or "B", set at investigator approval
+protocol_path: CDR_STREAM_USER_ONLY_PROTOCOL.md
+protocol_sha256: null       # filled when the protocol is approved (frozen)
+ladder_version: v2
+bank_path: configs/selections/cdr_stream_v1_bank_v2.json
+bank_sha256: bf3799d4d6fda5dbc354b54a9627bd4745160c2e097f160ece60bd9154195e53
+mappings_path: results/cdr_stream_v1_mappings_llama3.json
+mappings_sha256: 4ab2af3d7af6deff18af72baf3cd349bd30bee133ee4185ca33c8e6efea8a68b
+manifest_path: results/cdr_stream_v1_prep_llama3/manifest_main.json
+manifest_sha256: 5351be89f927e36d4ef2e83eda61410747252d19edeb5dc575d0a842b0299c47
+output_dir: results/cdr_stream_v1_user_only
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 6
+# Not part of the fingerprint.
+workers: 16
+tokens_per_minute: 600000
+rate_limit_backoff_s: 65
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+    send_seed: true
+    option: A
+  - name: gemma3_12b_it
+    provider_model: aws/gemma3_12b_it
+    probe: results/probe_gemma3_12b_it_production.json
+    send_seed: true
+    option: A
+  - name: llama3_70b
+    provider_model: aws/llama3-70b
+    probe: results/probe_llama3_70b_production.json
+    send_seed: true
+    option: B

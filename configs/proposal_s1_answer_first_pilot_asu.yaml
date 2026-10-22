@@ -1,0 +1,70 @@
+# HOLD FOR EXPLICIT EXECUTION: Section 56 parser-controlled accepted-proposal S1 pilot.
+# This is a homogeneous replacement run; historical Section 37-39 records remain immutable.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_answer_first_pilot
+stream_design: proposal_multidataset
+datasets: [gsm8k, arc_challenge, math]
+allow_synthetic_datasets: false
+dataset_prompt_mode: answer_first
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: 30
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [10]
+guard: 3
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# CQ observability pilot: 90 questions/model x K=1 x two models = 180 calls.
+# K/L metrics are not interpreted when K=1 and L=0.
+k_repeats: 1
+l_paraphrases: 0
+# The frozen assessor recomputes strict CQ from raw records. No K/L metric is
+# interpreted here, so loading rqeval's local Transformer scorers is unnecessary.
+use_rqeval: false
+coherence_scorer: lexical
+stability_scorer: jaccard
+publication_mode: false
+fail_on_degenerate: false
+detector_strategy: proposal_mapping
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 1024
+    system_prompt: >-
+      Follow the output format in the user prompt. Put the required FINAL_ANSWER
+      or FINAL_CHOICE line first. Then give at most eight short numbered reasoning
+      steps and stop. Never revise the first-line answer.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 1024
+    system_prompt: >-
+      Follow the output format in the user prompt. Put the required FINAL_ANSWER
+      or FINAL_CHOICE line first. Then give at most eight short numbered reasoning
+      steps and stop. Never revise the first-line answer.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0

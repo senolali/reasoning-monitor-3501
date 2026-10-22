@@ -1,0 +1,68 @@
+protocol_id: CDR-v1.1
+stage: packed_history_transport_probe
+seed: 20260928
+
+bank_path: configs/selections/controlled_dialogue_stream_v1.json
+bank_file_sha256: f18be9c6bddb2b9798cf1cebca3a7f1fda5226a6cce2b001278f7a20188f46c6
+selected_dialogue_ids:
+  - cdr-v1-budget-001
+  - cdr-v1-incident-001
+  - cdr-v1-cohort-001
+probe_turn: 2
+conditions: [self_history, oracle_history]
+history_transport: packed_system_context
+expected_calls_per_model: 6
+expected_total_calls: 12
+output_dir: results/controlled_dialogue_v1_1_transport_probe
+
+source_v1_records:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_pilot/data/records_CDR_gpt4o_mini.jsonl
+    sha256: 23541a3ea121769a708837436e730ab2ab133fbde84b1342749c083eda5ec3d2
+  llama4_scout:
+    path: results/controlled_dialogue_v1_pilot/data/records_CDR_llama4_scout.jsonl
+    sha256: 779bca9c0097cafd1f749b30cf669f95d7add6db710893d37018b6525c509a6a
+
+system_prompt: >-
+  You are participating in a continuing, exact-scored case. Treat earlier user
+  facts as authoritative unless a later user turn explicitly corrects them.
+  Use the complete caller-managed transcript and give concise reasoning. The
+  final non-empty line must be exactly FINAL_ANSWER: <integer>.
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.0
+    max_tokens: 256
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama4_scout
+    model: aws/llama4_scout-17b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.0
+    max_tokens: 256
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+
+production_probes:
+  gpt4o_mini:
+    path: results/probe_gpt4o_mini_production.json
+    sha256: 7ea55e3a9b8b6d4b5ee12fc95956ac5624982e69518e3fbd5f20ed1df3f4fe6c
+    provider_model: openai/gpt4o_mini
+  llama4_scout:
+    path: results/probe_llama4_scout_production.json
+    sha256: 8d0731c9e640e7e587799acffc8f6aa5d9be46fc7f96be4c12a67602567a27ea
+    provider_model: aws/llama4_scout-17b

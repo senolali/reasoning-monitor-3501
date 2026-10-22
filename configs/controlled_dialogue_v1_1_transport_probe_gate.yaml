@@ -1,0 +1,23 @@
+protocol_id: CDR-v1.1
+expected_models: [gpt4o_mini, llama4_scout]
+expected_conditions: [self_history, oracle_history]
+expected_records_per_model: 6
+minimum_success_rate: 1.0
+minimum_accuracy: 1.0
+minimum_condition_accuracy: 1.0
+minimum_strict_final_marker_rate: 1.0
+maximum_truncations: 0
+
+expected_sha256:
+  configs/controlled_dialogue_v1_1_transport_probe_asu.yaml: d2a71aa6a2f80b7431238ca82e2b6b915d1866c824eeaa2956a29a040688f1f3
+  src/reasoning_monitor/dialogue_transport.py: e78536998627b1d49355f196d93ed261295b5e31a405e2fb925f21f75eabac01
+  src/reasoning_monitor/evaluation/dialogue_transport.py: e3fe287842d3e8e5562c65f59d36e0fe3c9f7e93b8fd4a20683637693cfdba2b
+  scripts/audit_controlled_dialogue_transport.py: 91f4ef76452505bf8a3c807a10f3a7d66e5286a41e2a60496cfb1c71cb70ca84
+  scripts/probe_dialogue_history_transport.py: 9b252303a24ae0c4a950f60321363d231c702c3567057689063d64c219129469
+  scripts/assess_dialogue_history_transport.py: d3905083958864bbdd5c5146d6276fbb37c9cdec5bfe7a228adac3b540ef34e8
+  scripts/preflight_dialogue_history_transport.py: 3f23d4cc7dd4dd69481f70a72274a83d4129a627bf3492c9b45ff9a0b00929ee
+
+pass_authorizes: >-
+  Preparation and call-free preflight of a fresh CDR-v1.1 calibration pilot
+  using packed history transport. It does not authorize that paid run,
+  development or holdout access, or a context-degradation claim.

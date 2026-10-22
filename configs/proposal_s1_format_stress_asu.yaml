@@ -1,0 +1,72 @@
+# HOLD FOR EXPLICIT EXECUTION: Section 59 post-Section-58 format stress pilot.
+# This is a development test, not a selective rerun or replacement of Section 58.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_format_stress
+stream_design: proposal_frozen_selection
+datasets: [math]
+allow_synthetic_datasets: false
+dataset_selection_manifest: configs/selections/proposal_s1_format_stress.json
+dataset_selection_split: null
+dataset_prompt_mode: answer_last_stress
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: null
+frozen_selection_size: 10
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [5]
+guard: 2
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# Format stress test: 10 MATH questions/model x K=1 x two models = 20 calls.
+k_repeats: 1
+l_paraphrases: 0
+use_rqeval: false
+coherence_scorer: lexical
+stability_scorer: jaccard
+publication_mode: false
+fail_on_degenerate: false
+detector_strategy: proposal_mapping
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+    system_prompt: >-
+      Use no more than six numbered reasoning lines, one short sentence per
+      line. After line 6 or sooner, immediately give the best answer even if
+      uncertain. Put exactly one plain-text FINAL_ANSWER line last, outside
+      LaTeX and code blocks, and write nothing after it.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+    system_prompt: >-
+      Use no more than six numbered reasoning lines, one short sentence per
+      line. After line 6 or sooner, immediately give the best answer even if
+      uncertain. Put exactly one plain-text FINAL_ANSWER line last, outside
+      LaTeX and code blocks, and write nothing after it.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0

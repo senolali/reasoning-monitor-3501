@@ -1,0 +1,103 @@
+protocol_id: LIC-RQ-v2
+stage: frozen_science
+execution_authorized: false
+science_execution_authorized: false
+authorization_recorded_at: "2026-10-02"
+outcome: completed_and_locked_2026-10-02
+completed_records: 11382
+records_sha256: e313f1ce59854d2590efe5602cee4799a917664f6f389426412fe433ea1772ba
+confirmatory_assessment_path: results/lost_conversation_v2_science/confirmatory/assessment.json
+confirmatory_assessment_sha256: 1be56fb6bb98e6f8348202dfea9804d2c2ed57582fbf78a1586e07790589bcf1
+accuracy_loss_robustness_path: results/lost_conversation_v2_science/robustness_accuracy_loss/assessment.json
+accuracy_loss_robustness_sha256: 1351f6149178cae293f956afd57931a8f689d45d5c43538f59b69c2ccc23c335
+authorization_scope: untouched_48_task_science_only
+manifest_path: results/lost_conversation_v2_manifest/execution_manifest.json
+integration_config_path: configs/lost_conversation_v2_integration_asu.yaml
+design_path: configs/lost_conversation_v1_design.yaml
+output_dir: results/lost_conversation_v2_science
+preflight_output_dir: results/lost_conversation_v2_science_preflight
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 5
+l_paraphrases: 2
+es_window: 5
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json
+conditions: [dialogue_history, fresh_prefix]
+prompt_contract:
+  version: LIC-RESPONSE-v1
+  system_prompt: >-
+    Solve incrementally using only information supplied in this conversation.
+    Prior assistant replies may be wrong and are not authoritative facts.
+  primary_instruction: >-
+    Give concise numbered reasoning steps using only the information available so
+    far. End with exactly one final line: FINAL_ANSWER: <number> when the numeric
+    answer is determined, otherwise STATUS: NEED_MORE_INFORMATION.
+  paraphrase_instructions:
+    - >-
+      Using only the information currently revealed, write concise numbered
+      reasoning. Finish with exactly FINAL_ANSWER: <number> if determined;
+      otherwise finish with STATUS: NEED_MORE_INFORMATION.
+    - >-
+      Reason in short numbered steps without assuming unrevealed facts. Your last
+      line must be FINAL_ANSWER: <number> when solvable now, or STATUS:
+      NEED_MORE_INFORMATION when more facts are required.
+frozen_inputs:
+  manifest_sha256: b6596442b3b2640068dfbfe437ecd8b1099d4a235a6f865991d0a0931b1daa31
+  integration_records_path: results/lost_conversation_v2_integration/data/records.jsonl
+  integration_records_sha256: 850736859b91afc432c02181d9f20d7ff3f3d15d7b5f8d8f3388b5b6cbc4bde5
+  integration_config_sha256: 5d92b979d0d8382637495e5be4392d4ba09cf12d4078243d55e0cdff4b792687
+  acquisition_runner_sha256: b94d70f2a0cf5c70b9fac6697672e69ac05fa5229d489bdb1bcd539db2f5dd2c
+  science_acquisition_sha256: e43e4f1b23a66ce09686498c30dae5e925a3b7782c159b83d6472a77b238f685
+  semantic_parser_sha256: 33751887dc42b26d121051f94ed1d0073561798248c624e6d203c7a9e76b6fe0
+  semantic_assessment_path: results/lost_conversation_v2_integration/semantic_rescore/assessment.json
+  semantic_assessment_sha256: cd63ade9a66b326fc3798291044d7b52237e488f403546155fbc7d7867eb64d6
+  readiness_assessment_path: results/lost_conversation_v2_integration/semantic_rescore/readiness/assessment.json
+  readiness_assessment_sha256: 7c5f57eb5a10b0e992222e2fd1ad66ea371b7c6115783832a151639d1615487d
+analysis:
+  independent_unit: source_task
+  primary_endpoint: paired_final_turn_success
+  primary_test: exact_paired_mcnemar_within_model
+  rqeval_pre_final_candidates: [CS, LS, SS]
+  rqeval_covariates: [turn, information_fraction, context_length]
+  rqeval_multiplicity: holm_within_frozen_metric_family
+  missingness_policy: no_imputation
+  auxiliary_metric:
+    name: cumulative_resolution_lag
+    abbreviation: CRL
+    turkish_name: kumulatif_cozum_gecikmesi
+    definition: mean_max_fresh_minus_dialogue_readiness_zero_over_comparable_prefinal_turns
+    readiness_answer_attempt: 1
+    readiness_need_more_information: 0
+    invalid_pair: missing
+    threshold: null
+    minimum_support_threshold: null
+    report_support_count_and_rate: true
+  auxiliary_target: final_positive_readiness_gap
+  auxiliary_target_definition: fresh_answer_attempt_and_dialogue_need_more_information
+  auxiliary_analysis: model_stratified_task_clustered_threshold_free_association
+  auxiliary_discrimination: auroc_when_both_target_classes_exist
+  permutation_seed: 20261002
+  permutation_repetitions: 10000
+  descriptive_secondary: longest_positive_gap_run
+  plots: [CQ, CS, RS, LS, ES, SS, RQ6_mean, CRL]
+  integration_effect_used_for_sample_selection: false
+transport:
+  empty_primary_history_placeholder: "[EMPTY_PRIMARY_RESPONSE]"
+  preserve_empty_raw_record: true
+  retry_empty_primary: false

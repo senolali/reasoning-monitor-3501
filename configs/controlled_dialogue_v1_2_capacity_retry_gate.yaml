@@ -1,0 +1,19 @@
+protocol_id: CDR-v1.2a
+stage: exact_message_capacity_retry_preflight
+paid_calls_authorized: false
+
+expected_sha256:
+  configs/controlled_dialogue_v1_2_capacity_retry_asu.yaml: aae37993f76e0c3b4cd70595168f509515e5f42bab60b5c4910515ff93727cef
+  configs/controlled_dialogue_v1_2_capacity_retry_analysis_gate.yaml: 493b91ddc41234007e056d48ee871a4bcbacfa5bb0386f86305e73c2c43159a2
+  configs/controlled_dialogue_v1_2_user_only_probe_asu.yaml: 90ee4a839d9a5a0341d93771c8a971bba9a27ab97a84d4483473f4a2533d6f73
+  src/reasoning_monitor/evaluation/user_only_capacity_retry.py: 41be495ae4db4cc92902bf6417a6edccb2589ec8523d60edc902b84f725bb616
+  scripts/retry_user_only_history_capacity.py: bb501a1a04c7fb673573615db2a8ffd89a54bb36a9eed10ee0e615647e0f312c
+  scripts/assess_user_only_history_capacity_retry.py: e7c97a09a8706f053e25e87dd86e84bca6cecd82a31bbfcf9846302e80e48966
+  scripts/estimate_user_only_history_capacity_retry.py: 86ed2b14f7836da13f7d2bd9f3b9de6b61bd0b1f57a78b84b012ed9ced25b26f
+  scripts/preflight_user_only_history_capacity_retry.py: aebe4bc33afc08b73f55264db704b5d8f63457aaa8d2333a66efd8053bce7a1d
+
+pass_authorizes: >-
+  Explicit investigator consideration of the frozen 10-call CDR-v1.2a
+  exact-message capacity retry. It does not itself authorize paid calls,
+  alter the original failed CDR-v1.2 gate, authorize further validation,
+  development or holdout access, or support a scientific claim.

@@ -1,0 +1,43 @@
+protocol_id: CDR-Stream-v1-G1v2frontier
+stage: g1v2frontier_single_turn_difficulty_calibration
+g1_version: v2frontier
+# Frontier external validation model named in the proposal: Claude Sonnet 5.
+# Calibrated with the identical frozen items, prompt and rule as the core
+# models (G1 v2 / v2ext), on budget, inventory and milestone_chains only.
+# lab_protocol is a declared exclusion, decided before any accuracy was seen:
+# in the Claude 4.5 technical smoke, 7/12 lab responses were empty or cut
+# mid-sentence with finish_reason=stop (gateway/model safety classifier on
+# chemistry terms); all other Claude templates were 100% contract-valid.
+execution_authorized: false
+g1b_execution_authorized: false
+g1b_cells: []
+items_path: configs/selections/cdr_stream_v1_g1v2ext_items.json
+items_sha256: d943ab9f0263bb815f1874119b94164354751be807657ddec7e178ff014dbed8
+combine_with:
+  - results/cdr_stream_v1_g1v2/assessment.json
+  - results/cdr_stream_v1_g1v2ext/assessment.json
+mappings_output: results/cdr_stream_v1_frontier_mappings.json
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1v2frontier
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls (ASU allows 8). Not part of the fingerprint.
+workers: 8
+order_seed: 20261010
+models:
+  - name: claude5_sonnet
+    provider_model: aws/claude5_sonnet
+    probe: results/probe_claude5_sonnet_production.json
+    templates: [budget_ledger, inventory_logistics, milestone_chains]
+    # Anthropic models via Bedrock do not support a sampling seed; not sent.
+    send_seed: false
+    declared_exclusions:
+      lab_protocol: gateway_classifier_truncation_in_claude45_technical_smoke

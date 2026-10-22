@@ -1,0 +1,30 @@
+{
+  "analysis": "section57_proposal_s1_answer_order_calibration_selection",
+  "created_at": "2026-09-21",
+  "selection_rule": "First 10 GSM8K and first 10 MATH QIDs encountered in the frozen Section 37 S1 stream",
+  "source_stream": "results/proposal_s1_kl_validation_gpt_llama/data/stream_S1_seed42.csv",
+  "source_stream_sequence_sha256": "791e6090518090213559432c62ad2d6fe7a30588311f3a9cf816276f63a78cca",
+  "selected_sequence_sha256": "99f3b47eb250b15defee6086a76adb2c777e824ff3308f35aa4ebc463d024e20",
+  "sequence": [
+    {"dataset": "gsm8k", "qid": "gsm8k-00200"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00228"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00185"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00058"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00193"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00254"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00243"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00149"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00270"},
+    {"dataset": "gsm8k", "qid": "gsm8k-00162"},
+    {"dataset": "math", "qid": "math-prealgebra-00041"},
+    {"dataset": "math", "qid": "math-precalculus-00038"},
+    {"dataset": "math", "qid": "math-geometry-00020"},
+    {"dataset": "math", "qid": "math-precalculus-00021"},
+    {"dataset": "math", "qid": "math-prealgebra-00002"},
+    {"dataset": "math", "qid": "math-number_theory-00038"},
+    {"dataset": "math", "qid": "math-precalculus-00023"},
+    {"dataset": "math", "qid": "math-prealgebra-00035"},
+    {"dataset": "math", "qid": "math-number_theory-00003"},
+    {"dataset": "math", "qid": "math-counting_and_probability-00017"}
+  ]
+}

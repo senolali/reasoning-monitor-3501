@@ -1,0 +1,29 @@
+protocol_id: CDR-Stream-v1-context-probe-llama3
+# Measures, rather than assumes, whether the ASU Llama-3 models can hold the
+# CDR-Stream packed history. The Llama pilot prompts (hash-verified, rebuilt from
+# the recorded pilot primaries) are sent at turns 10, 25, 40, 60, 80, 100. At each
+# length a "real" call uses the pilot prompt, and a "needle" call asks the model to
+# quote the oldest user message (detects silent truncation). 12 calls per model.
+# Technical only; accuracy is not reported. A model is feasible only if both the
+# turn-100 real call succeeds and the turn-100 needle is recalled. Feasibility
+# permits only a production probe and the identical 90-call K-diversity probe.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_both_feasible
+authorization_recorded_at: "2026-10-03"
+authorization_scope: context_probe_24_calls_llama3_70b_8b_only
+pilot_config: configs/cdr_stream_v1_pilot_asu.yaml
+pilot_records_sha256: e227cf8a903bba755a32bec4d371afa8c7f3709a5e552afacaa68eff362f6ef6
+pilot_model: llama4_scout
+turns: [10, 25, 40, 60, 80, 100]
+models: [aws/llama3-70b, aws/llama3-8b]
+output_dir: results/cdr_stream_v1_context_probe_llama3
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 6
+rate_limit_backoff_s: 65

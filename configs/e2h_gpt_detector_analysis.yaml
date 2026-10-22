@@ -1,0 +1,17 @@
+# CALL-FREE ONLY: Section 49 normalized alarm-timing analysis.
+analysis: section49_gpt_normalized_detector_timing
+source_result_dir: results/e2h_final_holdout_gpt4o_mini
+model: gpt4o_mini
+dataset: e2h_amc
+tag: ST2_gpt4o_mini_seed48_W10
+alarm_level: drift
+reference_metric: CQ
+candidate_metrics: [CS, LS, ES, SS]
+descriptive_metrics: [RS]
+phase_length: 30
+transitions:
+  - {name: easy_to_medium, change_point: 30, interval_end: 60}
+  - {name: medium_to_hard, change_point: 60, interval_end: 90}
+min_lead_queries: 1
+require_all_transitions: true
+require_clean_easy_baseline: true

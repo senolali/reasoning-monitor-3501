@@ -1,0 +1,14 @@
+# Frozen before any Section 57 target-model response is generated or inspected.
+section: 57
+expected_models: [gpt4o_mini, llama3_8b]
+expected_seed: 42
+expected_window_size: 5
+expected_queries_per_dataset: 10
+expected_stream_sequence_sha256: 99f3b47eb250b15defee6086a76adb2c777e824ff3308f35aa4ebc463d024e20
+max_output_tokens: 2048
+minimum_success_rate: 1.0
+minimum_final_line_marker_rate: 1.0
+minimum_stored_answer_agreement_rate: 1.0
+maximum_truncations: 0
+minimum_gsm8k_accuracy: 0.60
+

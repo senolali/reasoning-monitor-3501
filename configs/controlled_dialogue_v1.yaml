@@ -1,0 +1,64 @@
+protocol_id: CDR-v1
+title: Controlled longitudinal dialogue reasoning
+status: DESIGN_ONLY_NO_MODEL_CALLS
+separate_from_section_chain: true
+supersedes_rat_v1: false
+
+benchmark:
+  bank_path: configs/selections/controlled_dialogue_stream_v1.json
+  generator_version: controlled-dialogue-v1
+  seed: 20260927
+  templates: [research_budget, software_incident, study_cohort]
+  dialogues_per_template: 10
+  turns_per_dialogue: 12
+  family_split:
+    calibration: 12
+    development: 9
+    holdout: 9
+  exact_solver_gold_required: true
+  whole_dialogue_split_required: true
+
+conditions:
+  self_history: >-
+    The model receives its own prior responses and every prior user turn.
+    This arm contains both accumulated context and error propagation.
+  oracle_history: >-
+    The model receives every prior user turn but canonical correct assistant
+    responses. Comparing this arm with self_history isolates error propagation.
+  state_summary: >-
+    The model receives only the verified state immediately before the current
+    turn and the identical current user turn. Comparing this arm with
+    oracle_history isolates long-history load while controlling current task.
+
+measurement:
+  stage_1: matched_context_effect_feasibility
+  stage_1_metrics: [CQ, strict_final_marker, context_chars, response_tokens]
+  stage_1_k_repeats: 1
+  stage_1_l_paraphrases: 0
+  stage_2_metrics_if_authorized: [RS, LS, ES, dialogue_state_fidelity]
+  answer_contract: final_plain_integer_line
+  server_side_history: forbidden
+  caller_managed_messages: required
+
+analysis:
+  stage_1_primary_contrast: state_summary_CQ_minus_self_history_CQ
+  mechanism_contrasts:
+    error_propagation: oracle_history_CQ_minus_self_history_CQ
+    history_load: state_summary_CQ_minus_oracle_history_CQ
+  matching_unit: [model, dialogue_id, turn]
+  clustering_unit: dialogue_id
+  interpretation: >-
+    Turn is conversational position, not wall-clock time. Any degradation claim
+    concerns accumulated context and prior reasoning state within a session.
+
+execution:
+  paid_calls_authorized: false
+  current_stage: structural_preflight
+  checkpoint_each_call: true
+  resume_required: true
+  development_and_holdout_closed: true
+
+reporting:
+  retain_rat_v1_results: true
+  do_not_relabel_rat_v1: true
+  null_result_language: no_detectable_context_degradation_in_this_design

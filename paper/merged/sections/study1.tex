@@ -1,0 +1,138 @@
+\section{Study 1: paired effect of retaining assistant replies}
+\label{sec:study1}
+
+\subsection{Design}
+
+\paragraph{Tasks.}
+We used the public math subset of Lost in Conversation \citep{laban2025lost}:
+103 GSM8K-derived problems \citep{cobbe2021training}, each split into ordered
+information shards, with one shard revealed per turn. A call-free input audit
+excluded 17 tasks before any model was queried. Some tasks overlapped with our
+earlier experiments, and others were judged to change meaning when sharded.
+
+A deterministic hash-based procedure then selected \nTasks{} untouched science
+tasks without using model output. The selected tasks have 4--9 shards
+(median 6). Four further, disjoint tasks served a purely technical integration
+stage, whose effect direction could not alter the sample or the analysis.
+
+\paragraph{Models and conditions.}
+We used three models: GPT-4o-mini, Llama-4 Scout and Mistral-7B
+\citep{jiang2023mistral}. They were accessed through an academic gateway with
+server-side history and retrieval disabled. At each turn $t$, every model
+answered twice with identical user shards $1,\dots,t$:
+\begin{itemize}
+  \item \emph{dialogue history}: its own earlier primary replies were interleaved;
+  \item \emph{fresh prefix}: no assistant replies were included.
+\end{itemize}
+The contrast estimates the net effect of retaining assistant-side history. Context
+length and message positions also differ between the arms.
+
+Each response had to end with \texttt{FINAL\_ANSWER: <number>} or
+\texttt{STATUS: NEED\_MORE\_INFORMATION}.
+
+Each (model, task, condition, turn) cell received:
+\begin{itemize}
+  \item $K=\Krep{}$ same-context samples;
+  \item $L=\Lpar{}$ responses to frozen rewordings of the instruction.
+\end{itemize}
+Only the primary sample entered later history. The run used temperature
+\Ktemp{} and \nRecords{} calls in total. All calls succeeded and none was
+truncated. Six empty Mistral-7B primaries were retained as invalid and
+represented in later history by a fixed placeholder.
+
+\paragraph{Analysis (frozen).}
+The primary endpoint was paired final-turn success. We report:
+\begin{itemize}
+  \item the exact McNemar test \citep{mcnemar1947note};
+  \item a task-bootstrap 95\% CI (\nPermutations{} resamples);
+  \item Holm correction across models \citep{holm1979simple}.
+\end{itemize}
+Answers are undetermined before the last shard in most tasks. The pre-final
+early-warning candidates were therefore the dimensions measurable without an
+answer:
+\begin{itemize}
+  \item CS: answer agreement of the $K$ samples;
+  \item LS: NLI contradiction rate between consecutive steps;
+  \item SS: BERTScore between traces.
+\end{itemize}
+CQ, RS and ES were structurally unobservable before the final turn. Each
+candidate was tested by a task-clustered partial correlation with final failure,
+adjusted for model, turn, revealed-information fraction and log context length,
+with Holm correction across the three metrics.
+
+A frozen auxiliary measure, Cumulative Resolution Lag (CRL), averages the
+positive gap between fresh-prefix and dialogue-history answer readiness over
+pre-final turns. It was evaluated against a positive final readiness gap.
+
+\subsection{Results}
+
+\paragraph{Retaining assistant replies lowers final success.}
+Table~\ref{tab:s1primary} and Figure~\ref{fig:s1} report the primary endpoint.
+\begin{itemize}
+  \item \textbf{GPT-4o-mini:} success fell from \freshGpt{} to \dialGpt{}
+    (difference \diffGpt{}, CI \ciGpt{}, Holm $p=\pHolmGpt$).
+  \item \textbf{Mistral-7B:} from \freshMistral{} to \dialMistral{}
+    (\diffMistral{}, CI \ciMistral{}, $p=\pHolmMistral$).
+  \item \textbf{Llama-4 Scout:} the same direction (\diffLlama{}, CI \ciLlama{})
+    without confirmatory significance ($p=\pHolmLlama$).
+\end{itemize}
+Discordant tasks were strongly asymmetric: in \nFreshOnly{} tasks only the fresh
+prefix succeeded, in \nDialOnly{} only the history arm did. A format-valid
+sensitivity analysis left the GPT and Mistral effects intact.
+
+\begin{table}[t]
+\centering
+\caption{Study 1 paired final-turn success over \nTasks{} tasks. F/D: tasks
+in which only the fresh prefix, or only the dialogue history, succeeded.}
+\label{tab:s1primary}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Model & History & Fresh & Diff.\ [95\% CI] & F/D & $p$ & $p_{\text{Holm}}$\\
+\midrule
+\inputtable{generated/table_primary.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{study1_paired.pdf}
+\caption{Study 1. Left: final-turn success per arm, with 95\% Wilson intervals.
+Right: paired difference, fresh minus history, with 95\% task-bootstrap
+intervals and Holm-adjusted McNemar $p$-values.}
+\label{fig:s1}
+\end{figure}
+
+\paragraph{The measurable quality metrics do not warn.}
+CS, LS and SS carried no information about final dialogue failure beyond turn,
+revealed information and context length. All Holm-adjusted $p$-values were 1.0
+(Table~\ref{tab:s1rqeval}).
+
+\begin{table}[t]
+\centering
+\caption{Study 1 pre-final metrics as predictors of final dialogue failure.
+$r_{\text{partial}}$ is a task-clustered partial correlation; $p$ values come
+from one-sided task-clustered permutation tests.}
+\label{tab:s1rqeval}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Metric & Turns & Units & Tasks & $r_{\text{partial}}$ & $p$ & $p_{\text{Holm}}$\\
+\midrule
+\inputtable{generated/table_rqeval.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The paired measure reduces to persistence.}
+CRL discriminated the frozen target modestly (pooled model-stratified AUROC
+\crlAuroc{}, $p=\crlP$, CI \crlCi{}). In a post-hoc check, however, the last
+pre-final readiness gap alone did better (AUROC \crlLastGapAuroc{},
+$p=\crlLastGapP$). Within strata of that last gap, CRL carried no further
+information (AUROC \crlCondAuroc{}, $p=\crlCondP$).
+
+CRL thus measures the persistence of an unresolved state rather than
+anticipating failure beyond the current state. Its post-hoc association with
+independent accuracy loss was also only borderline (AUROC \robAllAuroc{},
+$p=\robAllP$).

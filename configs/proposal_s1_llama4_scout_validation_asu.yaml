@@ -1,0 +1,51 @@
+# HOLD FOR EXPLICIT EXECUTION: Section 61 full Llama-4 Scout S1 validation.
+# Section 60 authorised planning only; Sections 58-60 remain immutable.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_llama4_scout_validation
+stream_design: proposal_multidataset
+datasets: [gsm8k, arc_challenge, math]
+allow_synthetic_datasets: false
+dataset_prompt_mode: answer_last_stress
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: 30
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [10]
+guard: 3
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# Full substitution validation: 90 questions x K=1 x one model = 90 calls.
+k_repeats: 1
+l_paraphrases: 0
+use_rqeval: false
+coherence_scorer: lexical
+stability_scorer: jaccard
+publication_mode: false
+fail_on_degenerate: false
+detector_strategy: proposal_mapping
+
+models:
+  - backend: openai_compatible
+    name: llama4_scout
+    model: aws/llama4_scout-17b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+    system_prompt: >-
+      Use no more than six numbered reasoning lines, one short sentence per
+      line. After line 6 or sooner, immediately give the best answer even if
+      uncertain. Put exactly one plain-text FINAL_ANSWER or FINAL_CHOICE line
+      last, outside LaTeX and code blocks, and write nothing after it.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0

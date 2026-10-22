@@ -1,0 +1,55 @@
+protocol_id: LIC-RQ-v2
+stage: technical_integration
+execution_authorized: false
+authorization_scope: technical_integration_only
+authorization_recorded_at: 2026-10-01
+science_execution_authorized: false
+outcome: completed_and_locked_2026-10-02
+completed_records: 1092
+records_sha256: 850736859b91afc432c02181d9f20d7ff3f3d15d7b5f8d8f3388b5b6cbc4bde5
+semantic_parser_sha256: 33751887dc42b26d121051f94ed1d0073561798248c624e6d203c7a9e76b6fe0
+semantic_assessment_sha256: cd63ade9a66b326fc3798291044d7b52237e488f403546155fbc7d7867eb64d6
+readiness_assessment_sha256: 7c5f57eb5a10b0e992222e2fd1ad66ea371b7c6115783832a151639d1615487d
+manifest_path: results/lost_conversation_v2_manifest/execution_manifest.json
+output_dir: results/lost_conversation_v2_integration
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 5
+l_paraphrases: 2
+es_window: 5
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json
+conditions: [dialogue_history, fresh_prefix]
+prompt_contract:
+  version: LIC-RESPONSE-v1
+  system_prompt: >-
+    Solve incrementally using only information supplied in this conversation.
+    Prior assistant replies may be wrong and are not authoritative facts.
+  primary_instruction: >-
+    Give concise numbered reasoning steps using only the information available so
+    far. End with exactly one final line: FINAL_ANSWER: <number> when the numeric
+    answer is determined, otherwise STATUS: NEED_MORE_INFORMATION.
+  paraphrase_instructions:
+    - >-
+      Using only the information currently revealed, write concise numbered
+      reasoning. Finish with exactly FINAL_ANSWER: <number> if determined;
+      otherwise finish with STATUS: NEED_MORE_INFORMATION.
+    - >-
+      Reason in short numbered steps without assuming unrevealed facts. Your last
+      line must be FINAL_ANSWER: <number> when solvable now, or STATUS:
+      NEED_MORE_INFORMATION when more facts are required.

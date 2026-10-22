@@ -1,0 +1,13 @@
+protocol_id: CDR-six-metric-calibration-v1
+base_config: configs/controlled_dialogue_v1_4_replication_asu.yaml
+base_sha256: 3ec7891dd4fe414cd5060dbe34ebc348962077471fd6a471b8d70c1e65272a30
+k_repeats: 5
+l_paraphrases: 2
+temperature: 0.7
+output_dir: results/dialogue_six_metrics_calibration
+# The existing bank has two frozen variants. This differs from proposal L=3.
+# K includes the primary sample; 5+2=7 calls per model/condition/turn.
+# No historical temperature-zero responses are mixed into this experiment.
+metric_window: 5
+sampling_probe_cells_per_model: 2
+minimum_distinct_probe_responses_per_cell: 2

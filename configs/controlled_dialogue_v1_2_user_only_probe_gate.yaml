@@ -1,0 +1,20 @@
+protocol_id: CDR-v1.2
+stage: user_only_history_mechanism_probe_preflight
+paid_calls_authorized: false
+
+expected_sha256:
+  configs/controlled_dialogue_v1_2_user_only_probe_asu.yaml: 90ee4a839d9a5a0341d93771c8a971bba9a27ab97a84d4483473f4a2533d6f73
+  configs/controlled_dialogue_v1_2_user_only_analysis_gate.yaml: 10b05dda20dc56ef244d2e5505bcc76579bc4b963229987cfa206e7d8bc60ea5
+  configs/selections/controlled_dialogue_stream_v1.json: f18be9c6bddb2b9798cf1cebca3a7f1fda5226a6cce2b001278f7a20188f46c6
+  src/reasoning_monitor/user_only_dialogue_experiment.py: c8078e81d70c7a5374b3af7f21f44a30233311d7fb927df7a69647c52938d642
+  src/reasoning_monitor/evaluation/user_only_mechanism.py: af4ce808f1f0e31352dac6ddbbc34a90882ed2bb04856eba4a9cb6d59d7ad3ea
+  scripts/run_user_only_history_probe.py: 69a30a735d9ae1bfd2587c53921763ec3f6a2368b574d04dd1b3e8345a0fc8c6
+  scripts/assess_user_only_history_probe.py: 190480a8e2baee1d333ec013d8ac014375c0df3c53487977072db55be97da5c7
+  scripts/estimate_user_only_history_campaign.py: 5400d835922be0c5639a033119bc70d64e3eb41bdf55545be68323c68344c31c
+  scripts/preflight_user_only_history_probe.py: b79c51d88ad410aeb8f9c8047248cd17cc6c2905a18e0edb0331bd8a1fbb5cd9
+
+pass_authorizes: >-
+  Explicit investigator consideration of the fresh 72-call calibration-only
+  CDR-v1.2 user-only-history mechanism arm. It does not itself authorize paid
+  calls, development or holdout access, or a scientific context-degradation,
+  error-propagation or early-warning claim.

@@ -1,0 +1,30 @@
+protocol_id: DBQR-RQ-v1.1
+stage: corrected_plan_contract_probe
+execution_authorized: false
+outcome: completed_failed_2026_10_01
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+temperature: 0.7
+max_output_tokens: 2048
+max_retries: 2
+qid: chat-4-01/question-01
+framing_variants:
+  - base
+  - "Independently solve the same request while preserving every constraint."
+expected_calls: 6
+minimum_valid_plans_per_model: 2
+maximum_truncations: 0

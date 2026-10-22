@@ -1,0 +1,22 @@
+protocol_id: CDR-v1.1a
+expected_model: llama4_scout
+expected_dialogue_id: cdr-v1-cohort-001
+expected_condition: self_history
+expected_turn: 2
+expected_gold_answer: "122"
+minimum_success_rate: 1.0
+minimum_accuracy: 1.0
+minimum_strict_final_marker_rate: 1.0
+maximum_truncations: 0
+maximum_token_ceiling_hits: 0
+
+expected_sha256:
+  configs/controlled_dialogue_v1_1_transport_retry_asu.yaml: e9f9e8355b1263b8282a755292b66dd1ce887d83a60e913709ad2b71b96857b0
+  scripts/retry_dialogue_history_transport.py: e010db6b00f02aaaa5715cfd6029d2389748a2990dd9ed9ba88f7e7825396ca3
+  scripts/assess_dialogue_history_transport_retry.py: bd1a7bb2c49368bef4a1774c9f38db96dd0361f7783d39bf64ff305c5a35f181
+  scripts/preflight_dialogue_history_transport_retry.py: 917f949d6d17de31a6c6f49272bbb5f9a9bb7b6e2244a075ad8d3847d167239d
+
+pass_authorizes: >-
+  Treating packed transport as operationally feasible and preparing a fresh,
+  call-free CDR-v1.1 calibration pilot configuration. It does not authorize
+  that paid pilot, development or holdout access, or a scientific claim.

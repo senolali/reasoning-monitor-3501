@@ -1,0 +1,30 @@
+analysis: cdr_v1_2_user_only_capacity_sensitivity_diagnostic
+post_hoc_descriptive: true
+claim_supporting_analysis: false
+expected_models: [gpt4o_mini, llama4_scout]
+max_output_tokens: 512
+minimum_history_load_gap: 0.10
+maximum_one_sided_exact_p: 0.05
+minimum_failure_dialogues: 2
+
+source_assessment:
+  path: results/controlled_dialogue_v1_2_user_only_probe/data/user_only_history_assessment.json
+  sha256: 8dbc56d4551c87a4400da89d50bed6ed560b1850a62ba0aaebe5cc8b31856347
+
+user_only_records:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_2_user_only_probe/data/records_CDR12_user_only_gpt4o_mini.jsonl
+    sha256: 2e56a516502f108906b8414de38322dd07c7d62cf5a4cf016393ddbf6de93304
+  llama4_scout:
+    path: results/controlled_dialogue_v1_2_user_only_probe/data/records_CDR12_user_only_llama4_scout.jsonl
+    sha256: 9f27da7a601a4cda1412af627153c72e9a62860aeab84bd71d14036c59c6d7a1
+
+existing_packed_pilot_records:
+  gpt4o_mini:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_gpt4o_mini.jsonl
+    sha256: 6e5bb23fd48a20b7d0917bbd168b7f0886ca9eac09daa8ed5e9bfd9606b3139b
+  llama4_scout:
+    path: results/controlled_dialogue_v1_1_pilot/data/records_CDR11_llama4_scout.jsonl
+    sha256: 55711e9c016c47abb9ca5e052f34607da5361af63800f2d9de6607582532081e
+
+output_path: results/controlled_dialogue_v1_2_user_only_probe/data/user_only_capacity_diagnostic.json

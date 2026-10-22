@@ -1,0 +1,27 @@
+# Frozen before any Section 66 target-model response.
+section: 66
+expected_models: [gpt4o_mini, llama4_scout]
+expected_provider_models:
+  gpt4o_mini: openai/gpt4o_mini
+  llama4_scout: aws/llama4_scout-17b
+expected_prompt_mode: answer_last_stress
+expected_seed: 42
+expected_window_size: 5
+expected_queries_per_model: 15
+expected_queries_per_dataset: 5
+expected_sequence_sha256: 9ef33e895ac902ea42383e30f4812231c76297635f468c8c91a1fb4d5333d1a5
+expected_paraphrase_bank_sha256: 6a3e426f713b98e2c02d43640154b9ec7848a6f427e6d1f819dbaa795ae30a7f
+expected_k_repeats: 1
+expected_l_paraphrases: 3
+expected_records_per_model: 60
+max_output_tokens: 2048
+minimum_success_rate: 1.0
+minimum_strict_marker_rate: 1.0
+minimum_stored_answer_agreement_rate: 1.0
+maximum_truncations: 0
+maximum_step_contract_violations: 0
+forbid_code_fences: true
+minimum_rs_evaluable: 6
+minimum_rs_evaluable_per_dataset: 1
+minimum_rs_unique_values: 2
+pass_authorizes: planning of a fresh holdout metric-health protocol; it does not authorize the full 90-question campaign

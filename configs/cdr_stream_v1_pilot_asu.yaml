@@ -1,0 +1,47 @@
+protocol_id: CDR-Stream-v1-pilot
+stage: technical_pilot
+# Technical pilot (step 4 of CDR_STREAM_DESIGN): one calibration-split S1
+# staircase dialogue per core model, full 100 turns, K=3, L=2, control arm.
+# Technical gate only (contract validity, truncation, context, K diversity,
+# output length, timing, resume); accuracy and effects are not read, and the
+# pilot dialogues are never part of the main sample. Paid execution is locked.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gate_failed_llama_k_diversity
+authorization_recorded_at: "2026-10-03"
+authorization_scope: technical_pilot_1800_calls_only
+ladder_version: v2
+bank_path: configs/selections/cdr_stream_v1_bank_v2.json
+bank_sha256: bf3799d4d6fda5dbc354b54a9627bd4745160c2e097f160ece60bd9154195e53
+mappings_path: results/cdr_stream_v1_mappings.json
+mappings_sha256: 9a63512bde255b96394d3dc31ca365daf57644ee5e38e0f80b95b9a867db6571
+manifest_path: results/cdr_stream_v1_prep/manifest_pilot.json
+manifest_sha256: 5907e6d8ccbd362df3668d51da50145e17e217aefd59e8cc0abfeca13c86a0a4
+output_dir: results/cdr_stream_v1_pilot
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 3
+l_paraphrases: 2
+control_calls: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Not part of the fingerprint.
+workers: 16
+tokens_per_minute: 600000   # 80% of the documented 750k project limit
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+    send_seed: true
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+    send_seed: true
+  - name: gemma3_12b_it
+    provider_model: aws/gemma3_12b_it
+    probe: results/probe_gemma3_12b_it_production.json
+    send_seed: true

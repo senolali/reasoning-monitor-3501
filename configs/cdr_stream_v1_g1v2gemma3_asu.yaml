@@ -1,0 +1,42 @@
+protocol_id: CDR-Stream-v1-G1v2gemma3
+stage: g1v2gemma3_single_turn_difficulty_calibration
+g1_version: v2gemma3
+# Third core model after Gemma 4 31B was not retained (ceiling: no hard-band
+# level up to level 14). Investigator decision 2026-10-03: Gemma 3 12B IT
+# (open weights, Google family, 128k context), chosen from calibration data
+# only (no stream result exists). Identical frozen items, prompt, v2 ladder,
+# targets, bands, gaps, trend test and exclusion rule; all four final templates.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gemma3_retained
+authorization_recorded_at: "2026-10-03"
+authorization_scope: gemma3_probe_1_call_and_1440_primary_calls_smoke_first
+g1b_execution_authorized: false
+g1b_cells: []
+items_path: configs/selections/cdr_stream_v1_g1v2ext_items.json
+items_sha256: d943ab9f0263bb815f1874119b94164354751be807657ddec7e178ff014dbed8
+combine_with:
+  - results/cdr_stream_v1_g1v2/assessment.json
+  - results/cdr_stream_v1_g1v2ext/assessment.json
+mappings_output: results/cdr_stream_v1_mappings.json
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1v2gemma3
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls (ASU allows 8; 16 worked for G1). Not in the fingerprint.
+workers: 8
+order_seed: 20261011
+models:
+  - name: gemma3_12b_it
+    provider_model: aws/gemma3_12b_it
+    probe: results/probe_gemma3_12b_it_production.json
+    templates: [budget_ledger, inventory_logistics, lab_protocol, milestone_chains]
+    # Try the per-call seed; if rejected, the smoke trips the breaker.
+    send_seed: true

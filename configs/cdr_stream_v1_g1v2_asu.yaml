@@ -1,0 +1,45 @@
+protocol_id: CDR-Stream-v1-G1v2
+stage: g1v2_single_turn_difficulty_calibration
+g1_version: v2
+# Successor to the failed G1 v1 (see CDR_STREAM_G1_PROTOCOL.md). Same prompt,
+# targets, bands, gaps, trend test and exclusion rule as v1; only the
+# instrument changed (v2 ladder, >= 2 query terms, schedule finish days).
+# Paid execution is locked; G1 v2 and its conditional G1b each need explicit
+# investigator approval recorded here and in AGENTS.md.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03
+authorization_recorded_at: "2026-10-03"
+authorization_scope: g1v2_primary_4320_calls_only_smoke_first
+g1b_execution_authorized: false
+# Pre-stated Mistral rule (investigator option a, 2026-10-03): if mistral_7b is
+# not retained under the frozen rule in G1 v2, it is replaced (option b) by a
+# separately approved substitute model; no further Mistral prompt or ladder work.
+mistral_fallback_rule: replace_if_not_retained
+g1b_cells: []
+items_path: configs/selections/cdr_stream_v1_g1v2_items.json
+items_sha256: d8cb886ef69a0b81f2d78951b625322c43a00a21ca3a783d844dfb9d168790a6
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1v2
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls (ASU allows 8). Not part of the fingerprint.
+workers: 8
+order_seed: 20261008
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json

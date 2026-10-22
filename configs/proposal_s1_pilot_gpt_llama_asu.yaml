@@ -1,0 +1,59 @@
+# Proposal-faithful S1 calibration pilot. This is isolated from the frozen
+# E2H-GSM8K design and uses real benchmark data only.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_pilot_gpt_llama
+stream_design: proposal_multidataset
+datasets: [gsm8k, arc_challenge, math]
+allow_synthetic_datasets: false
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: 30
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [10]
+guard: 3
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# This first gate mirrors the latest cross-model calibration: CQ only is used
+# for the methodological decision. K/L metrics emitted by the framework are
+# not interpreted when K=1 and L=0.
+k_repeats: 1
+l_paraphrases: 0
+use_rqeval: true
+coherence_scorer: lexical
+stability_scorer: jaccard
+publication_mode: false
+fail_on_degenerate: false
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0

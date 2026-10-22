@@ -1,0 +1,55 @@
+# Real-model infrastructure and metric-health pilot. This is not a scientific
+# drift result: ST3 is stationary and each stream is capped at 12 queries.
+seed: 42
+seeds: [42]
+output_dir: results/live_pilot
+datasets: [gsm8k]
+replication_dataset: null
+run_replication: false
+items_per_dataset: 90
+max_queries_per_scenario: 12
+scenarios: [ST3]
+window_sizes: [5]
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+k_repeats: 5
+l_paraphrases: 3
+use_rqeval: true
+coherence_scorer: nli
+stability_scorer: bertscore
+publication_mode: true
+fail_on_degenerate: false
+
+models:
+  - backend: openai_compatible
+    name: gpt5_5
+    model: openai/gpt5_5
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt:
+        time: false
+        date: false
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: claude5_sonnet
+    model: aws/claude5_sonnet
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt:
+        time: false
+        date: false
+    max_retries: 4
+    backoff_base: 1.0

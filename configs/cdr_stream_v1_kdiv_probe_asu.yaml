@@ -1,0 +1,35 @@
+protocol_id: CDR-Stream-v1-kdiv-probe
+# Option A after the technical pilot failed on Llama-4 Scout (aws) K diversity.
+# Replays the identical pilot prompts of the Llama dialogue at 30 fixed turns
+# against the ASU-hosted endpoint, K=3, distinct seeds; compares raw-text
+# diversity with the aws repeats already recorded in the pilot. Technical only.
+# Gate (frozen before execution): candidate K diversity >= 0.80 on the 30
+# turns, contract validity >= 0.90, zero truncation, all calls complete.
+# A pass authorizes only preparation of a Llama G1 recalibration on this
+# endpoint (same frozen items and rule) and a Llama-only fresh pilot.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gate_failed
+authorization_recorded_at: "2026-10-03"
+authorization_scope: kdiv_probe_90_calls_asuair_llama_only
+pilot_config: configs/cdr_stream_v1_pilot_asu.yaml
+pilot_records_sha256: e227cf8a903bba755a32bec4d371afa8c7f3709a5e552afacaa68eff362f6ef6
+pilot_model: llama4_scout
+turns: [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88]
+k: 3
+candidate:
+  name: llama4_scout_asuair
+  provider_model: asu-air/llama4_scout-17b
+  probe: results/probe_llama4_scout_asuair_production.json
+  send_seed: true
+gate_k_diversity: 0.80
+gate_contract_validity: 0.90
+output_dir: results/cdr_stream_v1_kdiv_probe
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+workers: 8

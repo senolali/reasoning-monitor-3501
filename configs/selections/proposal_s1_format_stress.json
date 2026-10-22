@@ -1,0 +1,20 @@
+{
+  "analysis": "section59_proposal_s1_format_stress_selection",
+  "created_at": "2026-09-21",
+  "selection_rule": "All four Section 58 format/truncation failure QIDs plus the first six remaining MATH QIDs in historical S1 order",
+  "source_stream": "results/proposal_s1_answer_last_validation/data/records_S1_gpt4o_mini_seed42_W10.jsonl",
+  "source_stream_sequence_sha256": "791e6090518090213559432c62ad2d6fe7a30588311f3a9cf816276f63a78cca",
+  "selected_sequence_sha256": "1a71ba588cd589bb0a07a1801d9a16c518c31e6066d44a0371e439e789213a37",
+  "sequence": [
+    {"dataset": "math", "qid": "math-prealgebra-00041", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-precalculus-00038", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-geometry-00020", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-precalculus-00021", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-prealgebra-00002", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-number_theory-00038", "selection_role": "control"},
+    {"dataset": "math", "qid": "math-precalculus-00037", "selection_role": "section58_failure"},
+    {"dataset": "math", "qid": "math-intermediate_algebra-00000", "selection_role": "section58_failure"},
+    {"dataset": "math", "qid": "math-precalculus-00035", "selection_role": "section58_failure"},
+    {"dataset": "math", "qid": "math-intermediate_algebra-00026", "selection_role": "section58_failure"}
+  ]
+}

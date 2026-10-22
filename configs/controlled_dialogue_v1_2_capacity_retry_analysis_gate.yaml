@@ -1,0 +1,24 @@
+protocol_id: CDR-v1.2a
+stage: exact_message_capacity_retry_analysis
+expected_models: [gpt4o_mini, llama4_scout]
+expected_retry_counts:
+  gpt4o_mini: 3
+  llama4_scout: 7
+expected_records_per_model: 36
+max_output_tokens: 1024
+minimum_success_rate: 1.0
+minimum_strict_final_marker_rate: 1.0
+minimum_stored_answer_agreement_rate: 1.0
+maximum_truncations: 0
+maximum_token_ceiling_hits: 0
+
+# Reuses the original CDR-v1.2 mechanism thresholds for sensitivity only.
+minimum_history_load_gap: 0.10
+maximum_one_sided_exact_p: 0.05
+minimum_user_only_failure_dialogues: 2
+
+pass_authorizes: >-
+  Capacity-adjusted classification of the frozen CDR-v1.2 mechanism result and
+  a call-free decision about whether to prepare a larger calibration design.
+  It does not rescue the original failed gate, authorize further paid calls,
+  development or holdout access, or support a scientific claim.

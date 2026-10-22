@@ -1,0 +1,90 @@
+protocol_id: RAT-v1
+title: Risk-adjusted prospective reasoning-failure forecasting
+status: DESIGN_ONLY_NO_MODEL_CALLS
+separate_from_section_chain: true
+
+benchmark:
+  bank_path: configs/selections/risk_adjusted_trajectory_v1_items.json
+  generator_version: controlled-trajectories-v1
+  seed: 20260926
+  templates: [arithmetic_chain, shortest_path, precedence_schedule]
+  families_per_template: 20
+  levels: 6
+  level_sizes:
+    arithmetic_chain: [2, 4, 7, 11, 16, 22]
+    shortest_path: [5, 7, 10, 14, 19, 25]
+    precedence_schedule: [5, 7, 10, 14, 19, 25]
+  split_families_per_template:
+    calibration: 8
+    development: 6
+    holdout: 6
+  nesting_required: true
+  exact_solver_gold_required: true
+  family_level_split_required: true
+
+measurement:
+  primary_outcome: first_CQ_failure_at_next_level
+  primary_predictors: [RS, LS, ES]
+  core_k_repeats: 1
+  core_l_paraphrases: 3
+  semantic_answer_policy: configs/semantic_answer_policy_v1.yaml
+  answer_contract: bounded_reasoning_then_plain_integer_final_line
+  optional_metrics: [CS, SS]
+  optional_metric_rule: >-
+    CS and SS enter confirmatory analysis only for provider-model cells that
+    pass a prospectively frozen K-repeat diversity capability gate.
+
+analysis:
+  implementation: src/reasoning_monitor/evaluation/risk_adjusted_trajectory_analysis.py
+  risk_set: >-
+    A model-family trajectory remains at risk only while all preceding levels
+    have CQ=1; metrics at level t forecast first CQ failure at level t+1.
+  baseline_predictors: [trajectory_level, task_template, model]
+  full_predictors: [trajectory_level, task_template, model, RS, LS, ES]
+  estimator: discrete_time_hazard_logistic_ridge
+  ridge_c_grid: [0.01, 0.1, 1.0, 10.0]
+  grouping_unit: family_id
+  development_validation: grouped_nested_cross_validation
+  grouped_cv_outer_splits: 4
+  grouped_cv_inner_splits: 3
+  confirmatory_split: holdout
+  primary_score: family_clustered_holdout_log_loss_improvement
+  family_bootstrap_iterations: 2000
+  random_seed: 20260926
+  alpha: 0.05
+  secondary_scores: [brier_improvement, AUPRC_improvement, calibration, lead_level]
+  primary_claim_rule: >-
+    The early-warning claim is supported only if the full model improves
+    holdout log loss over the baseline with a family-cluster bootstrap 95%
+    interval above zero in at least two preregistered models. Thresholds and
+    predictors are frozen before opening holdout outcomes.
+  multiplicity: Holm correction across preregistered model-specific primary tests
+
+calibration_gate:
+  implementation: src/reasoning_monitor/evaluation/risk_adjusted_trajectory_calibration.py
+  thresholds: configs/risk_adjusted_trajectory_v1_calibration_analysis_gate.yaml
+  minimum_passing_models: 2
+  purpose: operational_integrity_event_density_and_predictor_health_only
+
+models:
+  status: candidate_only
+  planned:
+    - {name: gpt4o_mini, provider_model: openai/gpt4o_mini}
+    - {name: llama4_scout, provider_model: aws/llama4_scout-17b}
+    - {name: mistral_7b, provider_model: aws/mistral-7b}
+  note: >-
+    Inclusion in the design does not authorize calls. Each endpoint must first
+    pass the existing gateway controls and a new operational calibration gate.
+
+execution:
+  paid_calls_authorized: false
+  current_stage: structural_preflight
+  next_authorizable_stage: calibration_split_only
+  calibration_requires_explicit_user_approval: true
+  resume_required: true
+  raw_records_first: true
+
+reporting:
+  retain_section69_decision: true
+  do_not_relabel_historical_gates: true
+  null_result_language: unsupported_not_disproven

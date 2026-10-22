@@ -1,0 +1,105 @@
+protocol_id: CDR-v1.2a
+stage: exact_message_capacity_retry
+seed: 20260928
+original_max_tokens: 512
+retry_max_tokens: 1024
+expected_total_calls: 10
+maximum_output_token_ceiling: 10240
+resume: true
+output_dir: results/controlled_dialogue_v1_2_capacity_retry
+
+source_assessment:
+  path: results/controlled_dialogue_v1_2_user_only_probe/data/user_only_history_assessment.json
+  sha256: 8dbc56d4551c87a4400da89d50bed6ed560b1850a62ba0aaebe5cc8b31856347
+source_diagnostic:
+  path: results/controlled_dialogue_v1_2_user_only_probe/data/user_only_capacity_diagnostic.json
+  sha256: 4d730828f96008315c6564c156c7513a615cb69f79559769ca675145810ebf25
+
+models:
+  gpt4o_mini:
+    source_path: results/controlled_dialogue_v1_2_user_only_probe/data/records_CDR12_user_only_gpt4o_mini.jsonl
+    source_sha256: 2e56a516502f108906b8414de38322dd07c7d62cf5a4cf016393ddbf6de93304
+    expected_calls: 3
+    client:
+      backend: openai_compatible
+      name: gpt4o_mini
+      model: openai/gpt4o_mini
+      base_url: https://api-main.aiml.asu.edu/v1
+      api_key_env: ASU_API_KEY
+      temperature: 0.0
+      max_tokens: 1024
+      request_options:
+        enable_history: false
+        enable_search: false
+        enhance_prompt: {time: false, date: false}
+      max_retries: 4
+      backoff_base: 1.0
+    production_probe:
+      path: results/probe_gpt4o_mini_production.json
+      sha256: 7ea55e3a9b8b6d4b5ee12fc95956ac5624982e69518e3fbd5f20ed1df3f4fe6c
+      provider_model: openai/gpt4o_mini
+    targets:
+      - qid: cdr-v1-budget-001-T11
+        gold_answer: "76000"
+        messages_sha256: 474bd9853fa0e83db3d75523aaa4764376581a4ffd0e35fab6cc9af02d9800e3
+        call_seed: 20261038
+      - qid: cdr-v1-budget-001-T12
+        gold_answer: "69500"
+        messages_sha256: 0afc0c3e3144b2cc1ba36b6ead28c58d3ef0111c0a4bcd858b5a3e1759b33bc8
+        call_seed: 20261048
+      - qid: cdr-v1-incident-001-T06
+        gold_answer: "37"
+        messages_sha256: 8ac3510457c683d5ff402f3b303724e59793e53447ac4f258478f97b58971170
+        call_seed: 20270988
+
+  llama4_scout:
+    source_path: results/controlled_dialogue_v1_2_user_only_probe/data/records_CDR12_user_only_llama4_scout.jsonl
+    source_sha256: 9f27da7a601a4cda1412af627153c72e9a62860aeab84bd71d14036c59c6d7a1
+    expected_calls: 7
+    client:
+      backend: openai_compatible
+      name: llama4_scout
+      model: aws/llama4_scout-17b
+      base_url: https://api-main.aiml.asu.edu/v1
+      api_key_env: ASU_API_KEY
+      temperature: 0.0
+      max_tokens: 1024
+      request_options:
+        enable_history: false
+        enable_search: false
+        enhance_prompt: {time: false, date: false}
+      max_retries: 4
+      backoff_base: 1.0
+    production_probe:
+      path: results/probe_llama4_scout_production.json
+      sha256: 8d0731c9e640e7e587799acffc8f6aa5d9be46fc7f96be4c12a67602567a27ea
+      provider_model: aws/llama4_scout-17b
+    targets:
+      - qid: cdr-v1-budget-001-T08
+        gold_answer: "73500"
+        messages_sha256: cb0479c3393fedb9bad9c5bbbcdbb9362cbae0f4789f1ca226a67f1d809033da
+        call_seed: 20261008
+      - qid: cdr-v1-budget-001-T10
+        gold_answer: "74500"
+        messages_sha256: 3fbea83fc1372dab5da4dc630b44a508c032675b65187564548a6c3ba02d7e0f
+        call_seed: 20261028
+      - qid: cdr-v1-budget-001-T11
+        gold_answer: "76000"
+        messages_sha256: 474bd9853fa0e83db3d75523aaa4764376581a4ffd0e35fab6cc9af02d9800e3
+        call_seed: 20261038
+      - qid: cdr-v1-budget-001-T12
+        gold_answer: "69500"
+        messages_sha256: 0afc0c3e3144b2cc1ba36b6ead28c58d3ef0111c0a4bcd858b5a3e1759b33bc8
+        call_seed: 20261048
+      - qid: cdr-v1-incident-001-T10
+        gold_answer: "57"
+        messages_sha256: c214b6fad588a598ff903bd0449ba2141f86dfdba3d09b2aa465bee8e2252cf9
+        call_seed: 20271028
+      - qid: cdr-v1-cohort-001-T08
+        gold_answer: "118"
+        messages_sha256: bd239e7b2e58a0270e5ed3b4e47f8c5b51818c32da299078246e7fb6e831305b
+        call_seed: 20281008
+      - qid: cdr-v1-cohort-001-T11
+        gold_answer: "123"
+        messages_sha256: 90d87ae740b6d037989f6935c059ba0c11ea95ad60267b82efc8ab4fc8901c04
+        call_seed: 20281038

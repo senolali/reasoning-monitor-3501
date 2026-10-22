@@ -1,0 +1,64 @@
+# Frontier-model external-validation run through the ASU gateway. This is not
+# the accepted proposal's main GPT-4o-mini/Llama-3-8B/Mistral-7B factorial set.
+# Set the API key in the environment first:  export ASU_API_KEY=...
+#
+# Cost warning: each query costs K + L calls (default 5 + 3 = 8). A 150-query
+# scenario across 2 models is ~2,400 calls. Start with `items_per_dataset: 50`.
+#
+# TEMPERATURE — decide this before spending anything.  CS and SS are defined
+# over K repeated calls on the same prompt.  At temperature 0 those K calls are
+# identical by construction, so CS = SS = 1.0 whatever the model does, and K-1
+# of every K calls are paid for nothing.  `preflight()` refuses this combination
+# in publication_mode and warns otherwise.  Either raise the temperature for the
+# repeats (self-consistency convention: ~0.7) or set k_repeats: 1 and drop CS/SS
+# from the run.  Whichever you choose goes in DEVIATIONS and in the manifest.
+#
+# Run scripts/probe_gateway.py before adding ASU-specific request_options.
+# The probe is a dry run unless --execute is explicitly supplied; do not assume
+# enable_history / enable_search / enhance_prompt are supported until verified.
+
+seed: 42
+seeds: [42, 43, 44, 45, 46]
+output_dir: results/live
+run_replication: false
+items_per_dataset: 100
+# ST2 = the composition shift under test, ST3 = the stationary Easy control it
+# is interpreted against.  (S1/S2/S4 were pre-v0.2.0 names: this file could not
+# be loaded at all until v0.2.1.)
+scenarios: [ST2, ST3]
+window_sizes: [20]
+run_ablation: false
+resume: true
+coherence_scorer: lexical
+
+models:
+  - backend: openai_compatible
+    name: gpt5_5
+    model: openai/gpt5_5
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7      # see the TEMPERATURE note above before changing
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt:
+        time: false
+        date: false
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: claude5_sonnet
+    model: aws/claude5_sonnet
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7      # see the TEMPERATURE note above before changing
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt:
+        time: false
+        date: false
+    max_retries: 4
+    backoff_base: 1.0

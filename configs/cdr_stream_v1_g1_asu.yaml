@@ -1,0 +1,39 @@
+protocol_id: CDR-Stream-v1-G1
+stage: g1_single_turn_difficulty_calibration
+# Paid execution is locked. G1 (2,880 calls) and the conditional G1b each need
+# a separate explicit investigator approval recorded here and in AGENTS.md.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03
+authorization_recorded_at: "2026-10-03"
+authorization_scope: g1_primary_2880_calls_only
+g1b_execution_authorized: false
+# Filled mechanically by the frozen rule after G1; never edited by hand.
+g1b_cells: []
+items_path: configs/selections/cdr_stream_v1_g1_items.json
+items_sha256: f8ea8b9329c10241bfaed9032eb8d5566123324737fd0777e1ece8d5c9a309da
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls (ASU allows 8). Not part of the fingerprint: it does not
+# change any request, seed or record; only the order calls complete in.
+workers: 8
+order_seed: 20261006
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json

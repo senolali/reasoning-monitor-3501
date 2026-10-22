@@ -1,0 +1,15 @@
+# Frozen before any Section 54 validation response is generated or inspected.
+section: 54
+expected_model: gpt4o_mini
+expected_queries_per_tier: 20
+max_output_tokens: 1024
+minimum_success_rate: 1.0
+minimum_valid_choice_rate: 1.0
+minimum_final_choice_marker_rate: 0.95
+minimum_first_line_marker_rate: 0.95
+minimum_easy_hard_gap: 0.20
+minimum_tier_accuracy: 0.10
+maximum_tier_accuracy: 0.90
+require_monotonic_nonincreasing: true
+maximum_one_sided_trend_p: 0.05
+

@@ -1,0 +1,55 @@
+protocol_id: CDR-Stream-v1-G1v2llama3-70b
+stage: g1v2llama3_70b_single_turn_difficulty_calibration
+g1_version: v2llama3_70b
+# Llama replacement. The technical pilot failed only on Llama-4 Scout K-repeat
+# diversity (0.38). Scout aws/asu-air and Maverick aws/asu-air all failed the same
+# frozen 90-call K-diversity probe (0.53/0.50/0.63/0.70). Llama-3 70B passed it
+# (1.000, validity 0.967, no truncation) after a context-capacity probe showed the
+# full 100-turn history is accepted; Llama-3 8B failed (0.633). Chosen from
+# technical probes only (no stream accuracy was read). Identical frozen items,
+# prompt, v2 ladder, targets, bands, gaps, trend test and exclusion rule; all four
+# final templates. --combine writes a NEW mappings file in which Llama-3 70B
+# replaces Llama-4 Scout; GPT-4o-mini and Gemma 3 mappings are carried over
+# unchanged and the original mappings file is never modified.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_not_retained_one_truncation
+authorization_recorded_at: "2026-10-03"
+authorization_scope: llama3_70b_1440_primary_calls_smoke_first
+g1b_execution_authorized: false
+g1b_cells: []
+items_path: configs/selections/cdr_stream_v1_g1v2ext_items.json
+items_sha256: d943ab9f0263bb815f1874119b94164354751be807657ddec7e178ff014dbed8
+combine_with:
+  - results/cdr_stream_v1_g1v2/assessment.json
+  - results/cdr_stream_v1_g1v2ext/assessment.json
+  - results/cdr_stream_v1_g1v2gemma3/assessment.json
+drop_models:
+  llama4_scout: "stream technical pilot failed K-repeat diversity (0.38); replaced by Llama-3 70B (CDR_STREAM_DESIGN §15-§19)"
+mappings_output: results/cdr_stream_v1_mappings_llama3.json
+protocol_path: CDR_STREAM_G1_PROTOCOL.md
+output_dir: results/cdr_stream_v1_g1v2llama3_70b
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+k_repeats: 1
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 4
+# Parallel API calls. Not in the fingerprint.
+workers: 8
+order_seed: 20261011
+models:
+  - name: llama3_70b
+    provider_model: aws/llama3-70b
+    probe: results/probe_llama3_70b_production.json
+    templates: [budget_ledger, inventory_logistics, lab_protocol, milestone_chains]
+    send_seed: true
+# Post-hoc investigator deviation (2026-10-03; DEVIATIONS_FROM_PROPOSAL, first
+# entry): the single 2,048-token truncation (milestone_chains/L09/SHARE/01, a
+# template excluded for this model on accuracy) does not remove Llama-3 70B.
+# Applied only in --combine; the saved assessment is unchanged.
+operational_overrides:
+  llama3_70b: "investigator deviation 2026-10-03: 1/1440 truncation, in a template excluded for this model; not a loop"

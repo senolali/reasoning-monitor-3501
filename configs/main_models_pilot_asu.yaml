@@ -1,0 +1,67 @@
+# Main-model methodology pilot using the three models named in the accepted
+# proposal. ASU-hosted endpoints are for pilot validation only; confirmatory
+# Llama-3-8B and Mistral-7B runs remain planned on the local GPU.
+seed: 42
+seeds: [42]
+output_dir: results/main_models_pilot
+datasets: [gsm8k]
+replication_dataset: null
+run_replication: false
+items_per_dataset: 120
+max_queries_per_scenario: null
+queries_per_regime: 12
+scenarios: [ST2, ST3, ST4, ST5]
+window_sizes: [5]
+guard: 2
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+k_repeats: 5
+l_paraphrases: 3
+use_rqeval: true
+coherence_scorer: nli
+stability_scorer: bertscore
+publication_mode: true
+fail_on_degenerate: false
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: mistral_7b
+    model: aws/mistral-7b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0

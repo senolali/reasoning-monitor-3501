@@ -1,0 +1,45 @@
+protocol_id: RAT-v1
+stage: calibration
+expected_config_sha256: 3b6ffe15e12056d8ddd0878cad5756b6fa96dd9815e316a38285cdf09ce98345
+expected_bank_sha256: 8404ed2743e2bdb61b004a6cb1f88fb2acfec60e3305270d183d857225016c31
+expected_semantic_policy_sha256: d823546b24df250c0f20fd7577e5ec04f94897616472a716dde2b5577e57db58
+
+expected_split: calibration
+expected_queries_per_model: 144
+expected_families: 24
+expected_families_per_template: 8
+expected_levels: [1, 2, 3, 4, 5, 6]
+expected_k_repeats: 1
+expected_l_paraphrases: 3
+expected_calls_per_model: 576
+expected_total_calls: 1728
+expected_max_tokens_per_call: 768
+expected_max_output_tokens: 1327104
+
+expected_provider_models:
+  gpt4o_mini: openai/gpt4o_mini
+  llama4_scout: aws/llama4_scout-17b
+  mistral_7b: aws/mistral-7b
+
+gateway_probes:
+  gpt4o_mini:
+    path: results/probe_gpt4o_mini_production.json
+    sha256: 7ea55e3a9b8b6d4b5ee12fc95956ac5624982e69518e3fbd5f20ed1df3f4fe6c
+  llama4_scout:
+    path: results/probe_llama4_scout_production.json
+    sha256: 8d0731c9e640e7e587799acffc8f6aa5d9be46fc7f96be4c12a67602567a27ea
+  mistral_7b:
+    path: results/probe_mistral_7b_production.json
+    sha256: a01d4347834195ea7e31038b6d162854a74d3762494ef2b11557913471f9716e
+
+expected_request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+
+paid_calls_authorized: false
+pass_authorizes: >-
+  Reporting calibration readiness and asking the investigator for explicit
+  execution approval. It does not authorize running the configuration,
+  inspecting development or holdout model outcomes, or changing the frozen
+  bank, prompts, models, scorers, token ceiling or analysis plan.

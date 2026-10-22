@@ -1,0 +1,88 @@
+# Full experimental configuration.
+# Every field here lands in results/manifest.json, so a run can be traced back
+# to the exact settings that produced it.
+
+seed: 42
+seeds: [42, 43, 44, 45, 46]
+output_dir: results/main
+
+datasets:
+  - gsm8k          # E2H-GSM8K: split into Easy/Medium/Hard terciles
+# replication_dataset (optional, external replication only):
+replication_dataset: arc_challenge
+run_replication: true
+replication_scenarios: [ST2, ST3, ST5]
+replication_seeds: [42, 43, 44]
+replication_items: 150
+items_per_dataset: 300
+
+scenarios: [ST1, ST2, ST3, ST4, ST5, ST6]
+window_sizes: [20]
+ablation_window_sizes: [10, 20, 30]
+run_ablation: true
+run_strategy_comparison: true   # H2: distribution_based vs proposal_mapping vs adwin_all
+
+alpha: 0.05
+guard: 5
+
+# "lexical" needs no extra dependencies; "nli" uses DeBERTa-v3-small as
+# specified in the proposal and requires the [nli] extra. The two are not
+# comparable, so the choice is recorded in the manifest.
+coherence_scorer: lexical
+stability_scorer: auto
+
+# K repeated calls (CS, SS) and L paraphrases (RS) per query. These now reach
+# the metrics from here; before v0.2.1 they were fixed at the MonitorConfig
+# defaults and adding them to this file raised TypeError.
+k_repeats: 5
+l_paraphrases: 3
+
+# publication_mode requires coherence_scorer=nli, stability_scorer=bertscore and
+# use_rqeval=true, and turns preflight warnings (silent scorer fallback, K
+# repeats at temperature 0) and constant metrics into hard errors.
+publication_mode: false
+
+# Detector assignment strategy — three experimental arms for H2 ablation:
+#   distribution_based : theory-derived (Beta→CUSUM, Normal→EWMA, etc.)
+#   proposal_mapping   : as stated in the project proposal
+#   adwin_all          : ADWIN for all metrics (generic baseline)
+# Run all three to answer "which mapping gives best detection delay / F1?"
+detector_strategy: distribution_based
+
+models:
+  - backend: simulated
+    name: sim-strong
+    competence:
+      "math:base": 0.88
+      "math:easy": 0.93
+      "math:hard": 0.66
+      "science:base": 0.74
+      "science:easy": 0.80
+      "science:hard": 0.55
+      "commonsense:base": 0.77
+      "commonsense:easy": 0.83
+      "commonsense:hard": 0.58
+  - backend: simulated
+    name: sim-mid
+    competence:
+      "math:base": 0.78
+      "math:easy": 0.86
+      "math:hard": 0.48
+      "science:base": 0.60
+      "science:easy": 0.68
+      "science:hard": 0.38
+      "commonsense:base": 0.65
+      "commonsense:easy": 0.72
+      "commonsense:hard": 0.44
+  - backend: simulated
+    name: sim-small
+    competence:
+      "math:base": 0.62
+      "math:easy": 0.72
+      "math:hard": 0.30
+      "science:base": 0.48
+      "science:easy": 0.56
+      "science:hard": 0.25
+      "commonsense:base": 0.53
+      "commonsense:easy": 0.60
+      "commonsense:hard": 0.31

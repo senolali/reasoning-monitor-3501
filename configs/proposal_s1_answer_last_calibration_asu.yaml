@@ -1,0 +1,70 @@
+# HOLD FOR EXPLICIT EXECUTION: Section 57 answer-order calibration.
+# This does not replace or pool the failed Section 56 answer-first records.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_answer_last_calibration
+stream_design: proposal_answer_order_calibration
+datasets: [gsm8k, math]
+allow_synthetic_datasets: false
+dataset_selection_manifest: configs/selections/proposal_s1_answer_order_calibration.json
+dataset_selection_split: null
+dataset_prompt_mode: answer_last_bounded
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: 10
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [5]
+guard: 2
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# Prompt-order calibration only: 20 questions/model x two models = 40 calls.
+k_repeats: 1
+l_paraphrases: 0
+use_rqeval: false
+coherence_scorer: lexical
+stability_scorer: jaccard
+publication_mode: false
+fail_on_degenerate: false
+detector_strategy: proposal_mapping
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+    system_prompt: >-
+      Solve the problem before committing to an answer. Give at most six short
+      numbered reasoning steps. Put exactly one FINAL_ANSWER line last and write
+      nothing after it.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+    system_prompt: >-
+      Solve the problem before committing to an answer. Give at most six short
+      numbered reasoning steps. Put exactly one FINAL_ANSWER line last and write
+      nothing after it.
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+

@@ -1,0 +1,42 @@
+protocol_id: CDR-Stream-v1-kdiv-probe-maverick
+# Option E after both Llama-4 Scout endpoints failed K diversity (aws 0.53,
+# asu-air 0.50). The proposal commits to a Llama-family model; the ASU catalogue
+# offers Llama-3 8B/70B (8k context, infeasible for ~40k-token dialogue prompts)
+# and Llama-4 Maverick 17B (long context). This probe replays the identical
+# pilot prompts used for the Scout probe (same 30 turns, histories rebuilt from
+# the recorded Scout pilot primaries and hash-verified) against Maverick, K=3,
+# distinct seeds. Technical only; accuracy is not reported.
+# Gate (frozen before execution, same as the Scout probe): candidate K
+# diversity >= 0.80 on the 30 turns, contract validity >= 0.90, zero
+# truncation, all calls complete. A pass authorizes only preparation of a
+# Maverick G1 calibration (same frozen items and rule), then a Maverick-only
+# fresh pilot. A failure returns the decision to options C/D.
+execution_authorized: false
+outcome: completed_and_relocked_2026-10-03_gate_failed
+authorization_recorded_at: "2026-10-03"
+authorization_scope: kdiv_probe_90_calls_maverick_only
+pilot_config: configs/cdr_stream_v1_pilot_asu.yaml
+pilot_records_sha256: e227cf8a903bba755a32bec4d371afa8c7f3709a5e552afacaa68eff362f6ef6
+pilot_model: llama4_scout
+turns: [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55, 58, 61, 64, 67, 70, 73, 76, 79, 82, 85, 88]
+k: 3
+candidate:
+  name: llama4_maverick
+  provider_model: aws/llama4_maverick-17b
+  probe: results/probe_llama4_maverick_production.json
+  send_seed: true
+gate_k_diversity: 0.80
+gate_contract_validity: 0.90
+output_dir: results/cdr_stream_v1_kdiv_probe_maverick
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 2048
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+# Fewer workers and a 60 s minimum wait after HTTP 429 (lesson from the Scout probe).
+workers: 4
+max_retries: 6
+rate_limit_backoff_s: 65

@@ -1,0 +1,24 @@
+protocol_id: CDR-v1
+stage: context_effect_feasibility_pilot_preflight
+paid_calls_authorized: false
+expected_bank_canonical_sha256: 5386d4680e713bb5dc6acb77923b5e5f0bbbde68473c46f39cb5c719c778cedb
+
+expected_sha256:
+  CONTROLLED_DIALOGUE_PROTOCOL.md: cbdf2f1254246ac989d7db8f1ea43699ea33f3fd5f64d6e48de086e9b0871f25
+  configs/controlled_dialogue_v1.yaml: ca3bae8af441769d20594cbf9c6aacff6bee5f47e34bcca6a1f4eace0a367e27
+  configs/controlled_dialogue_v1_pilot_asu.yaml: 940f95ef20748b1698def9b03a82f2c150973b510676a169f812e7691eb64b31
+  configs/controlled_dialogue_v1_pilot_analysis_gate.yaml: 4e0240f65f803f6266667793157345a34ccc13e4728925b336b32c65ac786879
+  src/reasoning_monitor/data/dialogue_streams.py: cc46c8a89b20f4775caf1170f16ae6b00f4d6a6bb2771127e44ef3694dada717
+  src/reasoning_monitor/dialogue_experiment.py: 4c9edd78cb1160cbbc550f4202c73f8717caa08e266afcdae97295056086b63e
+  src/reasoning_monitor/models/clients.py: 12973f1c69e6fabd580cbd0456a74e2e274898f726b0a4708bb140b74c691be3
+  src/reasoning_monitor/evaluation/dialogue_pilot.py: ded1174b13c675c69172a17ab0acc8164aa16462e0fb2945137e89fa48f562d1
+  scripts/generate_dialogue_stream_bank.py: de15cb9851b96f6a3e14399aa802402e021473745d89f8bdc90b4951f52b0052
+  scripts/preflight_controlled_dialogue_pilot.py: dfe2284e3cb525e629f9fc683ee0e92aa19cf901ee183b6efcbd344a53828169
+  scripts/estimate_dialogue_campaign.py: 7ce8993c0ced078b3980a6dd059abc1a6197deb85446257228207320c37a1175
+  scripts/run_dialogue_stream_pilot.py: d1b5a4069d84d75ae82b1fd1060e842fb71c310ccbd0e232d84faa8c1ee76448
+  scripts/assess_controlled_dialogue_pilot.py: 349b5ab300287200ac84864e80e9eeff1c8130ed11703d053f33a20c1518327b
+
+pass_authorizes: >-
+  Explicit investigator consideration of the 216-call calibration-only pilot.
+  It does not itself authorize paid calls, development or holdout access, or a
+  scientific context-degradation or early-warning claim.

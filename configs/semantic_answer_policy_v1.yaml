@@ -1,0 +1,93 @@
+name: semantic-v1
+created_at: '2026-09-22'
+status: frozen_before_successor_target_outputs
+require_explicit_units_on_both: true
+scope:
+  cq: unchanged_rqeval_correctness
+  cs: pairwise_semantic_equivalence
+  rs: gold_correctness_or_primary_semantic_equivalence
+datasets:
+  gsm8k: explicit_same_dimension_quantity_conversion
+  arc_challenge: exact_choice_identity
+  math: symbolic_scalar_or_ordered_sequence_equivalence
+constraints:
+  - Never infer a missing unit from the prompt or gold answer.
+  - Never convert currencies or use exchange rates.
+  - Never compare quantities from different dimensions.
+  - Preserve the rqeval C-subset rule for RS primary answers.
+  - This policy is opt-in and does not rescore historical runs automatically.
+dimensions:
+  time:
+    - unit: second
+      aliases: [seconds, sec, secs]
+      scale: 1
+    - unit: minute
+      aliases: [minutes, min, mins]
+      scale: 60
+    - unit: hour
+      aliases: [hours, hr, hrs]
+      scale: 3600
+    - unit: day
+      aliases: [days]
+      scale: 86400
+  length:
+    - unit: millimeter
+      aliases: [millimeters, millimetre, millimetres, mm]
+      scale: 0.001
+    - unit: centimeter
+      aliases: [centimeters, centimetre, centimetres, cm]
+      scale: 0.01
+    - unit: meter
+      aliases: [meters, metre, metres, m]
+      scale: 1
+    - unit: kilometer
+      aliases: [kilometers, kilometre, kilometres, km]
+      scale: 1000
+    - unit: inch
+      aliases: [inches, in]
+      scale: 0.0254
+    - unit: foot
+      aliases: [feet, ft]
+      scale: 0.3048
+    - unit: yard
+      aliases: [yards, yd, yds]
+      scale: 0.9144
+    - unit: mile
+      aliases: [miles, mi]
+      scale: 1609.344
+  mass:
+    - unit: milligram
+      aliases: [milligrams, mg]
+      scale: 0.001
+    - unit: gram
+      aliases: [grams, g]
+      scale: 1
+    - unit: kilogram
+      aliases: [kilograms, kg]
+      scale: 1000
+    - unit: ounce
+      aliases: [ounces, oz]
+      scale: 28.349523125
+    - unit: pound
+      aliases: [pounds, lb, lbs]
+      scale: 453.59237
+  volume:
+    - unit: milliliter
+      aliases: [milliliters, millilitre, millilitres, ml]
+      scale: 0.001
+    - unit: liter
+      aliases: [liters, litre, litres, l]
+      scale: 1
+  temperature:
+    - unit: kelvin
+      aliases: [kelvins, k]
+      scale: 1
+      offset: 0
+    - unit: celsius
+      aliases: [degc]
+      scale: 1
+      offset: 273.15
+    - unit: fahrenheit
+      aliases: [degf]
+      scale: 0.5555555555555555555555555556
+      offset: 255.3722222222222222222222222

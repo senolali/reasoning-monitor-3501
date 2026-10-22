@@ -1,0 +1,33 @@
+protocol_id: RAT-v1
+generator_version: controlled-trajectories-v1
+expected_bank_sha256: 8404ed2743e2bdb61b004a6cb1f88fb2acfec60e3305270d183d857225016c31
+expected_protocol_sha256: 2e79ad402c4918632a53e3d76a25cada3b2323791978cddb711ceac045fb906f
+expected_source_sha256:
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_analysis.py: ddb62b5969e70f2fbeef700d5a22cff24e89dc9be9c2404d55c99f659ff30378
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_calibration.py: 4501ce486742e4e1c7f7d5bbd6c9d8974810b6f2373e7e33927483fee6263d7e
+  configs/risk_adjusted_trajectory_v1_calibration_analysis_gate.yaml: 6861229afca13b5281ce6a0331b972eab0ada9a6048a6f094a2de0b7b70d0fa3
+
+expected_items: 360
+expected_families: 60
+families_per_template: 20
+levels: 6
+paraphrases_per_item: 3
+expected_level_sizes:
+  arithmetic_chain: [2, 4, 7, 11, 16, 22]
+  shortest_path: [5, 7, 10, 14, 19, 25]
+  precedence_schedule: [5, 7, 10, 14, 19, 25]
+
+expected_families_by_split:
+  calibration: 24
+  development: 18
+  holdout: 18
+
+expected_items_by_split:
+  calibration: 144
+  development: 108
+  holdout: 108
+
+pass_authorizes: >-
+  Preparation and call-free validation of a calibration-split execution
+  configuration only. It does not authorize paid model calls, development
+  analysis, holdout access, or a scientific claim.

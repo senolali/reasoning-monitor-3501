@@ -1,0 +1,48 @@
+protocol_id: DBQR-RQ-v1
+status: practice_stage_review_failed_2026_10_01
+models:
+  - name: gpt4o_mini
+    provider_model: openai/gpt4o_mini
+    probe: results/probe_gpt4o_mini_production.json
+  - name: llama4_scout
+    provider_model: aws/llama4_scout-17b
+    probe: results/probe_llama4_scout_production.json
+  - name: mistral_7b
+    provider_model: aws/mistral-7b
+    probe: results/probe_mistral_7b_production.json
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+conditions: [self_history, oracle_answer_history]
+k_repeats: 5
+l_framing_variants: 2
+temperature: 0.7
+max_output_tokens_per_call: 2048
+max_input_characters_per_call: 120000
+max_retries: 2
+metric_window: 5
+metrics: [CQ, CS, RS, LS, ES, SS, RQ6_mean]
+framing_variants:
+  - "Answer the following question exactly as written; do not add, remove, or alter any constraint."
+  - "Independently solve the same request; preserve every quantity, comparison direction, threshold, period, and requested output cardinality."
+stages:
+  practice_transport:
+    dialogues: 1
+    turns_per_dialogue: 10
+    selected_dialogues: [chat-4-01]
+    selection_rule: median total compact-prompt characters across the five Practice dialogues
+    staged_review_turns: [1, 2]
+    execution_authorized: false
+    stage_review_authorized: false
+    full_execution_authorized: false
+  training_calibration:
+    dialogues: 20
+    turns_per_dialogue: 10
+    execution_authorized: false
+  test_confirmation:
+    dialogues: 15
+    turns_per_dialogue: 10
+    execution_authorized: false

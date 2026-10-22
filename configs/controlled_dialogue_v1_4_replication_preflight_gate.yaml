@@ -1,0 +1,18 @@
+protocol_id: CDR-v1.4
+stage: fresh_calibration_replication_preflight
+paid_calls_authorized: false
+expected_sha256:
+  configs/selections/controlled_dialogue_replication_v1.json: f72067c5903b4cd4b1ae2cb790665e4344e1f9330f7ffaaf835b1dd3c7439cec
+  configs/controlled_dialogue_v1_4_replication_asu.yaml: 3ec7891dd4fe414cd5060dbe34ebc348962077471fd6a471b8d70c1e65272a30
+  configs/controlled_dialogue_v1_4_replication_analysis_gate.yaml: ded129fbabd7b449f7486f1c1396852ad9d115cbda65c4ad6f43dc8264152504
+  src/reasoning_monitor/dialogue_replication.py: 94baec0a44951c420a5a481191626867d6adbe86b0ce091ef9efb407e19494fc
+  src/reasoning_monitor/progress.py: 7bbf9d538976d113897fee1520382ab311236ba7942b8787c396da5ace92bc38
+  src/reasoning_monitor/evaluation/primary_dialogue_validation.py: 083444db1d02fae3886d954c1d719297ae3bd22642954285970e787863a5edde
+  scripts/run_dialogue_replication.py: 64a1881e51e8c953978955fd6081680022350598e60ef72673c20f47ba9efe6b
+  scripts/assess_dialogue_replication.py: adb5dac0882dac6fda05727801a9f6ec4fcdb53df671e78d4919cff51ac8b28e
+  scripts/preflight_dialogue_replication.py: fbcfdeb44bf383584b3283e648622cae41771179c97c27322e7a30d8ac21f187
+  scripts/estimate_dialogue_replication.py: 1a18ee303e469db65232fa416efe013ee1b67f241942f9872378e5ef5032ba5e
+pass_authorizes: >-
+  Investigator consideration of the frozen 432-call CDR-v1.4 replication.
+  It does not authorize paid execution, further calls, development or holdout
+  access, or a scientific claim.

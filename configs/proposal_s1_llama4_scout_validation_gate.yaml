@@ -1,0 +1,18 @@
+# Frozen after Section 60 passed and before any Section 61 target response.
+section: 61
+expected_models: [llama4_scout]
+expected_provider_model: aws/llama4_scout-17b
+expected_prompt_mode: answer_last_stress
+expected_seed: 42
+expected_window_size: 10
+expected_queries_per_dataset: 30
+expected_stream_sequence_sha256: 791e6090518090213559432c62ad2d6fe7a30588311f3a9cf816276f63a78cca
+max_output_tokens: 2048
+minimum_success_rate: 1.0
+minimum_final_line_marker_rate: 1.0
+minimum_stored_answer_agreement_rate: 1.0
+maximum_truncations: 0
+maximum_step_contract_violations: 0
+forbid_code_fences: true
+minimum_gsm8k_math_gap: 0.15
+maximum_one_sided_trend_p: 0.05

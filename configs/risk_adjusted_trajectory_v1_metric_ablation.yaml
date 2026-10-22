@@ -1,0 +1,59 @@
+protocol_id: RAT-v1
+stage: post_calibration_metric_ablation
+status: FROZEN_AFTER_PRIMARY_SCREEN_FAILURE_BEFORE_ABLATION
+no_model_calls: true
+claim_supporting_analysis: false
+
+expected_models: [gpt4o_mini, llama4_scout]
+expected_split: calibration
+expected_queries_per_model: 144
+
+expected_source_sha256:
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_analysis.py: ddb62b5969e70f2fbeef700d5a22cff24e89dc9be9c2404d55c99f659ff30378
+  src/reasoning_monitor/evaluation/risk_adjusted_trajectory_ablation.py: 87133082150a15e58574a665b6ce360648aa64d257b1a9dbb52f76108b8e47e3
+  scripts/diagnose_risk_adjusted_trajectory_metrics.py: e6b618977085d0c626a35f9f768cd576e394f97b34bbb18c8be12921210eb3fe
+
+sources:
+  gpt4o_mini:
+    path: results/risk_adjusted_trajectory_v1_calibration/data/per_query_RAT_gpt4o_mini_seed20260926_W6.csv
+    sha256: 58b64bc82f7d3882ad1db3989a546d5b2dacb677251834af206b6fb920c8dddc
+  llama4_scout:
+    path: results/risk_adjusted_trajectory_v1_calibration/data/per_query_RAT_llama4_scout_seed20260926_W6.csv
+    sha256: a2f965cf556616f6812744846feb12e112261f2a1bbfe058d0d26604e645c73d
+
+candidate_metric_subsets:
+  - [RS_raw]
+  - [LS_raw]
+  - [ES_raw]
+  - [RS_raw, LS_raw]
+  - [RS_raw, ES_raw]
+  - [LS_raw, ES_raw]
+  - [RS_raw, LS_raw, ES_raw]
+
+analysis:
+  implementation: src/reasoning_monitor/evaluation/risk_adjusted_trajectory_ablation.py
+  estimator: discrete_time_hazard_logistic_ridge
+  baseline_predictors: [trajectory_level, task_template, model]
+  ridge_c_grid: [0.01, 0.1, 1.0, 10.0]
+  outer_splits: 4
+  inner_splits: 3
+  grouping_unit: family_id
+  seed: 20260926
+  score: out_of_fold_log_loss_improvement
+
+decision:
+  minimum_combined_mean_improvement: 0.0
+  minimum_combined_positive_folds: 3
+  minimum_model_mean_improvement: 0.0
+  selection_rule: >-
+    Among qualifying candidates, select the subset with the fewest metrics;
+    break ties by larger combined mean improvement and then lexical label.
+
+decision_scope: >-
+  A pass identifies one calibration-derived candidate for a separately
+  versioned and prospectively validated RAT-v1.1 design. It does not relabel
+  either failed RAT-v1 gate, authorize paid calls, open development or holdout,
+  or support a scientific early-warning claim. If no subset qualifies, stop
+  the RAT path rather than launching another paid campaign.
+
+output_path: results/risk_adjusted_trajectory_v1_calibration/data/rat_v1_calibration_metric_ablation.json

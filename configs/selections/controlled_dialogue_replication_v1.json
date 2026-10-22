@@ -1,0 +1,4047 @@
+{
+  "protocol_id": "CDR-v1.4",
+  "generator_version": "controlled-dialogue-replication-v1",
+  "source_generator_version": "controlled-dialogue-v1",
+  "seed": 20261001,
+  "conditions": [
+    "user_only_history",
+    "state_summary"
+  ],
+  "dialogues": [
+    {
+      "dialogue_id": "cdr-v14-budget-001",
+      "template": "research_budget",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-budget-001-T01",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "authorized": 0,
+            "spent": {}
+          },
+          "state_after": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 16000,
+              "personnel": 17500,
+              "travel": 18500
+            }
+          },
+          "state_summary_before": "Authorized budget=0. Current spending: . Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "We are starting a continuing research-project budget review. The authorized budget is 125000. Spending recorded so far is equipment 16000, personnel 17500, and travel 18500. What amount remains?",
+          "paraphrases": [
+            "We are starting a continuing research-project budget review. The authorized budget is 125000. Spending recorded so far is equipment 16000, personnel 17500, and travel 18500. How much of the budget remains?",
+            "We are starting a continuing research-project budget review. The authorized budget is 125000. The current expenditures are equipment 16000, personnel 17500, and travel 18500. What amount remains?"
+          ],
+          "gold_answer": "73000",
+          "oracle_response": "Using the verified running state, the requested value is 73000.\nFINAL_ANSWER: 73000",
+          "intrinsic_updates": 4
+        },
+        {
+          "qid": "cdr-v14-budget-001-T02",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 16000,
+              "personnel": 17500,
+              "travel": 18500
+            }
+          },
+          "state_after": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 16000,
+              "personnel": 17500,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=125000. Current spending: equipment=16000, personnel=17500, travel=18500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 2000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 2000 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 2000 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "71000",
+          "oracle_response": "Using the verified running state, the requested value is 71000.\nFINAL_ANSWER: 71000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T03",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 16000,
+              "personnel": 17500,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 17500,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=125000. Current spending: equipment=16000, personnel=17500, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 6000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 6000 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 6000 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "65000",
+          "oracle_response": "Using the verified running state, the requested value is 65000.\nFINAL_ANSWER: 65000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T04",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 17500,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=125000. Current spending: equipment=22000, personnel=17500, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 2500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 2500 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 2500 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "62500",
+          "oracle_response": "Using the verified running state, the requested value is 62500.\nFINAL_ANSWER: 62500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T05",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "authorized": 125000,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=125000. Current spending: equipment=22000, personnel=20000, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 5500 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 5500, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 5500 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "68000",
+          "oracle_response": "Using the verified running state, the requested value is 68000.\nFINAL_ANSWER: 68000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T06",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 22000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=130500. Current spending: equipment=22000, personnel=20000, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 7000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 7000 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 7000 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "61000",
+          "oracle_response": "Using the verified running state, the requested value is 61000.\nFINAL_ANSWER: 61000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T07",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 20000,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 19000,
+              "travel": 20500
+            }
+          },
+          "state_summary_before": "Authorized budget=130500. Current spending: equipment=29000, personnel=20000, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 1000 has been credited against personnel spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded personnel expenditure by 1000 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct personnel spending downward by 1000. What is the updated unspent budget?"
+          ],
+          "gold_answer": "62000",
+          "oracle_response": "Using the verified running state, the requested value is 62000.\nFINAL_ANSWER: 62000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T08",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 19000,
+              "travel": 20500
+            }
+          },
+          "state_after": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_summary_before": "Authorized budget=130500. Current spending: equipment=29000, personnel=19000, travel=20500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 6500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 6500 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 6500 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "55500",
+          "oracle_response": "Using the verified running state, the requested value is 55500.\nFINAL_ANSWER: 55500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T09",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 29000,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_after": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_summary_before": "Authorized budget=130500. Current spending: equipment=29000, personnel=19000, travel=27000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 2500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 2500 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 2500 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "53000",
+          "oracle_response": "Using the verified running state, the requested value is 53000.\nFINAL_ANSWER: 53000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T10",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "authorized": 130500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_after": {
+            "authorized": 134500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_summary_before": "Authorized budget=130500. Current spending: equipment=31500, personnel=19000, travel=27000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 4000 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 4000, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 4000 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "57000",
+          "oracle_response": "Using the verified running state, the requested value is 57000.\nFINAL_ANSWER: 57000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T11",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "authorized": 134500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 27000
+            }
+          },
+          "state_after": {
+            "authorized": 134500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 25500
+            }
+          },
+          "state_summary_before": "Authorized budget=134500. Current spending: equipment=31500, personnel=19000, travel=27000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 1500 has been credited against travel spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded travel expenditure by 1500 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct travel spending downward by 1500. What is the updated unspent budget?"
+          ],
+          "gold_answer": "58500",
+          "oracle_response": "Using the verified running state, the requested value is 58500.\nFINAL_ANSWER: 58500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-001-T12",
+          "dialogue_id": "cdr-v14-budget-001",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "authorized": 134500,
+            "spent": {
+              "equipment": 31500,
+              "personnel": 19000,
+              "travel": 25500
+            }
+          },
+          "state_after": {
+            "authorized": 134500,
+            "spent": {
+              "equipment": 36500,
+              "personnel": 19000,
+              "travel": 25500
+            }
+          },
+          "state_summary_before": "Authorized budget=134500. Current spending: equipment=31500, personnel=19000, travel=25500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 5000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 5000 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 5000 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "53500",
+          "oracle_response": "Using the verified running state, the requested value is 53500.\nFINAL_ANSWER: 53500",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-budget-002",
+      "template": "research_budget",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-budget-002-T01",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "authorized": 0,
+            "spent": {}
+          },
+          "state_after": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 12500,
+              "personnel": 16500,
+              "travel": 12000
+            }
+          },
+          "state_summary_before": "Authorized budget=0. Current spending: . Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "We are starting a continuing research-project budget review. The authorized budget is 140000. Spending recorded so far is equipment 12500, personnel 16500, and travel 12000. What amount remains?",
+          "paraphrases": [
+            "We are starting a continuing research-project budget review. The authorized budget is 140000. Spending recorded so far is equipment 12500, personnel 16500, and travel 12000. How much of the budget remains?",
+            "We are starting a continuing research-project budget review. The authorized budget is 140000. The current expenditures are equipment 12500, personnel 16500, and travel 12000. What amount remains?"
+          ],
+          "gold_answer": "99000",
+          "oracle_response": "Using the verified running state, the requested value is 99000.\nFINAL_ANSWER: 99000",
+          "intrinsic_updates": 4
+        },
+        {
+          "qid": "cdr-v14-budget-002-T02",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 12500,
+              "personnel": 16500,
+              "travel": 12000
+            }
+          },
+          "state_after": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 16500,
+              "travel": 12000
+            }
+          },
+          "state_summary_before": "Authorized budget=140000. Current spending: equipment=12500, personnel=16500, travel=12000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 6000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 6000 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 6000 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "93000",
+          "oracle_response": "Using the verified running state, the requested value is 93000.\nFINAL_ANSWER: 93000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T03",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 16500,
+              "travel": 12000
+            }
+          },
+          "state_after": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 12000
+            }
+          },
+          "state_summary_before": "Authorized budget=140000. Current spending: equipment=18500, personnel=16500, travel=12000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 3500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 3500 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 3500 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "89500",
+          "oracle_response": "Using the verified running state, the requested value is 89500.\nFINAL_ANSWER: 89500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T04",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 12000
+            }
+          },
+          "state_after": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 15500
+            }
+          },
+          "state_summary_before": "Authorized budget=140000. Current spending: equipment=18500, personnel=20000, travel=12000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 3500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 3500 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 3500 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "86000",
+          "oracle_response": "Using the verified running state, the requested value is 86000.\nFINAL_ANSWER: 86000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T05",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "authorized": 140000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 15500
+            }
+          },
+          "state_after": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 15500
+            }
+          },
+          "state_summary_before": "Authorized budget=140000. Current spending: equipment=18500, personnel=20000, travel=15500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 7000 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 7000, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 7000 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "93000",
+          "oracle_response": "Using the verified running state, the requested value is 93000.\nFINAL_ANSWER: 93000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T06",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 20000,
+              "travel": 15500
+            }
+          },
+          "state_after": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 23000,
+              "travel": 15500
+            }
+          },
+          "state_summary_before": "Authorized budget=147000. Current spending: equipment=18500, personnel=20000, travel=15500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 3000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 3000 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 3000 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "90000",
+          "oracle_response": "Using the verified running state, the requested value is 90000.\nFINAL_ANSWER: 90000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T07",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 23000,
+              "travel": 15500
+            }
+          },
+          "state_after": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 23000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=147000. Current spending: equipment=18500, personnel=23000, travel=15500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 2000 has been credited against travel spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded travel expenditure by 2000 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct travel spending downward by 2000. What is the updated unspent budget?"
+          ],
+          "gold_answer": "92000",
+          "oracle_response": "Using the verified running state, the requested value is 92000.\nFINAL_ANSWER: 92000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T08",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 18500,
+              "personnel": 23000,
+              "travel": 13500
+            }
+          },
+          "state_after": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 23000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=147000. Current spending: equipment=18500, personnel=23000, travel=13500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 1500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 1500 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 1500 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "90500",
+          "oracle_response": "Using the verified running state, the requested value is 90500.\nFINAL_ANSWER: 90500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T09",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 23000,
+              "travel": 13500
+            }
+          },
+          "state_after": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=147000. Current spending: equipment=20000, personnel=23000, travel=13500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 3000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 3000 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 3000 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "87500",
+          "oracle_response": "Using the verified running state, the requested value is 87500.\nFINAL_ANSWER: 87500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T10",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "authorized": 147000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_after": {
+            "authorized": 157000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=147000. Current spending: equipment=20000, personnel=26000, travel=13500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 10000 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 10000, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 10000 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "97500",
+          "oracle_response": "Using the verified running state, the requested value is 97500.\nFINAL_ANSWER: 97500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T11",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "authorized": 157000,
+            "spent": {
+              "equipment": 20000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_after": {
+            "authorized": 157000,
+            "spent": {
+              "equipment": 17000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=157000. Current spending: equipment=20000, personnel=26000, travel=13500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 3000 has been credited against equipment spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded equipment expenditure by 3000 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct equipment spending downward by 3000. What is the updated unspent budget?"
+          ],
+          "gold_answer": "100500",
+          "oracle_response": "Using the verified running state, the requested value is 100500.\nFINAL_ANSWER: 100500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-002-T12",
+          "dialogue_id": "cdr-v14-budget-002",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "authorized": 157000,
+            "spent": {
+              "equipment": 17000,
+              "personnel": 26000,
+              "travel": 13500
+            }
+          },
+          "state_after": {
+            "authorized": 157000,
+            "spent": {
+              "equipment": 17000,
+              "personnel": 29000,
+              "travel": 13500
+            }
+          },
+          "state_summary_before": "Authorized budget=157000. Current spending: equipment=17000, personnel=26000, travel=13500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 3000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 3000 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 3000 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "97500",
+          "oracle_response": "Using the verified running state, the requested value is 97500.\nFINAL_ANSWER: 97500",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-budget-003",
+      "template": "research_budget",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-budget-003-T01",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "authorized": 0,
+            "spent": {}
+          },
+          "state_after": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 20000,
+              "travel": 11500
+            }
+          },
+          "state_summary_before": "Authorized budget=0. Current spending: . Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "We are starting a continuing research-project budget review. The authorized budget is 130000. Spending recorded so far is equipment 21000, personnel 20000, and travel 11500. What amount remains?",
+          "paraphrases": [
+            "We are starting a continuing research-project budget review. The authorized budget is 130000. Spending recorded so far is equipment 21000, personnel 20000, and travel 11500. How much of the budget remains?",
+            "We are starting a continuing research-project budget review. The authorized budget is 130000. The current expenditures are equipment 21000, personnel 20000, and travel 11500. What amount remains?"
+          ],
+          "gold_answer": "77500",
+          "oracle_response": "Using the verified running state, the requested value is 77500.\nFINAL_ANSWER: 77500",
+          "intrinsic_updates": 4
+        },
+        {
+          "qid": "cdr-v14-budget-003-T02",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 20000,
+              "travel": 11500
+            }
+          },
+          "state_after": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 24000,
+              "travel": 11500
+            }
+          },
+          "state_summary_before": "Authorized budget=130000. Current spending: equipment=21000, personnel=20000, travel=11500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 4000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 4000 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 4000 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "73500",
+          "oracle_response": "Using the verified running state, the requested value is 73500.\nFINAL_ANSWER: 73500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T03",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 24000,
+              "travel": 11500
+            }
+          },
+          "state_after": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_summary_before": "Authorized budget=130000. Current spending: equipment=21000, personnel=24000, travel=11500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 4500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 4500 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 4500 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "69000",
+          "oracle_response": "Using the verified running state, the requested value is 69000.\nFINAL_ANSWER: 69000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T04",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 21000,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_after": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_summary_before": "Authorized budget=130000. Current spending: equipment=21000, personnel=24000, travel=16000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new equipment expenditure of 5500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 5500 to equipment spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 5500 on equipment. What is the updated remaining amount?"
+          ],
+          "gold_answer": "63500",
+          "oracle_response": "Using the verified running state, the requested value is 63500.\nFINAL_ANSWER: 63500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T05",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "authorized": 130000,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_after": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_summary_before": "Authorized budget=130000. Current spending: equipment=26500, personnel=24000, travel=16000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 9500 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 9500, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 9500 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "73000",
+          "oracle_response": "Using the verified running state, the requested value is 73000.\nFINAL_ANSWER: 73000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T06",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 16000
+            }
+          },
+          "state_after": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 23000
+            }
+          },
+          "state_summary_before": "Authorized budget=139500. Current spending: equipment=26500, personnel=24000, travel=16000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 7000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 7000 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 7000 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "66000",
+          "oracle_response": "Using the verified running state, the requested value is 66000.\nFINAL_ANSWER: 66000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T07",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 26500,
+              "personnel": 24000,
+              "travel": 23000
+            }
+          },
+          "state_after": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 24000,
+              "travel": 23000
+            }
+          },
+          "state_summary_before": "Authorized budget=139500. Current spending: equipment=26500, personnel=24000, travel=23000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 1000 has been credited against equipment spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded equipment expenditure by 1000 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct equipment spending downward by 1000. What is the updated unspent budget?"
+          ],
+          "gold_answer": "67000",
+          "oracle_response": "Using the verified running state, the requested value is 67000.\nFINAL_ANSWER: 67000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T08",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 24000,
+              "travel": 23000
+            }
+          },
+          "state_after": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 23000
+            }
+          },
+          "state_summary_before": "Authorized budget=139500. Current spending: equipment=25500, personnel=24000, travel=23000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new personnel expenditure of 5000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 5000 to personnel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 5000 on personnel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "62000",
+          "oracle_response": "Using the verified running state, the requested value is 62000.\nFINAL_ANSWER: 62000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T09",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 23000
+            }
+          },
+          "state_after": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 27500
+            }
+          },
+          "state_summary_before": "Authorized budget=139500. Current spending: equipment=25500, personnel=29000, travel=23000. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 4500 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 4500 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 4500 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "57500",
+          "oracle_response": "Using the verified running state, the requested value is 57500.\nFINAL_ANSWER: 57500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T10",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "authorized": 139500,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 27500
+            }
+          },
+          "state_after": {
+            "authorized": 148000,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 27500
+            }
+          },
+          "state_summary_before": "Authorized budget=139500. Current spending: equipment=25500, personnel=29000, travel=27500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "The sponsor has added 8500 to the authorized budget. Keep every earlier expenditure in the running record. What amount now remains?",
+          "paraphrases": [
+            "Increase the authorized budget by 8500, without changing prior spending. What is the new remaining amount?",
+            "A supplemental award of 8500 has arrived. With the existing expense history unchanged, how much remains?"
+          ],
+          "gold_answer": "66000",
+          "oracle_response": "Using the verified running state, the requested value is 66000.\nFINAL_ANSWER: 66000",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T11",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "authorized": 148000,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 29000,
+              "travel": 27500
+            }
+          },
+          "state_after": {
+            "authorized": 148000,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 25500,
+              "travel": 27500
+            }
+          },
+          "state_summary_before": "Authorized budget=148000. Current spending: equipment=25500, personnel=29000, travel=27500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "A refund of 3500 has been credited against personnel spending. Apply that correction to our running budget. What amount remains?",
+          "paraphrases": [
+            "Reduce the recorded personnel expenditure by 3500 because of a refund. Using the rest of our running record, how much remains?",
+            "Correct personnel spending downward by 3500. What is the updated unspent budget?"
+          ],
+          "gold_answer": "69500",
+          "oracle_response": "Using the verified running state, the requested value is 69500.\nFINAL_ANSWER: 69500",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-budget-003-T12",
+          "dialogue_id": "cdr-v14-budget-003",
+          "template": "research_budget",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "authorized": 148000,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 25500,
+              "travel": 27500
+            }
+          },
+          "state_after": {
+            "authorized": 148000,
+            "spent": {
+              "equipment": 25500,
+              "personnel": 25500,
+              "travel": 32500
+            }
+          },
+          "state_summary_before": "Authorized budget=148000. Current spending: equipment=25500, personnel=25500, travel=27500. Remaining funds equal authorized budget minus total spending.",
+          "user_prompt": "Record a new travel expenditure of 5000 in the same project. Using the complete running budget, what amount remains?",
+          "paraphrases": [
+            "Add 5000 to travel spending and retain all earlier entries. How much of the authorized budget is left?",
+            "The project has now spent another 5000 on travel. What is the updated remaining amount?"
+          ],
+          "gold_answer": "64500",
+          "oracle_response": "Using the verified running state, the requested value is 64500.\nFINAL_ANSWER: 64500",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-incident-001",
+      "template": "software_incident",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-incident-001-T01",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 6,
+            "minor": 12
+          },
+          "state_summary_before": "Open incidents: critical=0, major=0, minor=0. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "We are opening a continuing software-incident review. There are currently 2 critical, 6 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?",
+          "paraphrases": [
+            "We are opening a continuing software-incident review. There are currently 2 critical, 6 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. Calculate the present risk score.",
+            "Begin a continuing software-incident review. There are currently 2 critical, 6 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?"
+          ],
+          "gold_answer": "34",
+          "oracle_response": "Using the verified running state, the requested value is 34.\nFINAL_ANSWER: 34",
+          "intrinsic_updates": 3
+        },
+        {
+          "qid": "cdr-v14-incident-001-T02",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "critical": 2,
+            "major": 6,
+            "minor": 12
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 6,
+            "minor": 13
+          },
+          "state_summary_before": "Open incidents: critical=2, major=6, minor=12. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "35",
+          "oracle_response": "Using the verified running state, the requested value is 35.\nFINAL_ANSWER: 35",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T03",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "critical": 2,
+            "major": 6,
+            "minor": 13
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 6,
+            "minor": 13
+          },
+          "state_summary_before": "Open incidents: critical=2, major=6, minor=13. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "50",
+          "oracle_response": "Using the verified running state, the requested value is 50.\nFINAL_ANSWER: 50",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T04",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "critical": 5,
+            "major": 6,
+            "minor": 13
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 5,
+            "minor": 13
+          },
+          "state_summary_before": "Open incidents: critical=5, major=6, minor=13. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 major incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved major incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open major incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "48",
+          "oracle_response": "Using the verified running state, the requested value is 48.\nFINAL_ANSWER: 48",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T05",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "critical": 5,
+            "major": 5,
+            "minor": 13
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 5,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=5, major=5, minor=13. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "49",
+          "oracle_response": "Using the verified running state, the requested value is 49.\nFINAL_ANSWER: 49",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T06",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "critical": 5,
+            "major": 5,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 6,
+            "major": 5,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=5, major=5, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "54",
+          "oracle_response": "Using the verified running state, the requested value is 54.\nFINAL_ANSWER: 54",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T07",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "critical": 6,
+            "major": 5,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 6,
+            "major": 3,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=6, major=5, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 2 major incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 2 resolved major incident(s) from our running case. What is the updated risk score?",
+            "Close 2 of the open major incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "50",
+          "oracle_response": "Using the verified running state, the requested value is 50.\nFINAL_ANSWER: 50",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T08",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "critical": 6,
+            "major": 3,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 6,
+            "major": 3,
+            "minor": 15
+          },
+          "state_summary_before": "Open incidents: critical=6, major=3, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "51",
+          "oracle_response": "Using the verified running state, the requested value is 51.\nFINAL_ANSWER: 51",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T09",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "critical": 6,
+            "major": 3,
+            "minor": 15
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 3,
+            "minor": 15
+          },
+          "state_summary_before": "Open incidents: critical=6, major=3, minor=15. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "66",
+          "oracle_response": "Using the verified running state, the requested value is 66.\nFINAL_ANSWER: 66",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T10",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "critical": 9,
+            "major": 3,
+            "minor": 15
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 2,
+            "minor": 15
+          },
+          "state_summary_before": "Open incidents: critical=9, major=3, minor=15. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 major incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved major incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open major incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "64",
+          "oracle_response": "Using the verified running state, the requested value is 64.\nFINAL_ANSWER: 64",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T11",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "critical": 9,
+            "major": 2,
+            "minor": 15
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 2,
+            "minor": 18
+          },
+          "state_summary_before": "Open incidents: critical=9, major=2, minor=15. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "67",
+          "oracle_response": "Using the verified running state, the requested value is 67.\nFINAL_ANSWER: 67",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-001-T12",
+          "dialogue_id": "cdr-v14-incident-001",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "critical": 9,
+            "major": 2,
+            "minor": 18
+          },
+          "state_after": {
+            "critical": 12,
+            "major": 2,
+            "minor": 18
+          },
+          "state_summary_before": "Open incidents: critical=9, major=2, minor=18. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "82",
+          "oracle_response": "Using the verified running state, the requested value is 82.\nFINAL_ANSWER: 82",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-incident-002",
+      "template": "software_incident",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-incident-002-T01",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          },
+          "state_after": {
+            "critical": 3,
+            "major": 5,
+            "minor": 12
+          },
+          "state_summary_before": "Open incidents: critical=0, major=0, minor=0. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "We are opening a continuing software-incident review. There are currently 3 critical, 5 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?",
+          "paraphrases": [
+            "We are opening a continuing software-incident review. There are currently 3 critical, 5 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. Calculate the present risk score.",
+            "Begin a continuing software-incident review. There are currently 3 critical, 5 major, and 12 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?"
+          ],
+          "gold_answer": "37",
+          "oracle_response": "Using the verified running state, the requested value is 37.\nFINAL_ANSWER: 37",
+          "intrinsic_updates": 3
+        },
+        {
+          "qid": "cdr-v14-incident-002-T02",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "critical": 3,
+            "major": 5,
+            "minor": 12
+          },
+          "state_after": {
+            "critical": 3,
+            "major": 8,
+            "minor": 12
+          },
+          "state_summary_before": "Open incidents: critical=3, major=5, minor=12. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "43",
+          "oracle_response": "Using the verified running state, the requested value is 43.\nFINAL_ANSWER: 43",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T03",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "critical": 3,
+            "major": 8,
+            "minor": 12
+          },
+          "state_after": {
+            "critical": 3,
+            "major": 8,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=3, major=8, minor=12. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "45",
+          "oracle_response": "Using the verified running state, the requested value is 45.\nFINAL_ANSWER: 45",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T04",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "critical": 3,
+            "major": 8,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 8,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=3, major=8, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 critical incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved critical incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open critical incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "40",
+          "oracle_response": "Using the verified running state, the requested value is 40.\nFINAL_ANSWER: 40",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T05",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "critical": 2,
+            "major": 8,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 11,
+            "minor": 14
+          },
+          "state_summary_before": "Open incidents: critical=2, major=8, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "46",
+          "oracle_response": "Using the verified running state, the requested value is 46.\nFINAL_ANSWER: 46",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T06",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "critical": 2,
+            "major": 11,
+            "minor": 14
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 11,
+            "minor": 16
+          },
+          "state_summary_before": "Open incidents: critical=2, major=11, minor=14. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "48",
+          "oracle_response": "Using the verified running state, the requested value is 48.\nFINAL_ANSWER: 48",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T07",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "critical": 2,
+            "major": 11,
+            "minor": 16
+          },
+          "state_after": {
+            "critical": 1,
+            "major": 11,
+            "minor": 16
+          },
+          "state_summary_before": "Open incidents: critical=2, major=11, minor=16. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 critical incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved critical incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open critical incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "43",
+          "oracle_response": "Using the verified running state, the requested value is 43.\nFINAL_ANSWER: 43",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T08",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "critical": 1,
+            "major": 11,
+            "minor": 16
+          },
+          "state_after": {
+            "critical": 1,
+            "major": 14,
+            "minor": 16
+          },
+          "state_summary_before": "Open incidents: critical=1, major=11, minor=16. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "49",
+          "oracle_response": "Using the verified running state, the requested value is 49.\nFINAL_ANSWER: 49",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T09",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "critical": 1,
+            "major": 14,
+            "minor": 16
+          },
+          "state_after": {
+            "critical": 1,
+            "major": 14,
+            "minor": 19
+          },
+          "state_summary_before": "Open incidents: critical=1, major=14, minor=16. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "52",
+          "oracle_response": "Using the verified running state, the requested value is 52.\nFINAL_ANSWER: 52",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T10",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "critical": 1,
+            "major": 14,
+            "minor": 19
+          },
+          "state_after": {
+            "critical": 0,
+            "major": 14,
+            "minor": 19
+          },
+          "state_summary_before": "Open incidents: critical=1, major=14, minor=19. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 critical incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved critical incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open critical incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "47",
+          "oracle_response": "Using the verified running state, the requested value is 47.\nFINAL_ANSWER: 47",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T11",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "critical": 0,
+            "major": 14,
+            "minor": 19
+          },
+          "state_after": {
+            "critical": 0,
+            "major": 16,
+            "minor": 19
+          },
+          "state_summary_before": "Open incidents: critical=0, major=14, minor=19. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "51",
+          "oracle_response": "Using the verified running state, the requested value is 51.\nFINAL_ANSWER: 51",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-002-T12",
+          "dialogue_id": "cdr-v14-incident-002",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "critical": 0,
+            "major": 16,
+            "minor": 19
+          },
+          "state_after": {
+            "critical": 0,
+            "major": 16,
+            "minor": 21
+          },
+          "state_summary_before": "Open incidents: critical=0, major=16, minor=19. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional minor incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open minor count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new minor incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "53",
+          "oracle_response": "Using the verified running state, the requested value is 53.\nFINAL_ANSWER: 53",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-incident-003",
+      "template": "software_incident",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-incident-003-T01",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "critical": 0,
+            "major": 0,
+            "minor": 0
+          },
+          "state_after": {
+            "critical": 2,
+            "major": 6,
+            "minor": 10
+          },
+          "state_summary_before": "Open incidents: critical=0, major=0, minor=0. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "We are opening a continuing software-incident review. There are currently 2 critical, 6 major, and 10 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?",
+          "paraphrases": [
+            "We are opening a continuing software-incident review. There are currently 2 critical, 6 major, and 10 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. Calculate the present risk score.",
+            "Begin a continuing software-incident review. There are currently 2 critical, 6 major, and 10 minor open incidents. Use risk score = 5*critical + 2*major + minor throughout this conversation. What is the current risk score?"
+          ],
+          "gold_answer": "32",
+          "oracle_response": "Using the verified running state, the requested value is 32.\nFINAL_ANSWER: 32",
+          "intrinsic_updates": 3
+        },
+        {
+          "qid": "cdr-v14-incident-003-T02",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "critical": 2,
+            "major": 6,
+            "minor": 10
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 6,
+            "minor": 10
+          },
+          "state_summary_before": "Open incidents: critical=2, major=6, minor=10. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "47",
+          "oracle_response": "Using the verified running state, the requested value is 47.\nFINAL_ANSWER: 47",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T03",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "critical": 5,
+            "major": 6,
+            "minor": 10
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 8,
+            "minor": 10
+          },
+          "state_summary_before": "Open incidents: critical=5, major=6, minor=10. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "51",
+          "oracle_response": "Using the verified running state, the requested value is 51.\nFINAL_ANSWER: 51",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T04",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "critical": 5,
+            "major": 8,
+            "minor": 10
+          },
+          "state_after": {
+            "critical": 5,
+            "major": 8,
+            "minor": 9
+          },
+          "state_summary_before": "Open incidents: critical=5, major=8, minor=10. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 minor incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved minor incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open minor incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "50",
+          "oracle_response": "Using the verified running state, the requested value is 50.\nFINAL_ANSWER: 50",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T05",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "critical": 5,
+            "major": 8,
+            "minor": 9
+          },
+          "state_after": {
+            "critical": 7,
+            "major": 8,
+            "minor": 9
+          },
+          "state_summary_before": "Open incidents: critical=5, major=8, minor=9. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "60",
+          "oracle_response": "Using the verified running state, the requested value is 60.\nFINAL_ANSWER: 60",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T06",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "critical": 7,
+            "major": 8,
+            "minor": 9
+          },
+          "state_after": {
+            "critical": 7,
+            "major": 11,
+            "minor": 9
+          },
+          "state_summary_before": "Open incidents: critical=7, major=8, minor=9. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 3 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 3. Keeping the earlier record, what is the new risk score?",
+            "There are 3 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "66",
+          "oracle_response": "Using the verified running state, the requested value is 66.\nFINAL_ANSWER: 66",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T07",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "critical": 7,
+            "major": 11,
+            "minor": 9
+          },
+          "state_after": {
+            "critical": 7,
+            "major": 11,
+            "minor": 8
+          },
+          "state_summary_before": "Open incidents: critical=7, major=11, minor=9. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 1 minor incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 1 resolved minor incident(s) from our running case. What is the updated risk score?",
+            "Close 1 of the open minor incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "65",
+          "oracle_response": "Using the verified running state, the requested value is 65.\nFINAL_ANSWER: 65",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T08",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "critical": 7,
+            "major": 11,
+            "minor": 8
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 11,
+            "minor": 8
+          },
+          "state_summary_before": "Open incidents: critical=7, major=11, minor=8. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "75",
+          "oracle_response": "Using the verified running state, the requested value is 75.\nFINAL_ANSWER: 75",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T09",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "critical": 9,
+            "major": 11,
+            "minor": 8
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 12,
+            "minor": 8
+          },
+          "state_summary_before": "Open incidents: critical=9, major=11, minor=8. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "77",
+          "oracle_response": "Using the verified running state, the requested value is 77.\nFINAL_ANSWER: 77",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T10",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "critical": 9,
+            "major": 12,
+            "minor": 8
+          },
+          "state_after": {
+            "critical": 9,
+            "major": 12,
+            "minor": 6
+          },
+          "state_summary_before": "Open incidents: critical=9, major=12, minor=8. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "The response team has resolved 2 minor incident(s). Update the same incident record and report the current risk score.",
+          "paraphrases": [
+            "Remove 2 resolved minor incident(s) from our running case. What is the updated risk score?",
+            "Close 2 of the open minor incidents. Using the established scoring rule, calculate the new score."
+          ],
+          "gold_answer": "75",
+          "oracle_response": "Using the verified running state, the requested value is 75.\nFINAL_ANSWER: 75",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T11",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "critical": 9,
+            "major": 12,
+            "minor": 6
+          },
+          "state_after": {
+            "critical": 10,
+            "major": 12,
+            "minor": 6
+          },
+          "state_summary_before": "Open incidents: critical=9, major=12, minor=6. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 1 additional critical incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open critical count by 1. Keeping the earlier record, what is the new risk score?",
+            "There are 1 new critical incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "80",
+          "oracle_response": "Using the verified running state, the requested value is 80.\nFINAL_ANSWER: 80",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-incident-003-T12",
+          "dialogue_id": "cdr-v14-incident-003",
+          "template": "software_incident",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "critical": 10,
+            "major": 12,
+            "minor": 6
+          },
+          "state_after": {
+            "critical": 10,
+            "major": 14,
+            "minor": 6
+          },
+          "state_summary_before": "Open incidents: critical=10, major=12, minor=6. Risk score=5*critical+2*major+minor.",
+          "user_prompt": "Monitoring has identified 2 additional major incident(s). Add them to the continuing record and report the current risk score.",
+          "paraphrases": [
+            "Increase the open major count by 2. Keeping the earlier record, what is the new risk score?",
+            "There are 2 new major incident(s). Apply the same scoring rule to the updated running totals."
+          ],
+          "gold_answer": "84",
+          "oracle_response": "Using the verified running state, the requested value is 84.\nFINAL_ANSWER: 84",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-cohort-001",
+      "template": "study_cohort",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-cohort-001-T01",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "sites": {}
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 60,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 4
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: . Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 60, excluded 5, withdrawn 4; Central: enrolled 47, excluded 3, withdrawn 3; South: enrolled 46, excluded 5, withdrawn 4. How many participants are analyzable across all sites?",
+          "paraphrases": [
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 60, excluded 5, withdrawn 4; Central: enrolled 47, excluded 3, withdrawn 3; South: enrolled 46, excluded 5, withdrawn 4. Find the total analyzable cohort.",
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. The present site records are North: enrolled 60, excluded 5, withdrawn 4; Central: enrolled 47, excluded 3, withdrawn 3; South: enrolled 46, excluded 5, withdrawn 4. How many participants are analyzable across all sites?"
+          ],
+          "gold_answer": "129",
+          "oracle_response": "Using the verified running state, the requested value is 129.\nFINAL_ANSWER: 129",
+          "intrinsic_updates": 9
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T02",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 60,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 4
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 60,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=3, withdrawn=3; North: enrolled=60, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=4. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 2 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 2 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 2 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "127",
+          "oracle_response": "Using the verified running state, the requested value is 127.\nFINAL_ANSWER: 127",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T03",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 60,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=3, withdrawn=3; North: enrolled=60, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=6. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has enrolled 7 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has enrolled 7 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, enrolled 7 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "134",
+          "oracle_response": "Using the verified running state, the requested value is 134.\nFINAL_ANSWER: 134",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T04",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=3, withdrawn=3; North: enrolled=67, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=6. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "131",
+          "oracle_response": "Using the verified running state, the requested value is 131.\nFINAL_ANSWER: 131",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T05",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 6
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=6, withdrawn=3; North: enrolled=67, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=6. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 1 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 1 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 1 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "130",
+          "oracle_response": "Using the verified running state, the requested value is 130.\nFINAL_ANSWER: 130",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T06",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 67,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=6, withdrawn=3; North: enrolled=67, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=7. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has enrolled 2 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has enrolled 2 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, enrolled 2 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "132",
+          "oracle_response": "Using the verified running state, the requested value is 132.\nFINAL_ANSWER: 132",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T07",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=6, withdrawn=3; North: enrolled=69, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=7. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "129",
+          "oracle_response": "Using the verified running state, the requested value is 129.\nFINAL_ANSWER: 129",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T08",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 7
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=9, withdrawn=3; North: enrolled=69, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=7. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 2 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 2 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 2 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "127",
+          "oracle_response": "Using the verified running state, the requested value is 127.\nFINAL_ANSWER: 127",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T09",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 69,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=9, withdrawn=3; North: enrolled=69, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=9. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has enrolled 7 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has enrolled 7 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, enrolled 7 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "134",
+          "oracle_response": "Using the verified running state, the requested value is 134.\nFINAL_ANSWER: 134",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T10",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 11,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=9, withdrawn=3; North: enrolled=76, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=9. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 2 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 2 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 2 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "132",
+          "oracle_response": "Using the verified running state, the requested value is 132.\nFINAL_ANSWER: 132",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T11",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 11,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 9
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 11,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 8
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=11, withdrawn=3; North: enrolled=76, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=9. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has corrected the withdrawn count downward by 1. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has corrected the withdrawn count downward by 1. Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, corrected the withdrawn count downward by 1. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "133",
+          "oracle_response": "Using the verified running state, the requested value is 133.\nFINAL_ANSWER: 133",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-001-T12",
+          "dialogue_id": "cdr-v14-cohort-001",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 76,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 11,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 8
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 80,
+                "excluded": 5,
+                "withdrawn": 4
+              },
+              "Central": {
+                "enrolled": 47,
+                "excluded": 11,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 46,
+                "excluded": 5,
+                "withdrawn": 8
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=47, excluded=11, withdrawn=3; North: enrolled=76, excluded=5, withdrawn=4; South: enrolled=46, excluded=5, withdrawn=8. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has enrolled 4 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has enrolled 4 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, enrolled 4 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "137",
+          "oracle_response": "Using the verified running state, the requested value is 137.\nFINAL_ANSWER: 137",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-cohort-002",
+      "template": "study_cohort",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-cohort-002-T01",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "sites": {}
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: . Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 47, excluded 3, withdrawn 1; Central: enrolled 43, excluded 4, withdrawn 1; South: enrolled 50, excluded 2, withdrawn 1. How many participants are analyzable across all sites?",
+          "paraphrases": [
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 47, excluded 3, withdrawn 1; Central: enrolled 43, excluded 4, withdrawn 1; South: enrolled 50, excluded 2, withdrawn 1. Find the total analyzable cohort.",
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. The present site records are North: enrolled 47, excluded 3, withdrawn 1; Central: enrolled 43, excluded 4, withdrawn 1; South: enrolled 50, excluded 2, withdrawn 1. How many participants are analyzable across all sites?"
+          ],
+          "gold_answer": "128",
+          "oracle_response": "Using the verified running state, the requested value is 128.\nFINAL_ANSWER: 128",
+          "intrinsic_updates": 9
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T02",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 3,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=1; North: enrolled=47, excluded=3, withdrawn=1; South: enrolled=50, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "125",
+          "oracle_response": "Using the verified running state, the requested value is 125.\nFINAL_ANSWER: 125",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T03",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=1; North: enrolled=47, excluded=6, withdrawn=1; South: enrolled=50, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 1 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 1 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 1 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "124",
+          "oracle_response": "Using the verified running state, the requested value is 124.\nFINAL_ANSWER: 124",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T04",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 50,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=2; North: enrolled=47, excluded=6, withdrawn=1; South: enrolled=50, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has enrolled 5 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has enrolled 5 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, enrolled 5 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "129",
+          "oracle_response": "Using the verified running state, the requested value is 129.\nFINAL_ANSWER: 129",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T05",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 6,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=2; North: enrolled=47, excluded=6, withdrawn=1; South: enrolled=55, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "126",
+          "oracle_response": "Using the verified running state, the requested value is 126.\nFINAL_ANSWER: 126",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T06",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 2
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=2; North: enrolled=47, excluded=9, withdrawn=1; South: enrolled=55, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has corrected the withdrawn count downward by 2. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has corrected the withdrawn count downward by 2. Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, corrected the withdrawn count downward by 2. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "128",
+          "oracle_response": "Using the verified running state, the requested value is 128.\nFINAL_ANSWER: 128",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T07",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 55,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=0; North: enrolled=47, excluded=9, withdrawn=1; South: enrolled=55, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has enrolled 3 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has enrolled 3 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, enrolled 3 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "131",
+          "oracle_response": "Using the verified running state, the requested value is 131.\nFINAL_ANSWER: 131",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T08",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 9,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=0; North: enrolled=47, excluded=9, withdrawn=1; South: enrolled=58, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "128",
+          "oracle_response": "Using the verified running state, the requested value is 128.\nFINAL_ANSWER: 128",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T09",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 0
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=0; North: enrolled=47, excluded=12, withdrawn=1; South: enrolled=58, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 1 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 1 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 1 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "127",
+          "oracle_response": "Using the verified running state, the requested value is 127.\nFINAL_ANSWER: 127",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T10",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 58,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 64,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=1; North: enrolled=47, excluded=12, withdrawn=1; South: enrolled=58, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has enrolled 6 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has enrolled 6 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, enrolled 6 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "133",
+          "oracle_response": "Using the verified running state, the requested value is 133.\nFINAL_ANSWER: 133",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T11",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 12,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 64,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 10,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 64,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=1; North: enrolled=47, excluded=12, withdrawn=1; South: enrolled=64, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has corrected the excluded count downward by 2. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has corrected the excluded count downward by 2. Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, corrected the excluded count downward by 2. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "135",
+          "oracle_response": "Using the verified running state, the requested value is 135.\nFINAL_ANSWER: 135",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-002-T12",
+          "dialogue_id": "cdr-v14-cohort-002",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 10,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 64,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 47,
+                "excluded": 10,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 43,
+                "excluded": 4,
+                "withdrawn": 3
+              },
+              "South": {
+                "enrolled": 64,
+                "excluded": 2,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=43, excluded=4, withdrawn=1; North: enrolled=47, excluded=10, withdrawn=1; South: enrolled=64, excluded=2, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has recorded 2 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has recorded 2 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, recorded 2 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "133",
+          "oracle_response": "Using the verified running state, the requested value is 133.\nFINAL_ANSWER: 133",
+          "intrinsic_updates": 1
+        }
+      ]
+    },
+    {
+      "dialogue_id": "cdr-v14-cohort-003",
+      "template": "study_cohort",
+      "split": "replication_calibration",
+      "turns": [
+        {
+          "qid": "cdr-v14-cohort-003-T01",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 1,
+          "state_before": {
+            "sites": {}
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 37,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: . Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 39, excluded 5, withdrawn 1; Central: enrolled 37, excluded 4, withdrawn 1; South: enrolled 45, excluded 3, withdrawn 1. How many participants are analyzable across all sites?",
+          "paraphrases": [
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. Current records are North: enrolled 39, excluded 5, withdrawn 1; Central: enrolled 37, excluded 4, withdrawn 1; South: enrolled 45, excluded 3, withdrawn 1. Find the total analyzable cohort.",
+            "We are beginning a continuing multicenter study review. For each site, analyzable participants equal enrolled minus excluded minus withdrawn. The present site records are North: enrolled 39, excluded 5, withdrawn 1; Central: enrolled 37, excluded 4, withdrawn 1; South: enrolled 45, excluded 3, withdrawn 1. How many participants are analyzable across all sites?"
+          ],
+          "gold_answer": "106",
+          "oracle_response": "Using the verified running state, the requested value is 106.\nFINAL_ANSWER: 106",
+          "intrinsic_updates": 9
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T02",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 2,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 37,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=37, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=1; South: enrolled=45, excluded=3, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has enrolled 4 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has enrolled 4 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, enrolled 4 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "110",
+          "oracle_response": "Using the verified running state, the requested value is 110.\nFINAL_ANSWER: 110",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T03",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 3,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=41, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=1; South: enrolled=45, excluded=3, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 2 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 2 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 2 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "108",
+          "oracle_response": "Using the verified running state, the requested value is 108.\nFINAL_ANSWER: 108",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T04",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 4,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 1
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=41, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=1; South: enrolled=45, excluded=5, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 1 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 1 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 1 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "107",
+          "oracle_response": "Using the verified running state, the requested value is 107.\nFINAL_ANSWER: 107",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T05",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 5,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 41,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=41, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=2; South: enrolled=45, excluded=5, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has enrolled 4 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has enrolled 4 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, enrolled 4 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "111",
+          "oracle_response": "Using the verified running state, the requested value is 111.\nFINAL_ANSWER: 111",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T06",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 6,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 5,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=45, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=2; South: enrolled=45, excluded=5, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has corrected the excluded count downward by 2. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has corrected the excluded count downward by 2. Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, corrected the excluded count downward by 2. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "113",
+          "oracle_response": "Using the verified running state, the requested value is 113.\nFINAL_ANSWER: 113",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T07",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 7,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 2
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=45, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=2; South: enrolled=45, excluded=3, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 3 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 3 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 3 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "110",
+          "oracle_response": "Using the verified running state, the requested value is 110.\nFINAL_ANSWER: 110",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T08",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 8,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 45,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=45, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=5; South: enrolled=45, excluded=3, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has enrolled 7 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has enrolled 7 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, enrolled 7 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "117",
+          "oracle_response": "Using the verified running state, the requested value is 117.\nFINAL_ANSWER: 117",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T09",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 9,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 3,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=52, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=5; South: enrolled=45, excluded=3, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 3 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 3 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 3 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "114",
+          "oracle_response": "Using the verified running state, the requested value is 114.\nFINAL_ANSWER: 114",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T10",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 10,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 5
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 8
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=52, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=5; South: enrolled=45, excluded=6, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The North site has recorded 3 additional withdrawn participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the North site: it has recorded 3 additional withdrawn participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For North, recorded 3 additional withdrawn participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "111",
+          "oracle_response": "Using the verified running state, the requested value is 111.\nFINAL_ANSWER: 111",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T11",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 11,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 8
+              },
+              "Central": {
+                "enrolled": 52,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 8
+              },
+              "Central": {
+                "enrolled": 58,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=52, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=8; South: enrolled=45, excluded=6, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The Central site has enrolled 6 additional participants. Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the Central site: it has enrolled 6 additional participants. Using all earlier site records, what is the new total analyzable cohort?",
+            "For Central, enrolled 6 additional participants. After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "117",
+          "oracle_response": "Using the verified running state, the requested value is 117.\nFINAL_ANSWER: 117",
+          "intrinsic_updates": 1
+        },
+        {
+          "qid": "cdr-v14-cohort-003-T12",
+          "dialogue_id": "cdr-v14-cohort-003",
+          "template": "study_cohort",
+          "split": "replication_calibration",
+          "turn": 12,
+          "state_before": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 8
+              },
+              "Central": {
+                "enrolled": 58,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 6,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_after": {
+            "sites": {
+              "North": {
+                "enrolled": 39,
+                "excluded": 5,
+                "withdrawn": 8
+              },
+              "Central": {
+                "enrolled": 58,
+                "excluded": 4,
+                "withdrawn": 1
+              },
+              "South": {
+                "enrolled": 45,
+                "excluded": 8,
+                "withdrawn": 1
+              }
+            }
+          },
+          "state_summary_before": "Current cohort by site: Central: enrolled=58, excluded=4, withdrawn=1; North: enrolled=39, excluded=5, withdrawn=8; South: enrolled=45, excluded=6, withdrawn=1. Analyzable participants equal enrolled minus excluded minus withdrawn, summed across sites.",
+          "user_prompt": "The South site has recorded 2 additional excluded participant(s). Apply this update to the continuing study record. How many participants are now analyzable across all sites?",
+          "paraphrases": [
+            "Update the South site: it has recorded 2 additional excluded participant(s). Using all earlier site records, what is the new total analyzable cohort?",
+            "For South, recorded 2 additional excluded participant(s). After incorporating that change, calculate the current number of analyzable participants across the study."
+          ],
+          "gold_answer": "115",
+          "oracle_response": "Using the verified running state, the requested value is 115.\nFINAL_ANSWER: 115",
+          "intrinsic_updates": 1
+        }
+      ]
+    }
+  ]
+}

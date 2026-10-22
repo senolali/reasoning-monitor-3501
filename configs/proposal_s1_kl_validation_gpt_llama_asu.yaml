@@ -1,0 +1,73 @@
+# HOLD FOR EXPLICIT EXECUTION: paid full-metric S1 validation.
+# The protocol is frozen in DEVIATIONS_FROM_PROPOSAL.md Section 37.
+seed: 42
+seeds: [42]
+output_dir: results/proposal_s1_kl_validation_gpt_llama
+stream_design: proposal_multidataset
+datasets: [gsm8k, arc_challenge, math]
+allow_synthetic_datasets: false
+replication_dataset: null
+run_replication: false
+items_per_dataset: 300
+scenarios: [S1]
+proposal_queries_per_dataset: 30
+max_queries_per_scenario: null
+queries_per_regime: null
+window_sizes: [10]
+guard: 3
+run_ablation: false
+run_strategy_comparison: false
+resume: true
+
+# Full rqeval metric-health validation: 90 queries/model x (K=5 + L=3)
+# x 2 models = 1,440 resumable model calls.
+k_repeats: 5
+l_paraphrases: 3
+use_rqeval: true
+coherence_scorer: nli
+stability_scorer: bertscore
+publication_mode: true
+# Keep both paid model cells running so all degeneracy can be assessed together.
+fail_on_degenerate: false
+
+# Section 36 locked CQ detector. Other metric alarms remain exploratory until
+# their own call-free null calibration is completed from this pilot's records.
+detector_strategy: distribution_based
+detector_overrides:
+  CQ:
+    name: cusum
+    threshold: 7.5
+    drift: 0.01
+    warmup: 20
+
+# Prospective operational criterion: first eligible CQ alarm no later than one
+# W=10 window after the effective S1 midpoint t*=45, with zero pre-start alarms.
+proposal_s1_max_cq_delay: 10
+
+models:
+  - backend: openai_compatible
+    name: gpt4o_mini
+    model: openai/gpt4o_mini
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
+  - backend: openai_compatible
+    name: llama3_8b
+    model: aws/llama3-8b
+    base_url: https://api-main.aiml.asu.edu/v1
+    api_key_env: ASU_API_KEY
+    temperature: 0.7
+    max_tokens: 512
+    request_options:
+      enable_history: false
+      enable_search: false
+      enhance_prompt: {time: false, date: false}
+    max_retries: 4
+    backoff_base: 1.0
