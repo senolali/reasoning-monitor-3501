@@ -1,0 +1,55 @@
+\section{Monitoring framework and evaluation design}
+\label{sec:framework}
+
+Across both studies, a context policy determines what the model sees. Responses
+are mapped to per-turn quality signals, smoothed over a trailing window and
+passed to detectors calibrated on stationary null streams. Gold answers score
+accuracy and evaluate alarms but are unavailable to the monitor.
+
+\paragraph{Context policies.}
+At turn $t$, the \emph{dialogue-history} context is
+$(u_1,r_1,\ldots,r_{t-1},u_t)$; the \emph{fresh prefix} is
+$(u_1,\ldots,u_t)$; and the \emph{verified-state} context is
+$(s_{t-1},u_t)$, where a solver renders the exact state $s_{t-1}$. History
+versus fresh prefix estimates the net effect of retaining assistant-side text,
+including associated length and position changes. Verified state is a packaged
+mitigation--shorter context, no earlier replies and correct state--rather than a
+mechanism test. Our code packs every context into the request; server-side
+history, retrieval and prompt rewriting are disabled.
+
+\paragraph{Per-turn signals.}
+RQEval \citep{rqeval2026} yields accuracy (CQ), agreement among $K$ samples
+(CS), agreement under $L$ instruction rewordings when the primary is correct
+(RS), NLI-based step coherence (LS) \citep{he2021deberta}, correctness-adjusted
+token efficiency (ES), and BERTScore trace stability (SS)
+\citep{zhang2020bertscore}. Values lie in $[0,1]$. CQ, RS and ES require gold;
+CS requires at least two answers; LS and SS require reasoning text. Missing
+values are never imputed and every estimate reports its support.
+
+\paragraph{Streaming alarms.}
+For metric $m$, the monitor passes a trailing mean $\bar q_{m,t}$ over the last
+$W\in\{10,20,30\}$ valid values to CUSUM, Page--Hinkley, EWMA, DDM or ADWIN.
+The frozen assignments comprise a distribution-based CUSUM strategy, the
+proposal's metric-specific mapping, and an ADWIN-everywhere baseline. Thresholds
+are selected only from stationary null streams at a 5\% false-alarm target. For
+a change at $c$, alarms before $c$ are false alarms and alarms in
+$[c,c+33]$ are detections. A signal qualifies as early warning only if it is
+timely, respects the null calibration and generalises across models.
+
+\paragraph{Paired readiness.}
+For pre-final turns $\mathcal T$, let $a_t^{F}$ and $a_t^{D}$ indicate whether
+fresh-prefix and history arms attempt an answer. The frozen auxiliary measure
+\[
+\mathrm{CRL}=|\mathcal T|^{-1}\sum_{t\in\mathcal T}
+\max(a_t^{F}-a_t^{D},0)
+\]
+quantifies how persistently history delays readiness. It is a paired
+counterfactual signal, not an RQEval dimension.
+
+\paragraph{Evidence standards.}
+\emph{Confirmatory} results were frozen before data; \emph{prespecified
+secondary} results were frozen but outside the primary family;
+\emph{exploratory} rules preceded computation on already-seen data; and
+\emph{post-hoc} analyses followed inspection. Protocols fix samples, prompts,
+models, scoring, missingness and tests. Hashes bind protocols and records; raw
+responses are stored before scoring and never overwritten.

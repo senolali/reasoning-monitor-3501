@@ -1,10 +1,22 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Across two frozen studies, retaining assistant history reduced short-task
-success, and accumulated history caused a rapid 100-turn collapse that verified
-state prevented in all three tested models. No examined quality metric, paired
-process measure or single-stream detector provided robust model-general warning.
-Reliable long interactions therefore require explicit state management and,
-where monitoring is needed, comparative or aggregated evidence rather than a
-single apparently coherent trajectory.
+We studied multi-turn reasoning in two settings, both analysed under protocols
+frozen before data collection.
+
+\begin{itemize}
+  \item On short sharded math tasks, retaining the assistant's own replies
+    reduced final success relative to an information-matched context without
+    them.
+  \item In 100-turn dialogues with calibrated difficulty, accuracy collapsed
+    within about twenty turns under accumulated history, while a verified state
+    summary preserved it across all three models.
+  \item None of the examined signals gave robust, model-general early warning of
+    these failures. This covers the measurable reasoning-quality metrics, a
+    paired process measure, and single-stream drift detectors.
+\end{itemize}
+
+Long interactions can thus degrade LLM reasoning in ways that are invisible to
+single-stream quality monitoring. Compact, verified state representations and
+comparative, aggregated monitoring are the most promising directions for
+building reliable multi-turn systems.

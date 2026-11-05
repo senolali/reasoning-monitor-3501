@@ -1,16 +1,24 @@
-An LLM's own replies and an accumulating task state become part of the context
-from which it reasons. We test whether this history degrades reasoning and
-whether process metrics warn before accuracy fails. Two prospectively frozen
-studies provide complementary evidence. Study~1 pairs short, sharded math tasks
-with identical user information but with versus without prior assistant
-replies. Study~2 uses controlled 100-turn dialogues with exact per-turn answers,
-calibrated difficulty and either full history or a solver-verified state
-summary. Retaining assistant replies reduced final success in Study~1,
-significantly for two of three models. In Study~2, full-history accuracy
-collapsed within about twenty turns even at fixed difficulty, whereas verified
-summaries preserved accuracy in all three models. Reasoning-quality metrics, a
-paired process measure and single-stream detectors gave no robust,
-model-general early warning; coherence and stability sometimes increased as
-accuracy fell. Long interactions can therefore fail silently. Compact verified
-state and monitoring aggregated across sessions are more promising than
-single-stream quality scores.
+Large language models (LLMs) are increasingly embedded in expert and
+decision-support systems that maintain a task over many turns. Their context
+then accumulates the model's own earlier replies and a growing task state. We
+ask whether this conversation history lowers reasoning accuracy, which is the
+cost in our title, and whether process-level quality metrics warn before
+accuracy fails. Two studies were analysed under protocols frozen before data
+collection. Study~1 contrasts, on 48 sharded math tasks, identical user
+information with and without the model's prior replies. Retaining the replies
+lowered final success by 0.21 for GPT-4o-mini and 0.29 for Mistral-7B
+(Holm-adjusted $p=0.026$ and $0.004$), and by 0.10 for Llama-4 Scout without
+significance. Study~2 introduces CDR-Stream, 100-turn state-tracking dialogues
+with exact per-turn answers and model-specific difficulty calibration.
+With full history, accuracy fell from about 0.6 in the first five turns to about
+0.1 after turn~20, even at matched difficulty. A solver-verified state summary
+held accuracy 0.52--0.59 higher (Holm-adjusted $p<0.001$ in the frozen
+two-model family). No examined monitoring signal gave robust, model-general
+early warning. This covered measurable consistency, logical coherence and
+stability metrics, a paired readiness measure, and single-stream drift detectors
+with calibrated false-alarm rates. Coherence and stability often stayed flat or
+rose as accuracy collapsed, so the loss was silent to these monitors. Simulation
+shows why: one 100-turn stream detects only very large drops, whereas
+aggregating sessions makes realistic drops detectable. Expert systems built on
+LLMs should therefore manage state explicitly and monitor comparatively across
+sessions rather than trust single-stream quality scores.

@@ -1,44 +1,66 @@
 \section{Related work}
 \label{sec:related}
 
-\paragraph{Multi-turn degradation.}
-MT-Bench, MT-Eval and MINT evaluate conversational ability
+\subsection{Degradation in multi-turn and long-context use}
+
+Multi-turn benchmarks such as MT-Bench, MT-Eval and MINT evaluate
+conversational ability over several exchanges
 \citep{zheng2023judging,kwan2024mteval,wang2024mint}. \citet{laban2025lost}
-showed that LLMs lose substantial performance when a fully
-specified instruction is sharded across turns, mainly through increased
-unreliability. \citet{huang2026benefit} compared full conversational context with
-contexts from which assistant turns are omitted or condensed, using in-the-wild
-conversations and the Lost in Conversation math tasks. They found that response
-quality is largely preserved under aggressive filtering, and that prior assistant
-replies can propagate errors (context pollution).
+isolated one source of degradation by sharding fully specified single-turn
+tasks across turns. The resulting losses were large and came mainly from
+increased unreliability: models answered prematurely and then anchored on
+their own attempts. \citet{huang2026benefit} compared full conversational
+context with contexts in which assistant turns were omitted or condensed, both
+for in-the-wild conversations and for the Lost in Conversation math tasks. They
+found that quality was largely preserved under aggressive filtering and that
+earlier replies could propagate errors. Related findings include the loss of
+information in the middle of long inputs \citep{liu2024lost}, distraction by
+irrelevant context \citep{shi2023distracted}, and unreliable self-correction
+\citep{huang2024cannot}.
 
-Study~1 freezes this assistant-omission contrast; Study~2 extends it to 100
-turns with controlled difficulty. Related failures include sensitivity to long
-inputs, irrelevant context and unreliable self-correction
-\citep{liu2024lost,shi2023distracted,huang2024cannot}.
+Study~1 freezes the assistant-omission contrast of \citet{huang2026benefit}
+with a task-paired confirmatory analysis. Study~2 extends the question to 100
+turns with controlled difficulty, which these earlier designs do not provide.
 
-\paragraph{Mitigation by context management.}
-ERGO consolidates prompts after entropy spikes \citep{khalid2025ergo}, while
-\citet{huang2026benefit} filter assistant turns. Our solver-verified summary is
-an upper bound on what state compression can achieve.
+\subsection{Context and memory management}
 
-\paragraph{Reasoning-quality dimensions.}
-Reasoning quality has been studied through sample agreement, chain-of-thought
-faithfulness and self-knowledge
-\citep{wang2023selfconsistency,turpin2023say,lanham2023measuring,kadavath2022know}.
-We test RQEval's six dimensions \citep{rqeval2026}: accuracy (CQ), consistency
-(CS), robustness (RS), NLI-based logical coherence (LS)
-\citep{he2021deberta}, efficiency (ES) and BERTScore stability (SS)
-\citep{zhang2020bertscore}.
+A second line of work restructures what the model sees. ERGO detects
+token-entropy spikes and consolidates the conversation into a fresh prompt
+\citep{khalid2025ergo}; assistant-turn omission and condensation pursue a
+related goal \citep{huang2026benefit}. Our Study~2 control uses solver-verified
+state. It is therefore an upper reference for what compact state representation
+can achieve, not a deployable summariser.
 
-\paragraph{Drift detection.}
-CUSUM, Page--Hinkley, EWMA, DDM and ADWIN are standard stream detectors
-\citep{page1954continuous,hinkley1971inference,roberts1959control,gama2004learning,bifet2007learning};
-see \citet{gama2014survey,lu2019learning}. We apply them to per-turn quality
-streams under calibrated false-alarm control.
+\subsection{Reasoning-quality and uncertainty signals}
 
-\paragraph{Prospective analysis plans.}
-Model evaluations are prone to analytic flexibility in prompts, parsers and
-thresholds. Fixing hypotheses and analyses in advance \citep{nosek2018preregistration}
-limits it, so we froze each study's protocol before its data, and we label every
-post-hoc analysis as such.
+Beyond accuracy, reasoning quality has been characterised by agreement across
+sampled solutions \citep{wang2023selfconsistency}, by the faithfulness of
+chains of thought \citep{turpin2023say,lanham2023measuring}, and by models'
+knowledge of their own correctness \citep{kadavath2022know}. We use the
+six-dimension decomposition of RQEval \citep{rqeval2026}, which provides
+answer accuracy, sample consistency, robustness to rewording, NLI-based logical
+coherence \citep{he2021deberta}, efficiency, and BERTScore
+trace stability \citep{zhang2020bertscore}. We do not redefine these metrics;
+we test whether they warn.
+
+\subsection{Drift detection and model monitoring}
+
+Concept-drift research offers detectors with known statistical behaviour:
+CUSUM \citep{page1954continuous}, Page--Hinkley \citep{hinkley1971inference},
+EWMA control charts \citep{roberts1959control}, DDM \citep{gama2004learning}
+and ADWIN \citep{bifet2007learning}; see the surveys of
+\citet{gama2014survey} and \citet{lu2019learning}. In deployed machine learning,
+monitoring for shift is a recognised engineering need \citep{rabanser2019failing},
+and the behaviour of commercial LLMs has been shown to drift over time
+\citep{chen2024chatgpt}. These tools are usually applied to input distributions
+or to labelled performance streams. We apply them to per-turn reasoning-quality
+streams within dialogues and calibrate their false-alarm rates on stationary
+dialogues.
+
+\subsection{Positioning}
+
+We do not claim to be the first to show that assistant-side
+history can harm multi-turn performance. What we add is the combination of a
+prospectively frozen paired estimate, exact per-turn gold over 100 turns at
+calibrated difficulty, and a direct test of process metrics and detectors as
+early warnings with controlled false alarms.

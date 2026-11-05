@@ -31,6 +31,7 @@ CONTROL_VALIDATION = ROOT / "results/cdr_stream_v1_control_monitoring/validation
 POWER = ROOT / "results/cdr_stream_v1_power"
 SCI = ROOT / "results/lost_conversation_v2_science"
 MAPPINGS = ROOT / "results/cdr_stream_v1_mappings_llama3.json"
+REPLAY = ROOT / "results/lost_conversation_v2_stream_replay"
 LABEL = {"gpt4o_mini": "GPT-4o-mini", "llama3_70b": "Llama-3 70B",
          "gemma3_12b_it": "Gemma 3 12B", "llama4_scout": "Llama-4 Scout",
          "mistral_7b": "Mistral-7B"}
@@ -108,37 +109,92 @@ def fig_study1(conf: dict) -> None:
     ax2.set_xlabel("paired difference, fresh minus history\n(95% task-bootstrap CI)")
     ax2.set_xlim(-0.05, 0.75)
     ax2.set_yticklabels([])
-    fig.suptitle(f"Study 1: retaining assistant replies lowers final success "
-                 f"(n={conf['primary_endpoint']['gpt4o_mini']['tasks']} paired tasks per model)",
-                 fontsize=10)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"study1_paired.{ext}", dpi=200)
     plt.close(fig)
 
 
+SCENARIO_CHANGES = {"S0-E": (), "S0-H": (), "S1": (34, 68), "S2": (51,), "S3": (34, 67)}
+SCENARIO_TITLES = {"all": "(a) all scenarios (30 dialogues)",
+                   "S0-E": "(b) S0-E: stationary easy", "S0-H": "(c) S0-H: stationary hard",
+                   "S1": "(d) S1: staircase E→M→H", "S2": "(e) S2: sudden E→H",
+                   "S3": "(f) S3: E→H→E recovery"}
+
+
 def fig_study2(turns: pd.DataFrame) -> None:
+    """Accuracy over turns: pooled panel plus one panel per core scenario."""
     plt = setup_plt()
-    bins = [0, 5, 10, 20, 40, 60, 80, 100]
+    bins = list(range(0, 101, 5))
     mids = [(a + b) / 2 for a, b in zip(bins, bins[1:], strict=False)]
     turns = turns.assign(segment=pd.cut(turns["turn"], bins))
-    fig, ax = plt.subplots(figsize=(6.2, 3.6), constrained_layout=True)
-    for model in CDR_MODELS:
-        part = turns[turns["model"] == model]
-        means = part.groupby("segment", observed=False)["CQ"].mean().to_numpy()
-        ax.plot(mids, means, "o-", color=COLORS[model],
-                label=f"{LABEL[model]}, dialogue history")
-        ctrl = part.groupby("segment", observed=False)["CQ_ctrl"].mean()
-        if ctrl.notna().any():
-            ax.plot(mids, ctrl.to_numpy(), "s--", color=COLORS[model],
-                    label=f"{LABEL[model]}, verified state summary")
-    ax.set_xlabel("turn (binned)")
-    ax.set_ylabel("accuracy (CQ)")
-    ax.set_ylim(0, 1)
-    ax.legend(fontsize=7.5, frameon=False, loc="upper right")
-    ax.set_title("Study 2: accuracy over 100 turns (30 dialogues per model, all scenarios)",
-                 fontsize=10)
+    fig, axes = plt.subplots(2, 3, figsize=(9.2, 5.4), sharex=True, sharey=True,
+                             constrained_layout=True)
+    for ax, key in zip(axes.flat, SCENARIO_TITLES, strict=True):
+        sub = turns if key == "all" else turns[turns["scenario"] == key]
+        for change in SCENARIO_CHANGES.get(key, ()):
+            ax.axvline(change - 0.5, color="#888888", ls=":", lw=0.9)
+        for model in CDR_MODELS:
+            part = sub[sub["model"] == model]
+            g = part.groupby("segment", observed=False)
+            ax.plot(mids, g["CQ"].mean().to_numpy(), "-", color=COLORS[model], lw=1.6)
+            ax.plot(mids, g["CQ_ctrl"].mean().to_numpy(), "--", color=COLORS[model], lw=1.6)
+        ax.set_title(SCENARIO_TITLES[key], fontsize=9, loc="left")
+        ax.set_ylim(0, 1)
+        ax.set_xlim(0, 100)
+        ax.grid(axis="y", color="#e5e5e5", lw=0.6)
+    for ax in axes[1]:
+        ax.set_xlabel("turn")
+    for ax in axes[:, 0]:
+        ax.set_ylabel("accuracy (CQ)")
+    from matplotlib.lines import Line2D
+    handles = [Line2D([], [], color=COLORS[m], lw=1.8, label=LABEL[m]) for m in CDR_MODELS]
+    handles += [Line2D([], [], color="#444444", lw=1.6, ls="-", label="dialogue history"),
+                Line2D([], [], color="#444444", lw=1.6, ls="--",
+                       label="verified state summary")]
+    fig.legend(handles=handles, loc="outside lower center", ncol=5, fontsize=8, frameon=False)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"study2_accuracy_over_turns.{ext}", dpi=200)
+    plt.close(fig)
+
+
+def fig_silent(turns: pd.DataFrame, bands: pd.DataFrame) -> None:
+    """Descriptive: quality metrics do not fall with accuracy (S2 GPT; S1 replay)."""
+    plt = setup_plt()
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9.2, 3.4), constrained_layout=True)
+    colors = {"CQ": "#000000", "CS": "#E69F00", "LS": "#CC79A7", "SS": "#0072B2"}
+    names = {"CQ": "accuracy (CQ)", "CS": "consistency (CS)", "LS": "coherence (LS)",
+             "SS": "stability (SS)"}
+    bins = list(range(0, 101, 5))
+    mids = [(a + b) / 2 for a, b in zip(bins, bins[1:], strict=False)]
+    gpt = turns[turns["model"] == "gpt4o_mini"].assign(segment=lambda d: pd.cut(d["turn"], bins))
+    g = gpt.groupby("segment", observed=False)
+    for metric in ("CQ", "CS", "LS", "SS"):
+        ax1.plot(mids, g[metric].mean().to_numpy(), "-", color=colors[metric], lw=1.7,
+                 label=names[metric])
+    ax1.plot(mids, g["CQ_ctrl"].mean().to_numpy(), "--", color="#777777", lw=1.4,
+             label="CQ, verified state summary")
+    ax1.set_title("(a) Study 2, GPT-4o-mini, dialogue history", fontsize=9, loc="left")
+    ax1.set_xlabel("turn")
+    ax1.set_ylabel("5-turn mean")
+    ax1.set_ylim(0, 1.02)
+    ax1.legend(fontsize=7.5, frameon=False, loc="center right", bbox_to_anchor=(1.0, 0.33))
+    rep = bands[(bands["model"] == "gpt4o_mini") & (bands["scenario"] == "sudden")
+                & (bands["window"] == 20)]
+    for metric in ("CQ", "LS", "SS"):
+        r = rep[rep["metric"] == metric].sort_values("t")
+        ax2.plot(r["t"], r["median"], "-", color=colors[metric], lw=1.7, label=names[metric])
+        ax2.fill_between(r["t"], r["p10"], r["p90"], color=colors[metric], alpha=0.12, lw=0)
+    ax2.axvline(48.5, color="#888888", ls=":", lw=0.9)
+    ax2.set_title("(b) Study 1 replay, GPT-4o-mini, fresh → history at session 49",
+                  fontsize=9, loc="left")
+    ax2.set_xlabel("session index in stream")
+    ax2.set_ylabel("window mean, W = 20")
+    ax2.set_ylim(0, 1.02)
+    ax2.legend(fontsize=7.5, frameon=False, loc="lower left")
+    for ax in (ax1, ax2):
+        ax.grid(axis="y", color="#e5e5e5", lw=0.6)
+    for ext in ("pdf", "png"):
+        fig.savefig(FIG / f"silent_metrics.{ext}", dpi=200)
     plt.close(fig)
 
 
@@ -159,8 +215,6 @@ def fig_power(grid: pd.DataFrame) -> None:
         ax.set_xlabel("accuracy drop from 0.80")
     axes[0].set_ylabel("detection within 33 turns")
     axes[0].legend(fontsize=8, frameon=False)
-    fig.suptitle("Simulated detector power (W=20, thresholds from 12 null streams, "
-                 "FAR target 0.05)", fontsize=10)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"detector_power.{ext}", dpi=200)
     plt.close(fig)
@@ -205,6 +259,12 @@ def main() -> int:
         cells += [f(s0e, 2), f(ctrl.mean(), 2) if ctrl.notna().any() else "pending"]
         rows.append(f"{LABEL[model]} & " + " & ".join(cells) + " \\\\")
     (GEN / "table_cdr_collapse.tex").write_text("\n".join(rows) + "\n", encoding="utf-8")
+    s0e = paired[(paired["scenario"] == "S0-E") & (paired["turn"] >= 21)]
+    s0e = s0e.groupby("model")[["CQ_dialogue", "CQ_ctrl"]].mean()
+    m += [macro("cdrSzeroEDialRange", f"{f(s0e['CQ_dialogue'].min(), 2)}--"
+                f"{f(s0e['CQ_dialogue'].max(), 2)}"),
+          macro("cdrSzeroECtrlRange", f"{f(s0e['CQ_ctrl'].min(), 2)}--"
+                f"{f(s0e['CQ_ctrl'].max(), 2)}")]
     gpt = turns[turns["model"] == "gpt4o_mini"]
     m += [macro("cdrGptEarly", f(gpt[gpt["turn"] <= 5]["CQ"].mean(), 2)),
           macro("cdrGptLate", f(gpt[gpt["turn"] >= 21]["CQ"].mean(), 2)),
@@ -302,7 +362,16 @@ def main() -> int:
         paired[["model", "dialogue_id", "turn", "CQ_ctrl"]],
         on=["model", "dialogue_id", "turn"], how="left")
     fig_study2(figure_turns)
+    fig_silent(figure_turns, pd.read_csv(REPLAY / "trajectory_bands.csv"))
     fig_power(grid)
+    # Descriptive endpoints of Figure silent_metrics(a): GPT-4o-mini dialogue arm.
+    gpt_early = gpt[gpt["turn"] <= 5]
+    gpt_end = gpt[gpt["turn"] >= 81]
+    for metric in ("CQ", "CS", "LS", "SS"):
+        m += [macro(f"silent{metric}Early", f(gpt_early[metric].mean(), 2)),
+              macro(f"silent{metric}Late", f(gpt_end[metric].mean(), 2))]
+    m += [macro("silentCsSupport", int(gpt["CS"].notna().sum())),
+          macro("silentRsSupport", int(gpt["RS"].notna().sum()))]
     crl = json.loads((SCI / "crl_incremental_posthoc/assessment.json").read_text(encoding="utf-8"))
     m += [macro("crlLastGapAuroc", f(crl["last_prefinal_gap_alone_pooled"]["auroc"])),
           macro("crlLastGapP", p(crl["last_prefinal_gap_alone_pooled"]
@@ -317,7 +386,7 @@ def main() -> int:
         CONTROL / "early_signal/summary.json", POWER / "power_grid.csv", MAPPINGS,
         SCI / "crl_incremental_posthoc/assessment.json",
         CONTROL_COMPLETION / "assessment.json", CONTROL_COMPLETION / "paired_cq.csv",
-        CONTROL_VALIDATION / "summary.json",
+        CONTROL_VALIDATION / "summary.json", REPLAY / "trajectory_bands.csv",
         *(CONTROL_VALIDATION / model / "early_signal/summary.json"
           for model in ("llama3_70b", "gemma3_12b_it")),
         *(CONTROL_VALIDATION / model / "aggregated/aggregated_alarms.csv"

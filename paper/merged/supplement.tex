@@ -1,18 +1,18 @@
-% Compact supplementary material for the merged manuscript.
+% Supplementary material for the merged manuscript.
+% Tables: generated/supp_*.tex (scripts/paper_merged_supplement_assets.py).
 \documentclass[10pt,twocolumn]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=1.55cm,columnsep=0.55cm]{geometry}
+\usepackage[margin=1.5cm,columnsep=0.55cm]{geometry}
 \usepackage[authoryear,round]{natbib}
-\usepackage{amsmath,booktabs,graphicx}
+\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
 \setlist{nosep,leftmargin=*}
 \setlength{\textfloatsep}{6pt plus 2pt minus 2pt}
 \setlength{\floatsep}{5pt plus 2pt minus 2pt}
 \setlength{\intextsep}{5pt plus 2pt minus 2pt}
-\setlength{\parindent}{1em}
-\setlength{\parskip}{0pt}
+\graphicspath{{figures/}}
 \input{generated/numbers}
 \input{generated/cdr_numbers}
 \makeatletter
@@ -26,167 +26,405 @@
 \twocolumn[
 \begin{center}
 {\Large\bfseries Supplementary Material}\par
-\vspace{2pt}
 {\large The Silent Cost of Conversation History in LLM Reasoning}\par
-\vspace{2pt}
 Ali \c{S}enol
 \end{center}
-\vspace{6pt}
+\vspace{4pt}
 ]
 
-\noindent\textbf{Purpose and evidence labels.}
-This compact supplement records details needed to audit the main claims. Full
-protocols, generated tables, trajectories, hash-checked derived data and scripts
-are in the accompanying reproducibility archive. Results are labelled
-confirmatory when frozen before data, prespecified secondary when frozen but not
-primary, exploratory when rules preceded computation but the data were already
-seen, and post-hoc otherwise.
+\paragraph{Evidence labels.}
+Results are labelled \emph{confirmatory} when fixed before data,
+\emph{prespecified secondary} when frozen but not primary,
+\emph{exploratory} when the rule preceded computation but the data had been
+seen, and \emph{post-hoc} otherwise. Frozen results are never relabelled;
+sensitivity analyses appear beside rather than replace them.
 
-\section{Study 1: LIC-RQ-v2}
+%======================================================================
+\section{Study 1 (LIC-RQ-v2): additional details}
 
-\subsection{Task audit, transport and parsing}
-The public math subset contains 103 tasks and 585 shards. Before model calls, 11
-tasks matching inputs from earlier experiments and eight tasks whose sharding
-altered meaning were excluded; two overlapped, leaving 17 unique exclusions.
-Hash selection chose \nTasks{} untouched science tasks (4--9 turns; median 6)
-without model output. Four disjoint tasks were used only for integration.
+\subsection{Task audit and sample}
+The public math subset contains 103 tasks and 585 shards. Before any model call,
+an input audit excluded two groups of tasks:
+\begin{itemize}
+  \item 11 tasks whose normalized question exactly matched an input of our
+    earlier, unrelated experiments;
+  \item 8 tasks whose shard sequence appeared to alter the original problem, for
+    example a lost comparison or ambiguous wording.
+\end{itemize}
+The two groups overlap in 2 tasks, which leaves 86 eligible tasks.
 
-Both arms received a packed JSON transcript in one user message. The fresh arm
-contained user shards only; the history arm interleaved the same shards with
-earlier primary replies. Every cell used $K=\Krep{}$ same-context samples and
-$L=\Lpar{}$ frozen instruction rewordings; only the primary response entered
-later history. The semantic parser required an explicit final-answer or
-need-more-information marker while accepting numbering, units and minor status
-variants. Six empty Mistral-7B primaries were retained as invalid, not retried,
-and transported using a fixed placeholder.
+A deterministic, hash-based selection that does not use any model output then
+drew 4 integration tasks and \nTasks{} science tasks. The integration stage
+checked only transport, resume, parsing, scorers and plotting. Its effect
+direction could not change the sample.
 
-\subsection{Pre-final metrics and CRL}
-Before the last shard, CQ, RS and ES were structurally unobservable. CS, LS and
-SS were tested by task-clustered partial correlation with final failure,
-adjusting for model, turn, revealed-information fraction and log context length.
-No metric survived Holm correction (Table~\ref{tab:s1metrics}).
+\subsection{Prompts}
+\begin{description}
+  \item[System prompt.] \emph{Solve incrementally using only information
+    supplied in this conversation. Prior assistant replies may be wrong and are
+    not authoritative facts.}
+  \item[Primary instruction.] \emph{Give concise numbered reasoning steps using
+    only the information available so far. End with exactly one final line:
+    FINAL\_ANSWER: <number> when the numeric answer is determined, otherwise
+    STATUS: NEED\_MORE\_INFORMATION.}
+  \item[Rewordings ($L=2$).] Two frozen paraphrases of the instruction, which
+    differ in wording but not in the response contract.
+\end{description}
 
-\begin{table*}[t]
-\centering\footnotesize
-\caption{Study 1 pre-final metrics as predictors of final dialogue failure.
-$p$ values are one-sided task-clustered permutation tests.}
-\label{tab:s1metrics}
-\begin{tabular}{lcccccc}\toprule
-Metric & Turns & Units & Tasks & $r_{\rm partial}$ & $p$ & $p_{\rm Holm}$\\\midrule
-\inputtable{generated/table_rqeval.tex}
-\bottomrule\end{tabular}
-\end{table*}
+Both arms received a packed JSON transcript in a single user message:
+\begin{itemize}
+  \item the user shards only (fresh prefix), or
+  \item the user shards interleaved with the model's earlier primary replies
+    (dialogue history).
+\end{itemize}
 
-Cumulative Resolution Lag (CRL) averages positive fresh-minus-history readiness
-gaps before the final turn. It modestly discriminated the frozen readiness
-target, but a post-hoc check showed that it added nothing beyond the last
-pre-final gap (main text).
+\subsection{Parsing and empty responses}
+The strict final-line parser of the original protocol was too narrow. In the
+technical integration stage it rejected many responses that did carry an
+explicit marker. Before the science run, a semantic-contract parser was frozen.
+It still requires the explicit marker but accepts numbering, units and minor
+status variants. Raw responses and strict scores are retained.
 
-\begin{table*}[t]
-\centering\footnotesize
+Six Mistral-7B primaries were empty despite a successful API status. They were
+kept as invalid, never retried, and represented in later history by the token
+\texttt{[EMPTY\_PRIMARY\_RESPONSE]}.
+
+\subsection{Per-model metric trajectories}
+All six per-turn trajectories, their support counts and complete-case means are
+included as vector figures in the reproducibility archive. Structurally
+unobservable values are retained as gaps rather than coded as zero.
+
+\subsection{Cumulative Resolution Lag}
+Table~\ref{tab:crl} gives the frozen per-model results; the archive contains the
+CRL distributions, readiness trajectories and post-hoc accuracy-loss figure.
+
+In the post-hoc persistence check (main text, Study 1), the last pre-final
+readiness gap alone reached AUROC \crlLastGapAuroc{}. Conditional on that gap, CRL
+reached AUROC \crlCondAuroc{}, so it adds nothing beyond it.
+
+\begin{table*}[t]\centering\scriptsize
 \caption{Frozen CRL discrimination of a positive final readiness gap.}
 \label{tab:crl}
 \begin{tabular}{lcccccc}\toprule
-Model & Units & Cases/controls & Mean CRL & AUROC [95\% CI] & $p$ & $p_{\rm Holm}$\\\midrule
+Model & Units & Cases/controls & Mean CRL & AUROC [95\% CI] & $p$ & $p_{\text{Holm}}$\\\midrule
 \inputtable{generated/table_crl.tex}
-\bottomrule\end{tabular}
-\end{table*}
+\bottomrule\end{tabular}\end{table*}
 
-\begin{table}[t]
-\centering\scriptsize
-\caption{Format-valid sensitivity of the paired endpoint.}
-\begin{tabular}{lccc}\toprule
-Model & Tasks & Difference & McNemar $p$\\\midrule
+\subsection{Format-valid sensitivity}
+\begin{table}[h]\centering\small
+\caption{Primary endpoint restricted to tasks whose final responses are
+semantically valid in both arms.}
+\resizebox{\columnwidth}{!}{\begin{tabular}{lccc}\toprule
+Model & Tasks retained & Paired difference & McNemar $p$\\\midrule
 \inputtable{generated/table_format_valid.tex}
-\bottomrule\end{tabular}
-\end{table}
+\bottomrule\end{tabular}}\end{table}
 
-\section{Study 2: CDR-Stream}
+\subsection{Post-hoc stream replay}
+Completed sessions were replayed as stream items, with the regime switching from
+fresh prefix to dialogue history over the same 48 tasks. Two switch patterns were
+used: sudden (LIC-S) and gradual (LIC-G).
 
-\subsection{Generator and calibration}
-Each 100-turn dialogue realizes state events and one exact-answer query from six
+\begin{itemize}
+  \item Windows: $W\in\{10,20,30\}$.
+  \item Detectors: CUSUM, Page--Hinkley, EWMA, DDM and ADWIN.
+  \item Strategies: three detector-assignment strategies.
+  \item Error control: thresholds calibrated on 2,000 permutation nulls, with
+    family-wise $\alpha=0.05$ verified on 2,000 disjoint nulls.
+\end{itemize}
+
+Table~\ref{tab:replay} gives the highest detection rate per model and scenario.
+Table~\ref{tab:adwreplay} reports the ADWIN sensitivity analysis
+(Section~\ref{sec:adwin}).
+
+\begin{table}[h]\centering\small
+\caption{Replay at $W=20$: highest detection rate over validated cells.}
+\label{tab:replay}
+\resizebox{\columnwidth}{!}{\begin{tabular}{llcl}\toprule
+Model & Scenario & Max.\ detection & Metric / strategy\\\midrule
+\inputtable{generated/table_replay.tex}
+\bottomrule\end{tabular}}\end{table}
+
+\begin{table}[h]\centering\small
+\caption{ADWIN sensitivity of the replay: ADWIN-family alarms and early-warning
+candidates.}
+\label{tab:adwreplay}
+\resizebox{\columnwidth}{!}{\begin{tabular}{lcc}\toprule
+Variant & ADWIN alarms / rows & Candidates\\\midrule
+\inputtable{generated/supp_adwin_replay.tex}
+\bottomrule\end{tabular}}\end{table}
+
+%======================================================================
+\section{Study 2 (CDR-Stream): additional details}
+
+\subsection{Generator}
+Each dialogue has 100 turns. Every user turn realizes one or more state events,
+optionally adds distractor sentences, and asks one question from one of six
 families: sum, difference, count-above-threshold, maximum, what-if and share.
-Exact solvers verify every update, gold answer and paraphrase. A 12-level ladder
-changes one complexity axis per level. Before stream generation, model-domain
-mappings were fitted by isotonic regression and a one-sided trend test. A domain
-was excluded unless adjacent regime gaps were at least 0.10, the easy-hard gap
-at least 0.25, and the trend significant at $p\leq0.01$.
 
-Models were selected before stream outcomes. Mistral-7B was at the floor, a
-larger Gemma at the ceiling, and Llama-4 variants lacked repeat diversity;
-GPT-4o-mini, Llama-3 70B and Gemma 3 12B passed the relevant gates. A capacity
-probe confirmed that Llama-3 70B accepted and recalled the oldest message in a
-full 100-turn packed history.
+Exact solvers keep the state and compute the gold answer. The generator checks
+two things:
+\begin{itemize}
+  \item a solver round trip on every turn;
+  \item that paraphrased questions re-derive the same answer.
+\end{itemize}
 
-\subsection{Recorded deviations and missingness}
-Two Llama-3 70B zero-truncation gates were overridden and recorded before the
-main run: one of 1,440 calibration responses and two non-primary pilot responses
-reached the 2,048-token ceiling. The replacement policy, frozen for all models,
-kept truncated text, scored the cell missing, transported a truncated primary
-as a placeholder and repeated inference with truncated cells scored incorrect.
-The sensitivity analysis changed no result.
+Difficulty follows a 12-level ladder (Table~\ref{tab:ladder}) in which exactly
+one axis changes per step. Levels 13--14 are contingency levels, used only under
+the frozen ceiling rule.
 
-Funding paused acquisition after all 90 dialogue-history primary chains and the
-full GPT-4o-mini sampling plan were complete. Llama and Gemma controls were then
-completed under a separate frozen protocol. Their control-minus-history gaps
-were tested by per-dialogue one-sided sign flips with Holm correction across the
-two-model family; GPT-4o-mini was reported outside that family.
+\begin{table}[h]\centering\small
+\caption{Frozen difficulty ladder. Axes: number of query terms, events per turn,
+distractor sentences, event complexity. $\dagger$ marks contingency levels.}
+\label{tab:ladder}
+\begin{tabular}{ccccc}\toprule
+Level & Query terms & Events & Distractors & Complexity\\\midrule
+\inputtable{generated/supp_ladder.tex}
+\bottomrule\end{tabular}\end{table}
 
-\subsection{Monitoring validation}
-The $W=20$ detector mapping and threshold rule screened on GPT-4o-mini were
-applied unchanged to unseen Llama and Gemma controls. Neither model passed the
-single-stream screen; apparent LS leads also occurred frequently in stationary
-dialogues. Six-dialogue CQ aggregation detected all three drift scenarios, but
-Gemma produced one stationary-scenario alarm (Table~\ref{tab:validation}).
+\subsection{Difficulty calibration and model selection}
+A single-turn calibration stage fitted the regime-to-level mapping for every
+model and domain before any stream existed. Four rules were frozen:
+\begin{itemize}
+  \item fitting by isotonic regression;
+  \item a one-sided Cochran--Armitage trend test with $p\le0.01$;
+  \item adjacent regime gaps of at least 0.10 and an easy--hard gap of at least
+    0.25;
+  \item exclusion of a domain if any of these failed, and exclusion of a model if
+    contract validity was below 0.90 or any response was truncated.
+\end{itemize}
 
-\begin{table}[t]
-\centering\scriptsize
-\caption{Frozen monitoring validation. Null counts are alarms among 12
-stationary dialogues (LS) or two stationary scenario aggregates (CQ CUSUM).}
-\label{tab:validation}
-\begin{tabular}{lcc}\toprule
-Outcome & Llama-3 70B & Gemma 3 12B\\\midrule
-CUSUM drift detection & \valLlamaDetect{} & \valGemmaDetect{}\\
-Median delay (turns) & \valLlamaDelay{} & \valGemmaDelay{}\\
-LS drift signals & \valLlamaLsSignal{} & \valGemmaLsSignal{}\\
-LS null alarms & \valLlamaLsNull{} & \valGemmaLsNull{}\\
-Aggregate drift detection & \valLlamaAggDetect{} & \valGemmaAggDetect{}\\
-Aggregate null alarms & \valLlamaAggNull{} & \valGemmaAggNull{}\\
-\bottomrule\end{tabular}
-\end{table}
+The calibration went through several frozen rounds:
+\begin{itemize}
+  \item The first ladder was too coarse.
+  \item A one-axis-per-step ladder replaced it.
+  \item A scheduling domain was replaced by the shallower milestone-chains domain.
+\end{itemize}
 
-\section{Power and detector audit}
-Simulation used pre-change accuracy 0.80, changes at turns 34 or 51, unchanged
-detector grids, and 300 drift streams per cell. Thresholds targeted 5\% false
-alarms. Table~\ref{tab:power} shows that aggregation, rather than a different
-single-stream score, is what moves observed 0.1--0.3 drops into a detectable
-range.
+Several candidate models were replaced, each before any stream result existed:
+\begin{itemize}
+  \item Mistral-7B sat at the accuracy floor and truncated responses.
+  \item A frontier model's gateway truncated outputs in one domain.
+  \item Gemma 4 31B reached the ceiling even at the contingency levels.
+  \item Gemma 3 12B replaced it.
+\end{itemize}
 
-\begin{table}[t]
-\centering\scriptsize
-\caption{Smallest drop detected within 33 turns with at least 80\% power at
-$W=20$; final column is power for a 0.2 drop.}
-\label{tab:power}
-\begin{tabular}{lccc}\toprule
-Dialogues & Change 34 & Change 51 & Power at 0.2\\\midrule
-\inputtable{generated/table_power.tex}
-\bottomrule\end{tabular}
-\end{table}
+\paragraph{Repeat diversity of the Llama family.}
+Consistency and stability require stochastic repeats. A technical pilot showed
+that Llama-4 Scout produced near-identical repeated samples. Identical prompts
+were therefore replayed against every Llama variant available
+(Table~\ref{tab:kdiv}). Only Llama-3 70B met the frozen 0.80 diversity gate.
 
-The historical ADWIN comparator omitted the variance term of
-\citet{bifet2007learning}; its bound exceeded every attainable mean difference
-on streams of this length. Every affected analysis was rerun with the corrected
-bound and CUSUM. No decision changed, and corrected ADWIN remained too
-conservative for 100 turns. This audit illustrates why a generic comparator
-must first be shown capable of alarming on the intended stream length.
+A context-capacity probe established that Llama-3 70B accepts the full 100-turn
+packed history (37,139 gateway prompt tokens at turn 100) and recalls its oldest
+message there.
 
+\begin{table*}[t]\centering\scriptsize
+\caption{Raw-text repeat diversity of Llama-family models on identical prompts.
+Gate: diversity $\ge0.80$, contract validity $\ge0.90$, no truncation.}
+\label{tab:kdiv}
+\begin{tabular}{llccc}\toprule
+Model (endpoint) & Prompts & Diversity & Validity & Truncated\\\midrule
+\inputtable{generated/supp_kdiv.tex}
+\bottomrule\end{tabular}\end{table*}
+
+\subsection{Recorded deviations for Llama-3 70B}
+The investigator recorded two deviations for Llama-3 70B. Both were made after
+the relevant gate result was seen, and both are disclosed here.
+
+\begin{itemize}
+  \item \textbf{Calibration rule overridden.} One of 1,440 calibration responses
+    reached the 2,048-token ceiling. It was long reasoning in a domain that was
+    excluded for this model on accuracy grounds. The frozen any-truncation rule
+    was overridden for this model only. Mistral-7B, by contrast, had been
+    excluded under the same rule with five truncations.
+  \item \textbf{Pilot gate overridden.} The technical pilot had two truncated
+    non-primary responses, both repetition loops. Its zero-truncation gate was
+    overridden as well.
+\end{itemize}
+
+In place of the second gate, a truncation policy was frozen for all models
+before the main run:
+\begin{itemize}
+  \item a truncated response is kept verbatim and scored as missing;
+  \item a truncated primary enters later history as a placeholder;
+  \item a sensitivity analysis rescores truncated cells as incorrect.
+\end{itemize}
+
+\subsection{Acquisition and staged analysis}
+The main run was paused twice by the funding budget. At the second pause,
+25,039 of 54,000 calls had been made. Because primaries are scheduled first, all
+90 dialogue-history primary chains were complete at that point. The one
+exception was a single Llama turn-100 primary.
+
+The analysis protocol was frozen before any main-run metric was computed. Stage A
+analyses every model--metric pair that had been fully acquired. Stage B
+(consistency, robustness, stability and control for Llama-3 70B and Gemma 3 12B)
+was committed, before any Stage A result was seen, to proceed regardless of the
+Stage A results.
+
+At Stage A, Llama-3 70B had two truncated primaries, and no other model had any.
+The truncated-as-incorrect sensitivity analysis changed no result.
+
+The frozen control-arm completion added 3,000 control calls for each of
+Llama-3 70B and Gemma 3 12B. H-C1 used the per-dialogue mean
+$CQ_{control}-CQ_{dialogue}$ over turns 1--100, a one-sided sign-flip test and
+Holm correction over these two models. The mean gaps were
+\cdrLlamaControlGap{} (95\% bootstrap CI [\cdrLlamaControlCiLo{},
+\cdrLlamaControlCiHi{}], Holm $p=\cdrLlamaControlHolmP{}$) and
+\cdrGemmaControlGap{} (95\% CI [\cdrGemmaControlCiLo{},
+\cdrGemmaControlCiHi{}], Holm $p=\cdrGemmaControlHolmP{}$), respectively. Each
+estimate contains 30 paired dialogues. The secondary turns 21--100 gaps were
+\cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}.
+
+The per-turn control and dialogue trajectories for all three models are shown
+in the main article and supplied as vector graphics in the archive.
+
+\subsection{Frozen change-point contrasts of the dialogue arm}
+The confirmatory Stage A contrasts compare
+the 20 turns after each change point with the 20 turns before it. Because the
+dialogue arm collapses from turn 1 onward, even in stationary dialogues, these
+contrasts mix task drift with the background collapse. We therefore do not
+interpret them as task-drift effects.
+
+H1b is the dialogue minus control contrast. It was available for GPT-4o-mini
+only, and it is uninformative under the floor (Table~\ref{tab:h1b}).
+
+The complete frozen H1a contrast table, including CS, RS and SS where available,
+is retained in the archive. It changes none of the interpretation above.
+
+\begin{table}[h]\centering\small
+\caption{Stage A H1b (GPT-4o-mini): $\Delta$CQ(dialogue) $-$ $\Delta$CQ(control).}
+\label{tab:h1b}
+\begin{tabular}{lcccc}\toprule
+Transition & Mean & Dialogues & $p$ & $p_{\text{Holm}}$\\\midrule
+\inputtable{generated/supp_h1b.tex}
+\bottomrule\end{tabular}\end{table}
+
+\subsection{Monitoring of the dialogue arm (Stage A)}
+Table~\ref{tab:stagea} gives the dialogue-arm detection rates. n/c means that no
+grid value met the null false-alarm target, because the stationary null
+dialogues also decline.
+
+\begin{table*}[t]\centering\scriptsize
+\caption{Stage A dialogue-arm detection rate within 33 turns of the first change,
+with thresholds calibrated on the 36 pooled stationary dialogues.}
+\label{tab:stagea}
+\begin{tabular}{llcccccc}\toprule
+$W$ & Strategy & CQ & CS & RS & LS & ES & SS\\\midrule
+\inputtable{generated/supp_stagea_monitoring.tex}
+\bottomrule\end{tabular}\end{table*}
+
+\subsection{GPT-4o-mini control arm (exploratory)}
+Table~\ref{tab:ctrlscreen} reports the per-dialogue detectors and
+Table~\ref{tab:early} the per-dialogue threshold rule. Full aggregate alarms and
+trajectories remain in the archive.
+
+\begin{table}[h]\centering\small
+\caption{Per-dialogue detection rate within 33 turns, with leave-one-out
+false-alarm rate in parentheses, on 18 drift and 12 stationary dialogues.}
+\label{tab:ctrlscreen}
+\resizebox{\columnwidth}{!}{\begin{tabular}{llccc}\toprule
+$W$ & Strategy & CQ & LS & ES\\\midrule
+\inputtable{generated/supp_control_screen.tex}
+\bottomrule\end{tabular}}\end{table}
+
+\begin{table*}[t]\centering\scriptsize
+\caption{Per-dialogue threshold rule. The baseline is turns 1--30. A signal is a
+window mean below $\mu_0-2\sigma_0/\sqrt{W}$ on 3 consecutive turns. LS and ES
+timing is relative to CQ, given as before/same/after.}
+\label{tab:early}
+\begin{tabular}{ccccccc}\toprule
+$W$ & CQ signalled & CQ null & LS signalled & LS b/s/a & LS null & ES b/s/a\\\midrule
+\inputtable{generated/supp_early_signal.tex}
+\bottomrule\end{tabular}\end{table*}
+
+The complete aggregate alarm-turn table, calibrated on 2,000 turn-permuted
+stationary streams, is retained in the archive.
+
+\subsection{Frozen monitoring validation on Llama-3 70B and Gemma 3 12B}
+The detector mappings, grids, $W=20$ primary window and per-dialogue threshold
+rule were unchanged from the GPT-4o-mini screen. Neither validation model passed
+the single-stream screen. Table~\ref{tab:monitorvalidation} also shows why the
+apparent LS leads are not reliable: the same rule frequently signalled in
+stationary dialogues. Aggregation detected every drift scenario in both models,
+but Gemma produced a stationary-scenario alarm.
+
+\begin{table*}[t]\centering\scriptsize
+\caption{Frozen monitoring validation at $W=20$. Null counts are alarms among
+12 stationary dialogues for the per-dialogue LS rule and among two stationary
+scenario aggregates for the six-dialogue CQ CUSUM.}
+\label{tab:monitorvalidation}
+\begin{tabular}{lcccccc}\toprule
+Model & CUSUM detect & Delay & LS signal & LS null & Agg. detect & Agg. null\\\midrule
+Llama-3 70B & \valLlamaDetect{} & \valLlamaDelay{} & \valLlamaLsSignal{} &
+\valLlamaLsNull{} & \valLlamaAggDetect{} & \valLlamaAggNull{}\\
+Gemma 3 12B & \valGemmaDetect{} & \valGemmaDelay{} & \valGemmaLsSignal{} &
+\valGemmaLsNull{} & \valGemmaAggDetect{} & \valGemmaAggNull{}\\
+\bottomrule\end{tabular}\end{table*}
+
+Validation trajectories for both models are supplied as vector graphics in the
+archive.
+
+\subsection{Per-model trajectories (Stage A)}
+The archive includes all per-model, per-scenario trajectories. Consistency,
+robustness and stability repeat sampling is complete for GPT-4o-mini only;
+Llama-3 70B and Gemma 3 12B have complete primary and control trajectories.
+
+%======================================================================
+\section{Detector power simulation}
+The simulated streams have pre-change accuracy 0.80 and a drop $\delta$ at turn
+34 or 51. Each turn aggregates $m$ independent dialogues.
+
+\begin{itemize}
+  \item Detectors and grids: the unchanged ones used in the analyses.
+  \item Calibration: 2,000 nulls (oracle), or 200 random subsets of 36 or 12
+    nulls.
+  \item Drift streams: 300 per cell.
+\end{itemize}
+
+The main article reports the decision-relevant $W=20$ summary. The complete grid
+of smallest detectable drops across windows, calibration sizes and change
+points is retained in the archive.
+
+%======================================================================
+\section{ADWIN implementation defect and audit}
+\label{sec:adwin}
+The historical ADWIN used the cut bound
+$\epsilon=\sqrt{(2/m)\ln(2n/\delta)}$, without the variance term of
+\citet{bifet2007learning}. For $n\le100$ values in $[0,1]$, this $\epsilon$ exceeds
+every attainable difference in means. No ADWIN cell in any of our result tables
+ever alarmed.
+
+Every affected analysis was re-run with two substitutes:
+\begin{itemize}
+  \item a corrected ADWIN that uses the variance bound;
+  \item CUSUM.
+\end{itemize}
+No recorded decision changed (Table~\ref{tab:adwreplay}).
+
+The corrected ADWIN is faithful to the published bound but too conservative for
+100-turn streams (Table~\ref{tab:adwv}). Its $(2/3m)\ln$ term does not shrink
+with aggregation.
+
+\begin{table}[h]\centering\small
+\caption{Corrected ADWIN: detection by turn 100 ($W=20$, change at 51, oracle
+calibration) by drop size and number of dialogues aggregated per turn.}
+\label{tab:adwv}
+\begin{tabular}{ccccc}\toprule
+$\delta$ & $m=1$ & $m=3$ & $m=6$ & $m=18$\\\midrule
+\inputtable{generated/supp_adwin_v_power.tex}
+\bottomrule\end{tabular}\end{table}
+
+%======================================================================
 \section{Reproducibility}
-The release contains frozen protocols, configurations, analysis code, generated
-tables and figures, derived reports and a machine-readable manifest. Raw
-provider responses are excluded from the distributable archive. Key input and
-report hashes are verified by the build script; no raw record is overwritten.
-The version-controlled repository and archival release are identified in the
-main article's data-availability statement.
+Every number, table and figure is produced by scripts from hash-checked inputs
+(Table~\ref{tab:hash}). Raw responses are never overwritten.
+
+\begin{table}[h]\centering\small
+\caption{Key SHA-256 prefixes.}\label{tab:hash}
+\begin{tabular}{ll}\toprule Artifact & SHA-256\\\midrule
+\inputtable{generated/supp_hashes.tex}
+\bottomrule\end{tabular}\end{table}
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}

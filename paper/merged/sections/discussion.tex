@@ -5,11 +5,18 @@
 The two studies reveal two complementary ways in which multi-turn context can
 degrade reasoning.
 
-On short tasks, retaining assistant replies lowered success relative to an
-information-matched context without them, replicating the direction of
-\citet{huang2026benefit} under a frozen paired analysis. Over 100 turns,
-accuracy collapsed within about twenty turns even at fixed difficulty; verified
-state avoided this collapse in all three models.
+\begin{itemize}
+  \item \textbf{Short tasks (Study 1).} Retaining the assistant's own replies
+    lowered final success relative to an information-matched context without
+    them. This replicates the direction reported by \citet{huang2026benefit}
+    under a frozen, task-paired analysis. Mistral-7B illustrates one mechanism:
+    with its own replies in context it tended to remain in an explicit ``need
+    more information'' state, while the same model given the same information
+    without those replies attempted an answer.
+  \item \textbf{Long horizons (Study 2).} With a steadily updated state, accuracy
+    collapsed within about twenty turns, even at fixed difficulty. A verified
+    state summary avoided the collapse in all three models.
+\end{itemize}
 
 The studies differ in tasks, models and controls. We therefore do not claim that
 the short-task effect causally grows into the long-horizon collapse. Study 2 also
@@ -32,18 +39,37 @@ of signal. We did not test them, because our protocols did not collect token
 probabilities.
 
 \paragraph{Implications for practice.}
-Operationally, systems should periodically re-ground stateful tasks in a
-compact verified representation; monitor by counterfactual re-query or across
-concurrent sessions rather than trusting one quality trajectory; and verify
-that detector baselines can fire on streams of the intended length.
+Three practices follow from our results:
+\begin{itemize}
+  \item Do not let the raw history grow indefinitely in tasks that maintain
+    state. Re-ground the model periodically in a compact, verified state
+    representation.
+  \item Monitor by comparison: against a verified-state or history-free
+    re-query, or across many concurrent sessions. Single-stream quality
+    trajectories are not a substitute.
+  \item Before using a generic drift detector as a comparator, verify that it
+    can fire on streams of the intended length.
+\end{itemize}
 
 \paragraph{Limitations.}
-Both studies use exact-answer arithmetic tasks and one academic gateway, with
-different model sets; generalization remains open. Study~1 estimates a net
-assistant-history effect, while Study~2's verified-state control is a packaged
-intervention rather than a mechanism test. Some Study~1 metrics were
-structurally unobservable before the final turn. Monitoring, CRL persistence,
-accuracy-loss and replay analyses are explicitly exploratory or post-hoc.
-Funding staged Study~2 acquisition: primary chains and controls are complete,
-but full repeat sampling for CS, RS and SS is complete only for GPT-4o-mini.
-Finally, one investigator performed task audit and calibration.
+\begin{itemize}
+  \item \textbf{Scope.} Both studies use arithmetic reasoning with exact answers
+    and models available through one academic gateway, and the two studies use
+    different models. Effects may differ for other domains, newer models or other
+    serving stacks.
+  \item \textbf{Net effects.} Study 1 estimates the net effect of retaining
+    assistant replies, which contain both harmful commitments and potentially
+    useful work. Study 2's control is a packaged intervention, not a mechanism
+    test.
+  \item \textbf{Observability.} Accuracy, robustness and efficiency were
+    unobservable before the final turn in Study 1. Their early-warning value
+    there was not tested.
+  \item \textbf{Exploratory analyses.} The Study 2 monitoring analyses, the CRL
+    persistence check, the accuracy-loss target and the stream replay are
+    exploratory or post-hoc, and are labelled as such.
+  \item \textbf{Study 2 acquisition.} A funding pause staged the acquisition.
+    The primary chains and all three control arms are complete, but consistency,
+    robustness and stability samples remain complete for GPT-4o-mini only.
+  \item \textbf{Single investigator.} The audit of Study 1 tasks and the
+    calibration of Study 2 were carried out by one investigator.
+\end{itemize}

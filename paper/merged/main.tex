@@ -2,7 +2,7 @@
 % Claim boundaries: MERGED_PAPER_CLAIMS.md (approved 2026-10-04) -- binding.
 % Numbers: generated/numbers.tex (Study 1, scripts/paper_lic_rq_v2_assets.py --paper paper/merged)
 %          generated/cdr_numbers.tex (Study 2 + cross-study, scripts/paper_merged_cdr_assets.py)
-\documentclass[preprint,11pt,authoryear]{elsarticle}
+\documentclass[preprint,10pt,authoryear]{elsarticle}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -11,6 +11,11 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\renewcommand{\bibfont}{\small}
+\setlength{\bibsep}{1pt}
 
 \graphicspath{{figures/}}
 \input{generated/numbers}
@@ -49,6 +54,7 @@ drift detection
 
 \input{sections/introduction}
 \input{sections/related}
+\input{sections/framework}
 \input{sections/study1}
 \input{sections/study2}
 \input{sections/monitoring}
