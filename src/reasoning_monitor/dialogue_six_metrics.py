@@ -25,7 +25,7 @@ class StrictScorers:
         import torch
         from transformers import pipeline
 
-        torch.set_num_threads(2)
+        torch.set_num_threads(int(os.environ.get('REASONING_MONITOR_TORCH_THREADS', '2')))
         self.nli = pipeline('text-classification', model='cross-encoder/nli-deberta-v3-small',
                             device=-1, top_k=None)
         labels = {str(x).lower() for x in self.nli.model.config.id2label.values()}
@@ -49,6 +49,30 @@ class StrictScorers:
             raise ValueError('Incomplete NLI result')
         predictions = [max(row, key=lambda x: x['score'])['label'].lower() for row in results]
         return 1 - sum(x == 'contradiction' for x in predictions) / len(predictions)
+
+    def coherence_many(self, step_lists, *, chunk_size=4096, callback=None):
+        """Score many traces in length-sorted batches using the scalar formula."""
+        inputs, owners = [], []
+        for owner, steps in enumerate(step_lists):
+            for left, right in zip(steps, steps[1:], strict=False):
+                inputs.append(f'{left} [SEP] {right}')
+                owners.append(owner)
+        order = sorted(range(len(inputs)), key=lambda index: len(inputs[index]))
+        contradictions = [0] * len(step_lists)
+        for start in range(0, len(order), chunk_size):
+            indices = order[start:start + chunk_size]
+            results = self.nli([inputs[index] for index in indices], truncation=True,
+                               max_length=512, batch_size=32)
+            if len(results) != len(indices):
+                raise ValueError('Incomplete batched NLI result')
+            for index, row in zip(indices, results, strict=True):
+                label = max(row, key=lambda x: x['score'])['label'].lower()
+                contradictions[owners[index]] += int(label == 'contradiction')
+            if callback:
+                callback(min(start + len(indices), len(order)), len(order))
+        counts = [max(0, len(steps) - 1) for steps in step_lists]
+        return [np.nan if count == 0 else 1 - bad / count
+                for bad, count in zip(contradictions, counts, strict=True)]
 
     def similarity(self, left, right):
         if self.bert is None:

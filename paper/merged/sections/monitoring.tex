@@ -42,8 +42,17 @@ signalled in \earlyLsSignal{} drift dialogues, \earlyLsBefore{} of them before
 accuracy. It also signalled in \earlyLsNull{} stationary dialogues, so this lead
 cannot be distinguished from noise. These Study 2 monitoring analyses are
 exploratory, because the GPT-4o-mini control trajectories had been seen when the
-rules were fixed. \pending{Unchanged rules applied to the Llama-3 70B and
-Gemma 3 12B control arms as validation.}
+rules were fixed.
+
+We then applied the unchanged rules to the previously unseen Llama-3 70B and
+Gemma 3 12B control arms. The single-stream CUSUM caught
+\valLlamaDetect{} Llama drift dialogues (median delay \valLlamaDelay{} turns)
+and \valGemmaDetect{} Gemma dialogues (delay \valGemmaDelay{} turns); neither
+model passed the frozen screen. The simple LS rule signalled in
+\valLlamaLsSignal{} and \valGemmaLsSignal{} drift dialogues, respectively, but
+also in \valLlamaLsNull{} and \valGemmaLsNull{} stationary dialogues. The
+validation therefore confirms that neither rule provides robust,
+model-general early warning.
 
 \paragraph{Why single streams are underpowered.}
 A simulation that used the unchanged detectors and grids explains these
@@ -59,9 +68,14 @@ failures (Table~\ref{tab:power}, Figure~\ref{fig:power}).
     to 0.2, and eighteen dialogues brought it to 0.1.
 \end{itemize}
 
-In an exploratory application to six-dialogue aggregates of the GPT-4o-mini
-control arm, CUSUM detected all three drift streams without false alarms. We
-treat aggregation as a promising direction, not a confirmed finding.
+In an exploratory application to six-dialogue aggregates, the $W=20$ CQ CUSUM
+detected all three drift scenarios in both validation models
+(\valLlamaAggDetect{} and \valGemmaAggDetect{}). It alarmed in none of the two
+Llama stationary aggregates but in one of the two Gemma stationary aggregates
+(\valLlamaAggNull{} and \valGemmaAggNull{}). Together with the GPT-4o-mini
+screen, this supports aggregation as a promising direction, but the small
+number of scenario-level aggregates and the Gemma false alarm preclude a
+confirmatory claim.
 
 \begin{table}[t]
 \centering

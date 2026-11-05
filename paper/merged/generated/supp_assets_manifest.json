@@ -28,6 +28,11 @@
   "results\\cdr_stream_v1_main\\analysis_stage_a\\trajectories_llama3_70b.pdf": "961568968a8e44806da383b8d424c7bd769bfdd1b7e72e9a8859a5934bb07b88",
   "results\\cdr_stream_v1_main\\analysis_stage_a\\trajectories_gemma3_12b_it.pdf": "ecb70672cd953abe5255cd74b0106f965099f6ccb46a14105165d90e5bd55218",
   "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\trajectories_gpt4o_mini.pdf": "ac3d383f2c2688a08c1d1edc1d7a4f4a1e9d525198f9e1f25552cbf80fc49491",
+  "results\\cdr_stream_v1_control_completion\\dialogue_vs_state_summary.pdf": "dba09dd6ce123e7b85f710840de5a80566456b9033272406704e20cffa83d965",
   "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\early_signal\\early_signal_W20.pdf": "bb6f050bfe4dd836638823aeb8ca88456d1fc8446c58862a3f9f328f1823691b",
-  "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\aggregated\\aggregated_W20.pdf": "8eff972650a4d565f61786fc00646b3a587eb63bc894002a66d5ad3e077a44a4"
+  "results\\cdr_stream_v1_control_monitoring\\gpt_screen\\gpt4o_mini\\aggregated\\aggregated_W20.pdf": "8eff972650a4d565f61786fc00646b3a587eb63bc894002a66d5ad3e077a44a4",
+  "results\\cdr_stream_v1_control_monitoring\\validation\\llama3_70b\\early_signal\\early_signal_W20.pdf": "e43a1aa47c840ae6a91468bbe95c5490deb77962eb47929eba8a8fe6e7d4119a",
+  "results\\cdr_stream_v1_control_monitoring\\validation\\llama3_70b\\aggregated\\aggregated_W20.pdf": "a1b977d964113fe16c93da66a078022bfb36de0e29b739c1a4598d599f12f7ab",
+  "results\\cdr_stream_v1_control_monitoring\\validation\\gemma3_12b_it\\early_signal\\early_signal_W20.pdf": "978b45dfbc74145ab159a57033116e72eab2719c344f6cd211d8633e8a0279cd",
+  "results\\cdr_stream_v1_control_monitoring\\validation\\gemma3_12b_it\\aggregated\\aggregated_W20.pdf": "e02ca577596d9c390219fc20f75851b4347e177fa9f40308413580cecfe0184a"
 }

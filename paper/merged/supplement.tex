@@ -5,12 +5,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[margin=2.2cm]{geometry}
 \usepackage[authoryear,round]{natbib}
-\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor,hyperref,longtable}
+\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor,longtable}
+\usepackage[hidelinks]{hyperref}
 \graphicspath{{figures/}}
 \input{generated/numbers}
 \input{generated/cdr_numbers}
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
-\newcommand{\pending}[1]{\textcolor{orange}{[PENDING: #1]}}
 \makeatletter
 \newcommand{\inputtable}[1]{\@@input #1 }
 \makeatother
@@ -288,9 +287,23 @@ Stage A results.
 At Stage A, Llama-3 70B had two truncated primaries, and no other model had any.
 The truncated-as-incorrect sensitivity analysis changed no result.
 
-\pending{Control-arm completion under the frozen completion protocol: H-C1
-results, task validity, and the monitoring validation on Llama-3 70B and Gemma 3
-12B.}
+The frozen control-arm completion added 3,000 control calls for each of
+Llama-3 70B and Gemma 3 12B. H-C1 used the per-dialogue mean
+$CQ_{control}-CQ_{dialogue}$ over turns 1--100, a one-sided sign-flip test and
+Holm correction over these two models. The mean gaps were
+\cdrLlamaControlGap{} (95\% bootstrap CI [\cdrLlamaControlCiLo{},
+\cdrLlamaControlCiHi{}], Holm $p=\cdrLlamaControlHolmP{}$) and
+\cdrGemmaControlGap{} (95\% CI [\cdrGemmaControlCiLo{},
+\cdrGemmaControlCiHi{}], Holm $p=\cdrGemmaControlHolmP{}$), respectively. Each
+estimate contains 30 paired dialogues. The secondary turns 21--100 gaps were
+\cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}.
+
+\begin{figure}[h]\centering
+\includegraphics[width=\linewidth]{supp_s2_control_completion.pdf}
+\caption{Dialogue-history and verified-state-summary accuracy over turns for
+all three Study 2 models.}
+\label{fig:s2controlcompletion}
+\end{figure}
 
 \subsection{Frozen change-point contrasts of the dialogue arm}
 These are the confirmatory Stage A contrasts (Table~\ref{tab:h1a}). They compare
@@ -379,6 +392,39 @@ turn-permuted stationary streams.}
 \includegraphics[width=\linewidth]{supp_s2_aggregated_W20.pdf}
 \caption{Six-dialogue aggregates at $W=20$.}\label{fig:agg}\end{figure}
 
+\subsection{Frozen monitoring validation on Llama-3 70B and Gemma 3 12B}
+The detector mappings, grids, $W=20$ primary window and per-dialogue threshold
+rule were unchanged from the GPT-4o-mini screen. Neither validation model passed
+the single-stream screen. Table~\ref{tab:monitorvalidation} also shows why the
+apparent LS leads are not reliable: the same rule frequently signalled in
+stationary dialogues. Aggregation detected every drift scenario in both models,
+but Gemma produced a stationary-scenario alarm.
+
+\begin{table}[h]\centering\small
+\caption{Frozen monitoring validation at $W=20$. Null counts are alarms among
+12 stationary dialogues for the per-dialogue LS rule and among two stationary
+scenario aggregates for the six-dialogue CQ CUSUM.}
+\label{tab:monitorvalidation}
+\begin{tabular}{lcccccc}\toprule
+Model & CUSUM detect & Delay & LS signal & LS null & Agg. detect & Agg. null\\\midrule
+Llama-3 70B & \valLlamaDetect{} & \valLlamaDelay{} & \valLlamaLsSignal{} &
+\valLlamaLsNull{} & \valLlamaAggDetect{} & \valLlamaAggNull{}\\
+Gemma 3 12B & \valGemmaDetect{} & \valGemmaDelay{} & \valGemmaLsSignal{} &
+\valGemmaLsNull{} & \valGemmaAggDetect{} & \valGemmaAggNull{}\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[p]\centering
+\includegraphics[width=.49\linewidth]{supp_s2_validation_llama_early.pdf}
+\includegraphics[width=.49\linewidth]{supp_s2_validation_gemma_early.pdf}
+\caption{Frozen per-dialogue early-signal rule at $W=20$ for Llama-3 70B
+(left) and Gemma 3 12B (right).}\label{fig:validationearly}\end{figure}
+
+\begin{figure}[p]\centering
+\includegraphics[width=.49\linewidth]{supp_s2_validation_llama_agg.pdf}
+\includegraphics[width=.49\linewidth]{supp_s2_validation_gemma_agg.pdf}
+\caption{Six-dialogue aggregate monitoring at $W=20$ for Llama-3 70B (left)
+and Gemma 3 12B (right).}\label{fig:validationagg}\end{figure}
+
 \subsection{Per-model trajectories (Stage A)}
 \begin{figure}[p]\centering
 \includegraphics[width=\linewidth]{supp_s2_metrics_gpt4o_mini.pdf}
@@ -386,12 +432,14 @@ turn-permuted stationary streams.}
 \end{figure}
 \begin{figure}[p]\centering
 \includegraphics[width=\linewidth]{supp_s2_metrics_llama3_70b.pdf}
-\caption{Study 2, Llama-3 70B. Consistency, robustness, stability and control
-are pending (Stage B).}\end{figure}
+\caption{Study 2 dialogue-arm metrics, Llama-3 70B. Consistency, robustness and
+stability sampling was not completed; the separately completed control primary
+trajectory is shown in Figure~\ref{fig:s2controlcompletion}.}\end{figure}
 \begin{figure}[p]\centering
 \includegraphics[width=\linewidth]{supp_s2_metrics_gemma3_12b_it.pdf}
-\caption{Study 2, Gemma 3 12B. Consistency, robustness, stability and control
-are pending (Stage B).}\end{figure}
+\caption{Study 2 dialogue-arm metrics, Gemma 3 12B. Consistency, robustness and
+stability sampling was not completed; the separately completed control primary
+trajectory is shown in Figure~\ref{fig:s2controlcompletion}.}\end{figure}
 
 %======================================================================
 \section{Detector power simulation}

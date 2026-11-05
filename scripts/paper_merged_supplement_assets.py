@@ -225,8 +225,16 @@ def main() -> int:
             **{STAGE_A / f"trajectories_{m}.pdf": f"supp_s2_metrics_{m}.pdf"
                for m in ("gpt4o_mini", "llama3_70b", "gemma3_12b_it")},
             CTRL / "trajectories_gpt4o_mini.pdf": "supp_s2_control_gpt.pdf",
+            ROOT / "results/cdr_stream_v1_control_completion/"
+                   "dialogue_vs_state_summary.pdf": "supp_s2_control_completion.pdf",
             CTRL / "early_signal/early_signal_W20.pdf": "supp_s2_early_signal_W20.pdf",
             CTRL / "aggregated/aggregated_W20.pdf": "supp_s2_aggregated_W20.pdf"}
+    for model, short in (("llama3_70b", "llama"), ("gemma3_12b_it", "gemma")):
+        base = ROOT / "results/cdr_stream_v1_control_monitoring/validation" / model
+        figs[base / "early_signal/early_signal_W20.pdf"] = \
+            f"supp_s2_validation_{short}_early.pdf"
+        figs[base / "aggregated/aggregated_W20.pdf"] = \
+            f"supp_s2_validation_{short}_agg.pdf"
     for src, name in figs.items():
         USED[str(src.relative_to(ROOT))] = sha(src)
         shutil.copyfile(src, FIG / name)

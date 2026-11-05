@@ -95,7 +95,17 @@ def main(argv=None) -> int:
 
     print(f"{len(records)} control calls; loading real NLI...", flush=True)
     scorers = StrictScorers(with_ss=False)
-    frame = ca.score_control_turns(records, memoized(scorers.coherence))
+    from reasoning_monitor.models.clients import reasoning_steps_from_text
+
+    unique_steps = list(dict.fromkeys(
+        tuple(reasoning_steps_from_text(record["raw_text"])) for record in records))
+
+    def report(done, total):
+        print(f"NLI pair scoring: {done}/{total} ({100 * done / total:.1f}%)", flush=True)
+
+    scores = scorers.coherence_many(unique_steps, callback=report)
+    lookup = dict(zip(unique_steps, scores, strict=True))
+    frame = ca.score_control_turns(records, lambda steps: lookup[tuple(steps)])
     results = {m: analyze_model(frame, m, OUTPUT / sub / m, label) for m in models}
     summary = {"protocol_sha256": PROTOCOL_SHA256, "records_source": config["records_path"],
                "results": {m: {"screen": r["screen"], "coverage": r["coverage"],

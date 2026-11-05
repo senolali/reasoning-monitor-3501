@@ -26,6 +26,8 @@ PAPER = ROOT / "paper/merged"
 GEN, FIG = PAPER / "generated", PAPER / "figures"
 STAGE_A = ROOT / "results/cdr_stream_v1_main/analysis_stage_a"
 CONTROL = ROOT / "results/cdr_stream_v1_control_monitoring/gpt_screen/gpt4o_mini"
+CONTROL_COMPLETION = ROOT / "results/cdr_stream_v1_control_completion"
+CONTROL_VALIDATION = ROOT / "results/cdr_stream_v1_control_monitoring/validation"
 POWER = ROOT / "results/cdr_stream_v1_power"
 SCI = ROOT / "results/lost_conversation_v2_science"
 MAPPINGS = ROOT / "results/cdr_stream_v1_mappings_llama3.json"
@@ -187,6 +189,9 @@ def main() -> int:
 
     # Accuracy over turns (Stage A turn metrics).
     turns = pd.read_csv(STAGE_A / "turn_metrics.csv")
+    paired = pd.read_csv(CONTROL_COMPLETION / "paired_cq.csv")
+    completion = json.loads((CONTROL_COMPLETION / "assessment.json")
+                            .read_text(encoding="utf-8"))
     phases = {"1--5": (1, 5), "6--20": (6, 20), "21--100": (21, 100)}
     rows = []
     for model in CDR_MODELS:
@@ -196,7 +201,7 @@ def main() -> int:
             seg = part[(part["turn"] >= lo) & (part["turn"] <= hi)]
             cells.append(f(seg["CQ"].mean(), 2))
         s0e = part[(part["scenario"] == "S0-E") & (part["turn"] >= 21)]["CQ"].mean()
-        ctrl = part[part["turn"] >= 21]["CQ_ctrl"]
+        ctrl = paired[(paired["model"] == model) & (paired["turn"] >= 21)]["CQ_ctrl"]
         cells += [f(s0e, 2), f(ctrl.mean(), 2) if ctrl.notna().any() else "pending"]
         rows.append(f"{LABEL[model]} & " + " & ".join(cells) + " \\\\")
     (GEN / "table_cdr_collapse.tex").write_text("\n".join(rows) + "\n", encoding="utf-8")
@@ -204,6 +209,29 @@ def main() -> int:
     m += [macro("cdrGptEarly", f(gpt[gpt["turn"] <= 5]["CQ"].mean(), 2)),
           macro("cdrGptLate", f(gpt[gpt["turn"] >= 21]["CQ"].mean(), 2)),
           macro("cdrGptCtrlLate", f(gpt[gpt["turn"] >= 21]["CQ_ctrl"].mean(), 2))]
+
+    # Frozen H-C1 control-completion family and the seen GPT estimate.
+    h_c1 = completion["H_C1_turns_1_100"]
+    h_c1b = completion["H_C1b_turns_21_100"]
+    rows = []
+    for model in CDR_MODELS:
+        source = (h_c1["seen_outside_family"] if model == "gpt4o_mini"
+                  else h_c1["family"])
+        r = source[model]
+        holm = "--" if model == "gpt4o_mini" else p(r["p_holm"])
+        rows.append(f"{LABEL[model]} & {f(r['mean'])} & "
+                    f"[{f(r['ci95'][0])}, {f(r['ci95'][1])}] & {holm} & "
+                    f"{r['dialogues']} \\\\")
+    (GEN / "table_cdr_control_completion.tex").write_text("\n".join(rows) + "\n",
+                                                            encoding="utf-8")
+    for prefix, model in (("Llama", "llama3_70b"), ("Gemma", "gemma3_12b_it")):
+        primary = h_c1["family"][model]
+        late = h_c1b["family"][model]
+        m += [macro(f"cdr{prefix}ControlGap", f(primary["mean"])),
+              macro(f"cdr{prefix}ControlCiLo", f(primary["ci95"][0])),
+              macro(f"cdr{prefix}ControlCiHi", f(primary["ci95"][1])),
+              macro(f"cdr{prefix}ControlHolmP", p(primary["p_holm"])),
+              macro(f"cdr{prefix}ControlLateGap", f(late["mean"]))]
 
     h1 = json.loads((STAGE_A / "h1.json").read_text(encoding="utf-8"))
     lm = h1["level_matched_context"]
@@ -223,6 +251,23 @@ def main() -> int:
           macro("earlyLsSignal", f"{w20['LS']['signalled']}/{w20['n_dialogues']}"),
           macro("earlyLsNull", w20["null_signal_rate"]["LS"]),
           macro("earlyLsBefore", w20["LS"]["classes"].get("before", 0))]
+
+    validation = json.loads((CONTROL_VALIDATION / "summary.json").read_text(encoding="utf-8"))
+    for prefix, model in (("Llama", "llama3_70b"), ("Gemma", "gemma3_12b_it")):
+        screen = validation["results"][model]["screen"]["checks"]["distribution_based"]
+        e = json.loads((CONTROL_VALIDATION / model / "early_signal/summary.json")
+                       .read_text(encoding="utf-8"))["by_window"]["W20"]
+        agg = pd.read_csv(CONTROL_VALIDATION / model / "aggregated/aggregated_alarms.csv")
+        agg = agg[(agg["window"] == 20) & (agg["metric"] == "CQ")
+                  & (agg["detector"] == "cusum")]
+        m += [macro(f"val{prefix}Detect", f"{round(screen['detection_rate'] * 18)}/18"),
+              macro(f"val{prefix}Delay", f(screen["median_delay"], 0)),
+              macro(f"val{prefix}LsSignal", f"{e['LS']['signalled']}/18"),
+              macro(f"val{prefix}LsNull", e["null_signal_rate"]["LS"]),
+              macro(f"val{prefix}AggDetect",
+                    f"{int((agg['category'] == 'detection').sum())}/3"),
+              macro(f"val{prefix}AggNull",
+                    f"{int((agg['category'] == 'null_alarm').sum())}/2")]
 
     # Power (simulation).
     grid = pd.read_csv(POWER / "power_grid.csv")
@@ -253,7 +298,10 @@ def main() -> int:
 
     conf = json.loads((SCI / "confirmatory/assessment.json").read_text(encoding="utf-8"))
     fig_study1(conf)
-    fig_study2(turns)
+    figure_turns = turns.drop(columns=["CQ_ctrl"], errors="ignore").merge(
+        paired[["model", "dialogue_id", "turn", "CQ_ctrl"]],
+        on=["model", "dialogue_id", "turn"], how="left")
+    fig_study2(figure_turns)
     fig_power(grid)
     crl = json.loads((SCI / "crl_incremental_posthoc/assessment.json").read_text(encoding="utf-8"))
     m += [macro("crlLastGapAuroc", f(crl["last_prefinal_gap_alone_pooled"]["auroc"])),
@@ -267,10 +315,16 @@ def main() -> int:
     inputs = {str(path.relative_to(ROOT)): sha(path) for path in (
         STAGE_A / "turn_metrics.csv", STAGE_A / "h1.json", CONTROL / "result.json",
         CONTROL / "early_signal/summary.json", POWER / "power_grid.csv", MAPPINGS,
-        SCI / "crl_incremental_posthoc/assessment.json")}
+        SCI / "crl_incremental_posthoc/assessment.json",
+        CONTROL_COMPLETION / "assessment.json", CONTROL_COMPLETION / "paired_cq.csv",
+        CONTROL_VALIDATION / "summary.json",
+        *(CONTROL_VALIDATION / model / "early_signal/summary.json"
+          for model in ("llama3_70b", "gemma3_12b_it")),
+        *(CONTROL_VALIDATION / model / "aggregated/aggregated_alarms.csv"
+          for model in ("llama3_70b", "gemma3_12b_it"))) }
     (GEN / "cdr_assets_manifest.json").write_text(json.dumps(inputs, indent=2) + "\n",
                                                   encoding="utf-8")
-    print(f"wrote {len(m)} macros, 3 tables, 3 figures to {PAPER}")
+    print(f"wrote {len(m)} macros, 4 tables, 3 figures to {PAPER}")
     return 0
 
 

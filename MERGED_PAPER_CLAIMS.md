@@ -54,8 +54,8 @@ entropy, so we contrast the two approaches but do not test ERGO.
 |---|---|---|---|
 | RQ1 | Does retaining assistant-side history reduce final success on short sharded tasks? | Study 1 primary endpoint | **Confirmatory** (GPT, Mistral); same direction for Llama |
 | RQ2 | Does accuracy degrade over a long horizon with accumulated state, at matched difficulty? | Study 2, level-matched early-vs-late contrast; dialogue arm | **Prespecified secondary** (Stage A protocol §4) |
-| RQ3 | Does a verified state summary preserve accuracy at long horizon? | Study 2 control arm | GPT now; Llama and Gemma **pending a frozen completion** (below). Confirmatory only after that. |
-| RQ4 | Do single-stream quality metrics or CRL give robust early warning? | Study 1 CS/LS/SS and CRL; Study 2 monitoring; replays | Mixed: confirmatory negatives (Study 1 CS/LS/SS); CRL frozen auxiliary; Study 2 monitoring exploratory |
+| RQ3 | Does a verified state summary preserve accuracy at long horizon? | Study 2 control arm | **Confirmatory** for the frozen Llama-3 70B/Gemma 3 family; same direction for previously observed GPT-4o-mini |
+| RQ4 | Do single-stream quality metrics or CRL give robust early warning? | Study 1 CS/LS/SS and CRL; Study 2 monitoring; replays | No robust model-general warning: confirmatory negatives in Study 1; CRL frozen auxiliary; exploratory Study 2 rules failed frozen Llama/Gemma validation |
 
 ## Wording rules
 
@@ -115,11 +115,32 @@ signal reduces to readiness persistence. That is itself a useful negative
 result: even the paired measure does not anticipate failure beyond the current
 state. CRL is **not** presented as a main contribution.
 
+## Frozen control completion result (2026-11-05)
+
+The required CDR-Stream control arms were completed without changing the
+acquisition fingerprint. H-C1 was supported for both members of the frozen
+two-model family (30 paired dialogues each): Llama-3 70B mean gap 0.545, 95%
+bootstrap CI [0.513, 0.576], Holm-adjusted one-sided sign-flip p < 0.001; Gemma
+3 12B mean gap 0.588, 95% CI [0.557, 0.619], Holm-adjusted p < 0.001. The gap is
+control minus dialogue-history accuracy over turns 1--100. GPT-4o-mini, already
+seen and outside the family, showed the same direction (gap 0.521).
+
+This supports the state summary as a packaged mitigation. It does not identify
+which component--shorter context, removal of noisy assistant text, or verified
+state--caused the benefit.
+
+The unchanged Study 2 single-stream monitoring rules did not validate. At
+W=20, CUSUM detected 6/18 Llama drift dialogues (median delay 29 turns) and
+1/18 Gemma drift dialogues (delay 25); neither passed the frozen screen. The LS
+threshold signalled in 11/18 and 16/18 drift dialogues, but also in 6/12 and
+3/12 stationary dialogues. Six-dialogue CQ aggregation detected all three drift
+scenarios in both models, with 0/2 Llama and 1/2 Gemma stationary-scenario
+alarms. Aggregation remains exploratory and promising, not confirmed.
+
 ## Minimum additional data
 
-The only required addition is the CDR-Stream control arm for Llama-3 70B and
-Gemma 3 12B (`CDR_STREAM_CONTROL_COMPLETION_PROTOCOL.md`). It is cheap, below
-about $10, and needs budget plus explicit approval.
+The required CDR-Stream control completion is finished. No additional paid
+model calls are required for the merged manuscript.
 
 Adding Claude or Gemini to Study 1 is useful but optional. It is not part of
 the minimum path. No new pilot chains are allowed; only the evidence gaps of

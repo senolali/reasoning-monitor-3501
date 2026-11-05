@@ -95,9 +95,10 @@ run.
 The analysis protocol was frozen before any main-run metric was computed. The
 acquisition paused when the funding budget was exhausted. By then every
 dialogue-history primary chain was complete for all three models, together with
-all of GPT-4o-mini's samples. A frozen staged plan covers the remaining
-consistency, robustness and control calls. \pending{Llama-3 70B and Gemma 3 12B
-control arm under the frozen completion protocol.}
+all of GPT-4o-mini's samples. The Llama-3 70B and Gemma 3 12B control arms were
+subsequently completed under a separately frozen completion protocol; their
+primary hypothesis family and missing-data policy were fixed before those data
+were inspected.
 
 \subsection{Results}
 
@@ -134,7 +135,7 @@ Model & 1--5 & 6--20 & 21--100 & turns 21--100 & turns 21--100\\
 \caption{Study 2 accuracy over 100 turns, pooled over the five scenarios.
 Solid lines show the dialogue history; dashed lines show the verified state
 summary. The control's gradual decline reflects the scheduled difficulty
-increases in S1--S3. \pending{Control arms of Llama-3 70B and Gemma 3 12B.}}
+increases in S1--S3.}
 \label{fig:s2}
 \end{figure}
 
@@ -144,9 +145,34 @@ accuracy of \cdrGptCtrlLate{} over turns 21--100, against \cdrGptLate{} under
 dialogue history. Under the summary its accuracy also followed the scheduled
 difficulty regimes.
 
-\pending{Frozen H-C1: per-dialogue paired gap, turns 1--100, one-sided
-sign-flip, Holm over Llama-3 70B and Gemma 3 12B; plus the secondary window
-21--100 and task validity.}
+The frozen completion test confirmed this mitigation in the two-model family.
+Over turns 1--100, the per-dialogue control-minus-history gap was
+\cdrLlamaControlGap{} for Llama-3 70B (95\% bootstrap CI
+[\cdrLlamaControlCiLo{}, \cdrLlamaControlCiHi{}]) and
+\cdrGemmaControlGap{} for Gemma 3 12B (95\% CI
+[\cdrGemmaControlCiLo{}, \cdrGemmaControlCiHi{}]); both one-sided sign-flip
+tests remained significant after Holm correction
+($p=\cdrLlamaControlHolmP{}$ and $p=\cdrGemmaControlHolmP{}$, respectively;
+30 paired dialogues per model). The secondary turns 21--100 gaps were
+\cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}. Table~\ref{tab:s2control}
+reports the frozen primary family, including the previously observed
+GPT-4o-mini estimate outside that family.
+
+\begin{table}[t]
+\centering
+\caption{Frozen H-C1: per-dialogue mean accuracy difference between verified
+state summary and dialogue history over turns 1--100. The GPT-4o-mini result
+was already observed and was excluded from the Holm family.}
+\label{tab:s2control}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & Mean gap & 95\% bootstrap CI & Holm $p$ & Dialogues\\
+\midrule
+\inputtable{generated/table_cdr_control_completion.tex}
+\bottomrule
+\end{tabular}
+\end{table}
 
 Because the dialogue arm was already near the floor, the frozen pre/post
 change-point contrasts of the dialogue arm were dominated by the background

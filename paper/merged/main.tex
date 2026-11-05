@@ -10,16 +10,13 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{lineno}
 
 \graphicspath{{figures/}}
 \input{generated/numbers}
 \input{generated/cdr_numbers}
 
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
-% Results that depend on the frozen CDR control-arm completion (RQ3).
-\newcommand{\pending}[1]{\textcolor{orange}{[PENDING: #1]}}
 % Primitive input inside tabular (LaTeX's \input is not safe before \bottomrule).
 \makeatletter
 \newcommand{\inputtable}[1]{\@@input #1 }
@@ -62,14 +59,29 @@ drift detection
 \input{sections/conclusion}
 
 \section*{Data and code availability}
-All prompts, frozen protocols and configurations, raw model responses, analysis
-code and the scripts that generate every number in this article are released at
-\todo{repository URL / DOI}.
+All prompts, frozen protocols, configurations, analysis code and scripts that
+generate every number in this article are maintained in the version-controlled
+\href{https://github.com/senolali/reasoning-monitor-3501}{version-controlled
+GitHub repository}. The
+repository is private during manuscript preparation. A public archival release
+with a persistent DOI, derived data and provider-permitted model responses will
+be made no later than publication.
 
 \section*{Acknowledgements}
 This work was supported by the Scientific and Technological Research Council of
-T\"urkiye (T\"UB\.{I}TAK) under the 3501 programme, project number \todo{number}.
-Model access was provided through \todo{ASU CreateAI acknowledgement wording}.
+T\"urkiye (T\"UB\.{I}TAK) under the 3501 programme, project number 126E663.
+Model inference was performed through Arizona State University's CreateAI
+research infrastructure.
+
+\section*{Declaration of competing interest}
+The author declares that he has no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{CRediT authorship contribution statement}
+Ali \c{S}enol: Conceptualization, Methodology, Software, Validation, Formal
+analysis, Investigation, Data curation, Visualization, Writing--original draft,
+Writing--review and editing, Project administration, Funding acquisition.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}
