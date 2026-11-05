@@ -1,24 +1,15 @@
 \section{Cross-study analysis: can the degradation be detected early?}
 \label{sec:monitoring}
 
-We asked the early-warning question at three levels:
-\begin{itemize}
-  \item individual metrics;
-  \item window-based drift detectors on single streams;
-  \item detector power, measured in simulation.
-\end{itemize}
-The answer is the same at every level: we found no robust, model-general early
-warning.
+We tested individual metrics, single-stream drift detectors and simulated
+detector power. None yielded robust, model-general early warning.
 
 \paragraph{Metric directions.}
 Study 1's pre-final CS, LS and SS did not predict failure
-(Section~\ref{sec:study1}). We then ran a post-hoc stream replay. Completed Study 1
-sessions were treated as stream items whose regime switched from fresh prefix to
-dialogue history. In that replay, coherence and stability \emph{rose} under
-accumulated history while accuracy fell. In the sudden scenario at $W=20$, the
-median Cliff's $\delta$ for SS was \replaySsDeltaGpt{} (GPT-4o-mini) and
-\replaySsDeltaLlama{} (Llama-4 Scout), and for LS \replayLsDeltaGpt{}
-(GPT-4o-mini).
+(Section~\ref{sec:study1}). In a post-hoc replay, completed sessions switched
+from fresh prefix to dialogue history. Coherence and stability \emph{rose} as
+accuracy fell (sudden-switch SS Cliff's $\delta$: \replaySsDeltaGpt{} for
+GPT-4o-mini and \replaySsDeltaLlama{} for Llama-4 Scout).
 
 Responses thus became more locally coherent and more mutually similar as they
 became less accurate. A monitor that alarms on decreases cannot detect this
@@ -29,20 +20,12 @@ In the Study 1 replay, thresholds were calibrated on permutation nulls with
 family-wise $\alpha=0.05$. Under that control, the detectors almost never
 flagged the switch, and no metric qualified as an early-warning candidate.
 
-In Study 2, the stationary null dialogues themselves collapsed, so a dialogue-arm
-accuracy threshold could not be calibrated at all. We therefore turned to the
-GPT-4o-mini control arm, where the scheduled difficulty shifts are clean. There,
-a CUSUM detector calibrated on the 12 stationary dialogues caught
-\ctrlScreenDetect{} drift dialogues within 33 turns at $W=20$. Its alarms came
-late.
-
-A simple per-dialogue threshold rule did flag accuracy in \earlyCqSignal{}
-dialogues, but also in \earlyCqNull{} stationary ones. Logical coherence
-signalled in \earlyLsSignal{} drift dialogues, \earlyLsBefore{} of them before
-accuracy. It also signalled in \earlyLsNull{} stationary dialogues, so this lead
-cannot be distinguished from noise. These Study 2 monitoring analyses are
-exploratory, because the GPT-4o-mini control trajectories had been seen when the
-rules were fixed.
+Study~2 dialogue-arm nulls themselves collapsed, preventing threshold
+calibration. On the cleaner GPT-4o-mini control, CUSUM caught
+\ctrlScreenDetect{} drift dialogues within 33 turns at $W=20$, but late. A
+threshold rule flagged accuracy in \earlyCqSignal{} drift and \earlyCqNull{}
+stationary dialogues; LS signalled in \earlyLsSignal{} drift and
+\earlyLsNull{} stationary dialogues. These screened analyses are exploratory.
 
 We then applied the unchanged rules to the previously unseen Llama-3 70B and
 Gemma 3 12B control arms. The single-stream CUSUM caught
@@ -56,17 +39,12 @@ model-general early warning.
 
 \paragraph{Why single streams are underpowered.}
 A simulation that used the unchanged detectors and grids explains these
-failures (Table~\ref{tab:power}, Figure~\ref{fig:power}).
+failures (Figure~\ref{fig:power}).
 
-\begin{itemize}
-  \item On a single 100-turn stream of per-turn correctness, only accuracy drops
-    of about 0.5 were detected within 33 turns in 80\% of runs, at a 5\%
-    false-alarm target.
-  \item The drifts in our data were 0.1--0.3, which a single stream cannot
-    detect reliably.
-  \item Aggregating six concurrent dialogues per turn brought the detectable drop
-    to 0.2, and eighteen dialogues brought it to 0.1.
-\end{itemize}
+A single 100-turn stream required an accuracy drop of about 0.5 for 80\% power
+within 33 turns at 5\% false alarms, whereas observed drifts were 0.1--0.3.
+Aggregating six concurrent dialogues reduced the detectable drop to 0.2, and 18
+dialogues to 0.1.
 
 In an exploratory application to six-dialogue aggregates, the $W=20$ CQ CUSUM
 detected all three drift scenarios in both validation models
@@ -77,23 +55,6 @@ screen, this supports aggregation as a promising direction, but the small
 number of scenario-level aggregates and the Gemma false alarm preclude a
 confirmatory claim.
 
-\begin{table}[t]
-\centering
-\caption{Simulated detector power with the best unchanged detector, $W=20$,
-thresholds calibrated on 12 null streams and a 5\% false-alarm target. Columns
-2--3: smallest accuracy drop detected within 33 turns in at least 80\% of runs.
-Column 4: detection rate for a 0.2 drop, averaged over both change points.}
-\label{tab:power}
-\small
-\begin{tabular}{lccc}
-\toprule
-Dialogues per turn & Change at 34 & Change at 51 & Detection at 0.2\\
-\midrule
-\inputtable{generated/table_power.tex}
-\bottomrule
-\end{tabular}
-\end{table}
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{detector_power.pdf}
@@ -102,13 +63,8 @@ and the number of dialogues aggregated per turn.}
 \label{fig:power}
 \end{figure}
 
-\paragraph{A baseline that cannot fire.}
-The generic baseline in our detector comparison, ADWIN, never alarmed in any of our
-analyses. The cause was in our implementation: its cut bound omitted the
-variance term of \citet{bifet2007learning}, which made an alarm impossible on
-streams of this length.
-
-We re-ran every affected analysis with a corrected ADWIN and with CUSUM. No
-conclusion changed. Even the corrected ADWIN required hundreds of samples per
-window side, so it is unsuited to 100-turn streams. Comparisons against generic
-baselines should first verify that the baseline can fire at all.
+\paragraph{Detector audit.}
+Our initial ADWIN baseline omitted the variance term of
+\citet{bifet2007learning} and could not alarm on 100-turn streams. Re-running
+every affected analysis with corrected ADWIN and CUSUM changed no conclusion;
+the audit is reported in the supplement.

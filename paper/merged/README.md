@@ -28,8 +28,13 @@ Upload this folder to Overleaf, or run `latexmk -pdf main.tex`. The repository
 also contains verified PDFs under `output/pdf/` and an upload-ready archive at
 `paper/merged_overleaf.zip` after running the release workflow.
 
+The compact submission build is 15 pages for the main article and 2 pages for
+the supplementary material. The article uses Elsevier's single-spaced preprint
+layout; a journal-generated proof may paginate differently.
+
 ## Supplementary material
 
-`supplement.tex` is a separate document. In Overleaf, open it and choose
-**Menu → Main document → supplement.tex**, or compile it locally with
-`latexmk -pdf supplement.tex`. Its tables are written to `generated/supp_*.tex`.
+`supplement.tex` is a separate, audit-focused document. In Overleaf, select it
+as the main document or compile it locally with `latexmk -pdf supplement.tex`.
+Exhaustive trajectories and intermediate tables remain in the reproducibility
+archive rather than being duplicated in the PDF.

@@ -1,14 +1,10 @@
 \section{Introduction}
 \label{sec:introduction}
 
-LLMs are increasingly used for tasks that unfold over many turns. A user
-specifies a problem piece by piece, corrects earlier statements, or keeps
-updating a shared state such as a budget, an inventory or a project plan. The
-model is expected to integrate everything said so far. Two things therefore
-accumulate in its context: its own earlier replies, and a growing task state
-that it must track. We refer to this accumulated context as the
-\emph{conversation history}. In our experiments, the condition that retains it
-is called \emph{dialogue history}.
+LLMs increasingly solve tasks that unfold over many turns. Their context then
+accumulates both prior assistant replies and a changing task state; we call this
+\emph{conversation history}, and the arm that retains it \emph{dialogue
+history}.
 
 Recent work shows that this setting is costly. \citet{laban2025lost} found that
 performance drops substantially when the information of a single-turn task is
@@ -17,62 +13,33 @@ revealed over several turns. Models answer prematurely and fail to recover.
 from the context often preserves or improves response quality. They call the
 harmful effect of those replies \emph{context pollution}.
 
-Two questions remain open for anyone who must operate such systems.
-
-\begin{itemize}
-  \item \textbf{Does the degradation persist over long horizons?} Existing
-    evidence comes mostly from short conversations, and long dialogues need
-    explicit control of task difficulty. In particular, does accuracy fall
-    because the questions get harder, or because the context does?
-  \item \textbf{Can the degradation be detected early?} A deployed system rarely
-    knows the correct answer. Established decompositions of reasoning quality
-    could serve as early-warning signals if they deteriorated before accuracy
-    did. Such decompositions include consistency across samples, robustness to
-    rewording, logical coherence and stability of reasoning. ERGO
-    \citep{khalid2025ergo} uses token-level entropy spikes in a similar role.
-    Whether established process metrics warn under accumulated history has not
-    been tested with prospectively fixed analyses and controlled false alarms.
-\end{itemize}
+Two operational questions remain: whether degradation persists over long
+horizons after controlling difficulty, and whether observable process metrics
+warn before accuracy fails. Candidate signals include sample consistency,
+robustness to rewording, logical coherence and trace stability; ERGO instead
+uses token-level entropy spikes \citep{khalid2025ergo}. Their warning value
+under accumulated history has not been tested with prospectively fixed analyses
+and controlled false alarms.
 
 We address both questions with two complementary studies, each analysed under a
 protocol frozen before its data were collected. The two studies use different
 tasks, models and control conditions. We therefore treat them as revealing
 complementary failure modes, not as a single dose--response relationship.
 
-\begin{description}
-  \item[Study 1: paired assistant-history effect on short tasks.] On the math
-    subset of Lost in Conversation, each model answers every turn twice with
-    identical user information. In one arm its own earlier replies are kept; in
-    the other they are omitted. The contrast estimates the net effect of
-    retaining assistant-side history on final success. It replicates the
-    direction reported by \citet{huang2026benefit} with a frozen, task-paired
-    confirmatory analysis.
-  \item[Study 2: long-horizon degradation with calibrated difficulty.]
-    CDR-Stream is a purpose-built benchmark of 100-turn dialogues with exact
-    per-turn answers. Difficulty is calibrated per model and template, and
-    difficulty shifts follow a schedule. The dialogue arm reasons from the full
-    history. The control arm receives a solver-verified state summary instead,
-    which is a packaged intervention, not a mechanism test.
-\end{description}
+Study~1 uses the Lost in Conversation math tasks in a task-paired contrast:
+identical user information with or without the model's earlier replies. Study~2
+introduces CDR-Stream, controlled 100-turn dialogues with exact answers,
+model-specific difficulty calibration and scheduled shifts. Its control arm
+replaces full history with a solver-verified state summary. The studies expose
+complementary failure modes rather than one dose--response curve.
 
 Across both studies we then ask whether the measurable reasoning-quality
 metrics, a paired process measure, and window-based drift detectors give robust
 early warning.
 
-Our contributions are:
-\begin{enumerate}
-  \item A frozen, task-paired confirmatory estimate of the effect of retaining
-    assistant replies on exactly scored multi-turn math tasks (Study 1).
-  \item A long-horizon benchmark and the finding that accuracy degrades sharply
-    within about twenty turns under accumulated history, even at fixed
-    difficulty. A verified state summary preserved accuracy in all three
-    models (Study 2).
-  \item A direct test of early warning. The pre-final consistency, coherence and
-    stability metrics did not predict failure, and coherence and stability even
-    rose as accuracy fell. A paired process measure reduced to the persistence
-    of the current unresolved state. Single-stream detectors were
-    underpowered for the observed drifts.
-  \item Practical lessons for monitoring long interactions: compare against
-    verified-state or history-free counterfactuals, aggregate across sessions,
-    and verify that generic detector baselines can fire at all.
-\end{enumerate}
+We contribute (i) a frozen paired estimate of assistant-history harm;
+(ii) a calibrated long-horizon benchmark showing rapid degradation and its
+prevention by verified state; and (iii) a prospective test showing that the
+examined quality metrics and single-stream detectors do not provide robust
+early warning. The results motivate comparative monitoring and aggregation
+across sessions.

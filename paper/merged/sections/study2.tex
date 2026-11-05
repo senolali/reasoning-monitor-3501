@@ -4,14 +4,8 @@
 \subsection{The CDR-Stream benchmark}
 
 Study 1 tasks span at most nine turns, and their difficulty is not controlled.
-To study long horizons, we built CDR-Stream. It consists of 100-turn dialogues
-in four domains:
-\begin{itemize}
-  \item a budget ledger;
-  \item inventory logistics;
-  \item a laboratory protocol;
-  \item milestone chains.
-\end{itemize}
+To study long horizons, we built CDR-Stream: 100-turn dialogues covering budget
+ledgers, inventory logistics, laboratory protocols and milestone chains.
 Every user turn updates a shared state, for example a delivery, a correction or
 a transfer, and asks one question about it. Exact solvers compute the gold
 answer of every turn, so accuracy is observable at every turn.
@@ -23,40 +17,26 @@ complexity axis per step.
 \paragraph{Calibrated difficulty.}
 Before any stream was generated, a single-turn calibration stage mapped easy,
 medium and hard regimes to ladder levels separately for each model and domain.
-Its target bands were:
-\begin{itemize}
-  \item easy: 0.75--0.92;
-  \item medium: 0.60--0.78;
-  \item hard: 0.35--0.65.
-\end{itemize}
+Target accuracy bands were 0.75--0.92 (easy), 0.60--0.78 (medium) and
+0.35--0.65 (hard).
 The frozen fitting rule used isotonic regression and a one-sided trend test, and
 it excluded domains that showed a ceiling, a floor or no trend.
 Table~\ref{tab:s2map} lists the resulting mappings.
 
 \paragraph{Scenarios.}
 Each regime is a mixture: 50\% of turns at the centre level, 20\% at each
-neighbour and 10\% from an adjacent regime. No scenario therefore consists of a
-single question type or difficulty. The core scenarios are:
-\begin{itemize}
-  \item stationary easy (S0-E) and stationary hard (S0-H);
-  \item a graded staircase, easy$\to$medium$\to$hard at turns 34 and 68 (S1);
-  \item a sudden shift, easy$\to$hard at turn 51 (S2);
-  \item a shift with recovery, easy$\to$hard$\to$easy at turns 34 and 67 (S3).
-\end{itemize}
+neighbour and 10\% from an adjacent regime. Core scenarios were stationary
+easy/hard (S0-E/S0-H), a staircase at turns 34 and 68 (S1), a sudden
+easy-to-hard shift at turn 51 (S2), and a shift with recovery at turns 34 and
+67 (S3).
 
 \paragraph{Models.}
 The models were GPT-4o-mini, Llama-3 70B and Gemma 3 12B. They were chosen
 because they passed the calibration rule and a technical pilot, not because of
 any stream outcome.
 
-Several other candidates were replaced before the main run:
-\begin{itemize}
-  \item Mistral-7B was at the accuracy floor;
-  \item a larger Gemma model hit the ceiling;
-  \item all Llama-4 variants produced near-identical repeated samples.
-\end{itemize}
-These replacements, and two recorded deviations for Llama-3 70B, are documented
-in the supplementary material.
+Candidates at the accuracy floor/ceiling or without repeat diversity were
+replaced before the main run; deviations are disclosed in the supplement.
 
 \begin{table}[t]
 \centering
@@ -75,13 +55,9 @@ Model & Budget & Inventory & Lab & Chains\\
 
 \paragraph{Arms and acquisition.}
 Each model received 30 held-out dialogues, six per core scenario, each of 100
-turns. The two arms were:
-\begin{itemize}
-  \item \emph{dialogue history}: the model sees all previous user turns and its
-    own primary replies, packed into the context;
-  \item \emph{verified state summary} (control): the model sees only a
-    solver-verified summary of the current state and the current turn.
-\end{itemize}
+turns. In the \emph{dialogue-history} arm, the packed context contained all
+earlier user turns and primary replies. In the \emph{verified-state} control,
+it contained only the solver-verified current state and current turn.
 The control arm is a packaged intervention. It shortens the context, removes
 noise and supplies correct state, all at once. It therefore tests mitigation,
 not mechanism.
@@ -92,13 +68,9 @@ used temperature 0.7 and a 2,048-token ceiling. Responses that reached the
 ceiling were kept and scored as missing, under a policy frozen before the main
 run.
 
-The analysis protocol was frozen before any main-run metric was computed. The
-acquisition paused when the funding budget was exhausted. By then every
-dialogue-history primary chain was complete for all three models, together with
-all of GPT-4o-mini's samples. The Llama-3 70B and Gemma 3 12B control arms were
-subsequently completed under a separately frozen completion protocol; their
-primary hypothesis family and missing-data policy were fixed before those data
-were inspected.
+Analysis was frozen before main-run metrics. After a funding pause, Llama-3 70B
+and Gemma controls were completed under a separate frozen protocol whose
+hypothesis family and missing-data policy preceded inspection.
 
 \subsection{Results}
 
@@ -140,12 +112,7 @@ increases in S1--S3.}
 \end{figure}
 
 \paragraph{A verified state summary preserves accuracy.}
-GPT-4o-mini answered the same questions from the verified state summary with an
-accuracy of \cdrGptCtrlLate{} over turns 21--100, against \cdrGptLate{} under
-dialogue history. Under the summary its accuracy also followed the scheduled
-difficulty regimes.
-
-The frozen completion test confirmed this mitigation in the two-model family.
+The frozen completion test confirmed mitigation in the two-model family.
 Over turns 1--100, the per-dialogue control-minus-history gap was
 \cdrLlamaControlGap{} for Llama-3 70B (95\% bootstrap CI
 [\cdrLlamaControlCiLo{}, \cdrLlamaControlCiHi{}]) and
@@ -155,8 +122,7 @@ tests remained significant after Holm correction
 ($p=\cdrLlamaControlHolmP{}$ and $p=\cdrGemmaControlHolmP{}$, respectively;
 30 paired dialogues per model). The secondary turns 21--100 gaps were
 \cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}. Table~\ref{tab:s2control}
-reports the frozen primary family, including the previously observed
-GPT-4o-mini estimate outside that family.
+also reports the previously observed GPT-4o-mini estimate outside that family.
 
 \begin{table}[t]
 \centering

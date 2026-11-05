@@ -2,11 +2,9 @@
 \label{sec:related}
 
 \paragraph{Multi-turn degradation.}
-Several benchmarks evaluate conversational ability over multiple exchanges,
-including MT-Bench \citep{zheng2023judging}, MT-Eval \citep{kwan2024mteval} and
-MINT \citep{wang2024mint}.
-
-\citet{laban2025lost} showed that LLMs lose substantial performance when a fully
+MT-Bench, MT-Eval and MINT evaluate conversational ability
+\citep{zheng2023judging,kwan2024mteval,wang2024mint}. \citet{laban2025lost}
+showed that LLMs lose substantial performance when a fully
 specified instruction is sharded across turns, mainly through increased
 unreliability. \citet{huang2026benefit} compared full conversational context with
 contexts from which assistant turns are omitted or condensed, using in-the-wild
@@ -14,61 +12,30 @@ conversations and the Lost in Conversation math tasks. They found that response
 quality is largely preserved under aggressive filtering, and that prior assistant
 replies can propagate errors (context pollution).
 
-Our Study 1 replicates this assistant-omission contrast with a frozen,
-task-paired analysis. Study 2 extends the question to 100-turn dialogues with
-exact answers and controlled difficulty.
-
-Related single-turn failure modes include:
-\begin{itemize}
-  \item sensitivity to long inputs \citep{liu2024lost};
-  \item distraction by irrelevant context \citep{shi2023distracted};
-  \item unreliable self-correction \citep{huang2024cannot}.
-\end{itemize}
+Study~1 freezes this assistant-omission contrast; Study~2 extends it to 100
+turns with controlled difficulty. Related failures include sensitivity to long
+inputs, irrelevant context and unreliable self-correction
+\citep{liu2024lost,shi2023distracted,huang2024cannot}.
 
 \paragraph{Mitigation by context management.}
-Two lines of work restructure the context to recover performance:
-\begin{itemize}
-  \item ERGO \citep{khalid2025ergo} detects entropy spikes and consolidates the
-    prompt;
-  \item \citet{huang2026benefit} filter assistant turns.
-\end{itemize}
-Our Study 2 control arm is a verified state summary. It belongs to this family,
-but it uses solver-verified state, so it serves as an upper bound on what state
-compression can achieve.
+ERGO consolidates prompts after entropy spikes \citep{khalid2025ergo}, while
+\citet{huang2026benefit} filter assistant turns. Our solver-verified summary is
+an upper bound on what state compression can achieve.
 
 \paragraph{Reasoning-quality dimensions.}
-Beyond final accuracy, reasoning quality has been characterized in several ways:
-\begin{itemize}
-  \item agreement across samples \citep{wang2023selfconsistency};
-  \item faithfulness and coherence of chains of thought
-    \citep{turpin2023say,lanham2023measuring};
-  \item self-knowledge \citep{kadavath2022know}.
-\end{itemize}
-We use the six-dimension decomposition of RQEval \citep{rqeval2026}:
-\begin{itemize}
-  \item answer accuracy (CQ);
-  \item consistency (CS);
-  \item robustness (RS);
-  \item logical coherence (LS), computed with an NLI model \citep{he2021deberta};
-  \item efficiency (ES);
-  \item stability (SS), computed with BERTScore \citep{zhang2020bertscore}.
-\end{itemize}
-We test whether these dimensions warn; we do not modify them.
+Reasoning quality has been studied through sample agreement, chain-of-thought
+faithfulness and self-knowledge
+\citep{wang2023selfconsistency,turpin2023say,lanham2023measuring,kadavath2022know}.
+We test RQEval's six dimensions \citep{rqeval2026}: accuracy (CQ), consistency
+(CS), robustness (RS), NLI-based logical coherence (LS)
+\citep{he2021deberta}, efficiency (ES) and BERTScore stability (SS)
+\citep{zhang2020bertscore}.
 
 \paragraph{Drift detection.}
-Classic stream detectors include:
-\begin{itemize}
-  \item CUSUM \citep{page1954continuous};
-  \item Page--Hinkley \citep{hinkley1971inference};
-  \item EWMA charts \citep{roberts1959control};
-  \item DDM \citep{gama2004learning};
-  \item ADWIN \citep{bifet2007learning}.
-\end{itemize}
-Surveys of concept drift include \citet{gama2014survey} and
-\citet{lu2019learning}. Shift detection for deployed models is studied by
-\citet{rabanser2019failing}, and behavioural drift of commercial LLMs over time
-by \citet{chen2024chatgpt}. We apply these detectors to per-turn
-reasoning-quality streams under calibrated false-alarm control.
+CUSUM, Page--Hinkley, EWMA, DDM and ADWIN are standard stream detectors
+\citep{page1954continuous,hinkley1971inference,roberts1959control,gama2004learning,bifet2007learning};
+see \citet{gama2014survey,lu2019learning}. We apply them to per-turn quality
+streams under calibrated false-alarm control.
 
 \paragraph{Prospective analysis plans.}
 Model evaluations are prone to analytic flexibility in prompts, parsers and
