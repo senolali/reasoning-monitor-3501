@@ -153,9 +153,16 @@ def main() -> int:
     result["H_C1_supported"] = {m: bool(result["H_C1_turns_1_100"]["family"][m]["p_holm"] < 0.05)
                                 for m in FAMILY}
     result["task_validity"] = {
-        m: table[table["model"] == m].groupby(["scenario", "regime"])["CQ_ctrl"].mean()
-        .round(3).rename(lambda k: "|".join(k) if isinstance(k, tuple) else k).to_dict()
-        for m in (*SEEN, *FAMILY)}
+        m: {
+            f"{scenario}|{regime}": float(value)
+            for (scenario, regime), value in table[table["model"] == m]
+            .groupby(["scenario", "regime"])["CQ_ctrl"]
+            .mean()
+            .round(3)
+            .items()
+        }
+        for m in (*SEEN, *FAMILY)
+    }
     result["figures"] = plot(table)
     (OUTPUT / "assessment.json").write_text(json.dumps(result, indent=2, default=str) + "\n",
                                             encoding="utf-8")
