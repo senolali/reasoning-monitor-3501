@@ -110,6 +110,19 @@ and the LS rule signalled in \valLlamaLsSignal{} and \valGemmaLsSignal{} drift
 dialogues but also in \valLlamaLsNull{} and \valGemmaLsNull{} stationary ones.
 Neither rule passed the frozen screen in either model.
 
+Because the frozen monitor cannot alarm before turn 40, part of this failure
+could reflect the monitor rather than the signals. A post-hoc audit
+(supplementary Section~S6) removed the floor with a CUSUM on raw values
+standardised against turns 1--30. On synthetic streams it caught a precursor
+injected at turn 31 by turn 33 in 45\% of streams for a shift of 0.3 and in
+nearly all for 0.5, where the frozen path caught none. On the control arms,
+with thresholds set on GPT-4o-mini and transferred unchanged, the CQ detector
+alarmed in 0.25 and 0.17 of the stationary Llama and Gemma dialogues, and LS
+or ES alarmed before CQ in at most 3 of 5 dialogues in which both alarmed
+(supplementary Table~S19). No non-CQ signal combined an early alarm, a
+controlled false-alarm rate and transfer across models, so the negative result
+does not rest on the turn-40 floor.
+
 \subsection{Why single streams are underpowered}
 
 These failures follow from the information in one 100-turn stream. A simple

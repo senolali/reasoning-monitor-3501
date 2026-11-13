@@ -479,6 +479,114 @@ calls each) and analysed under the frozen H-C1 protocol; frozen monitoring
 validation run.\\
 \bottomrule\end{tabular}\end{table}
 
+\section{Early-warning forensic audit (post hoc)}
+\label{sec:forensic}
+The frozen Study~2 monitor first forms a $W=20$ window mean and then lets each
+detector ignore its first 20 window values, so no alarm can occur before turn
+40. In S1 and S3 the first scheduled change is at turn 34, so this monitor can
+only detect those changes after they occur. A reviewer may therefore ask
+whether the metrics carry no warning or whether the monitor starts too late.
+This call-free audit, designed after the frozen results were known, separates
+the two. It changes no frozen result.
+
+\paragraph{Detector without the turn-40 floor}
+The audit uses a CUSUM on raw per-turn values, standardised against a fixed
+baseline of turns 1--30 that later observations never update, with allowance
+0.5 and no warm-up. Non-CQ metrics are monitored in both directions with the
+threshold shared between them, because coherence or stability may rise rather
+than fall during confidently wrong reasoning. Thresholds come from the grid
+$\{2,3,4,5,6,8,10,12,15,20\}$ as the smallest value whose stationary
+false-alarm rate is at most 0.05.
+
+\paragraph{Synthetic precursor}
+Streams of 100 values were drawn from $N(0.75,0.10^2)$ clipped to $[0,1]$, and a
+downward shift $\delta$ was added from turn 31 onward. Thresholds were set on
+2,000 null streams and each $\delta$ was tested on 1,000 streams.
+Table~\ref{tab:forensic-synth} and Figure~\ref{fig:forensic-synth} show that the
+frozen path never alarmed by turn 33, whatever the shift, whereas the
+fixed-baseline CUSUM did so in 45\% of streams for $\delta=0.3$ and in almost
+all for $\delta=0.5$. Both detected shifts of 0.2 or more by turn 67. The
+turn-40 floor is therefore real, but it matters only for large, abrupt
+precursors.
+
+\begin{table}[h]\centering\small
+\caption{Synthetic precursor injected at turn 31: share of streams with an
+alarm by turn 33 (before a change at turn 34) and by turn 67. Null
+false-alarm rates on the calibration streams were 0.041 (fixed baseline) and
+0.016 (frozen path).}
+\label{tab:forensic-synth}
+\begin{tabular}{lcccc}\toprule
+& \multicolumn{2}{c}{Fixed-baseline CUSUM} & \multicolumn{2}{c}{Frozen path ($W=20$, warm-up 20)}\\
+Shift $\delta$ & by turn 33 & by turn 67 & by turn 33 & by turn 67\\\midrule
+0.0 & 0.000 & 0.021 & 0.000 & 0.004\\
+0.1 & 0.002 & 0.931 & 0.000 & 0.759\\
+0.2 & 0.053 & 1.000 & 0.000 & 1.000\\
+0.3 & 0.447 & 1.000 & 0.000 & 1.000\\
+0.5 & 0.995 & 1.000 & 0.000 & 1.000\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\linewidth]{supp_forensic_injection.pdf}
+\caption{Synthetic precursor injected at turn 31. Left: alarm by turn 33.
+Right: alarm by turn 67.}\label{fig:forensic-synth}\end{figure}
+
+\paragraph{Control arms}
+The same detector was applied to the K=1 control arms, where CQ, LS and ES are
+observed. Thresholds were chosen on the GPT-4o-mini stationary dialogues and
+transferred unchanged to Llama-3 70B and Gemma 3 12B, so the GPT-4o-mini
+false-alarm rates are in-sample. Table~\ref{tab:forensic-emp} reports the
+results. Removing the floor did not produce a usable warning. The CQ detector
+did not transfer: it alarmed in 0.25 and 0.17 of the stationary Llama and Gemma
+dialogues. LS and ES stayed within the false-alarm target in most cases but
+detected under half of the drift dialogues, and among dialogues in which both
+the metric and CQ alarmed, the metric alarmed first in 3 of 5 cases for
+GPT-4o-mini LS and in at most 1 case otherwise. In the GPT-4o-mini
+dialogue-history arm, no threshold met the false-alarm target for CS, RS or
+ES, and the calibrated LS and SS rules detected 0.11 and 0 of the drift
+dialogues.
+
+\begin{table}[h]\centering\small
+\caption{Fixed-baseline CUSUM on the control arms (18 drift and 12 stationary
+dialogues per model). Earlier/both: dialogues in which the metric alarmed
+before CQ, out of those in which both alarmed. Median offset: metric alarm
+turn minus CQ alarm turn (negative means earlier).}
+\label{tab:forensic-emp}
+\begin{tabular}{llcccc}\toprule
+Model & Metric & Stationary FA & Detection & Earlier/both & Median offset\\\midrule
+GPT-4o-mini & CQ & 0.000 & 0.722 & -- & --\\
+GPT-4o-mini & LS & 0.000 & 0.278 & 3/5 & $-1.0$\\
+GPT-4o-mini & ES & 0.000 & 0.444 & 1/8 & 4.5\\
+Llama-3 70B & CQ & 0.250 & 0.778 & -- & --\\
+Llama-3 70B & LS & 0.083 & 0.278 & 0/2 & 27.0\\
+Llama-3 70B & ES & 0.250 & 0.278 & 0/5 & 8.0\\
+Gemma 3 12B & CQ & 0.167 & 0.833 & -- & --\\
+Gemma 3 12B & LS & 0.000 & 0.444 & 1/7 & 10.0\\
+Gemma 3 12B & ES & 0.000 & 0.389 & 1/7 & 3.0\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\linewidth]{supp_forensic_empirical.pdf}
+\caption{Detection rate in drift dialogues against the false-alarm rate in
+stationary dialogues for the fixed-baseline CUSUM on the control arms. Dashed
+line: 0.05 false-alarm target.}\label{fig:forensic-emp}\end{figure}
+
+\paragraph{Lead--lag ceiling}
+As a descriptive upper bound, we also computed the AUROC with which each
+metric at turn $t$ separates turns that are followed by a CQ failure within
+$h$ turns, using only turns at which CQ is still correct, and took the best
+$h\in\{1,\dots,20\}$. On the control arms the best values were 0.52--0.57. In
+the GPT-4o-mini dialogue-history arm they were 0.63--0.73, but on 84--103
+turns and after choosing the best of 20 horizons, so they overstate what a
+prospective rule could achieve.
+
+\paragraph{Conclusion}
+The turn-40 floor of the frozen monitor is a real design limitation, but it
+does not explain the negative result. A detector without the floor reacts to
+synthetic precursors, yet on the observed streams no non-CQ signal combined an
+early alarm, a controlled false-alarm rate and transfer across models. The
+appropriate conclusion is that no robust warning was found under the tested
+protocols, not that no detector could warn.
+
 \section{Reproducibility}
 Every number, table and figure is produced by scripts from hash-checked inputs
 (Table~\ref{tab:hash}). Raw responses are never overwritten.
