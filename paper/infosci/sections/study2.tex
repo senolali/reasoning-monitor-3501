@@ -1,103 +1,80 @@
 \section{Study 2: long-horizon degradation under calibrated difficulty}
 \label{sec:study2}
 
-Study~1 tasks span at most nine turns and their difficulty is not controlled.
-In long dialogues the questions themselves may become harder as the
-conversation proceeds. Study~2 therefore uses a purpose-built benchmark with an
-exact answer at every turn and difficulty set by design.
+Study~1 tasks span at most nine turns, and their difficulty is not controlled.
+In long dialogues the questions themselves may become harder, so a falling
+accuracy curve could reflect the questions rather than the context. Study~2
+therefore uses a purpose-built benchmark with an exact answer at every turn and
+difficulty set by design.
 
-\subsection{The CDR-Stream benchmark}
+\subsection{The CDR-Stream benchmark and design}
 
-\paragraph{Domains and turns}
-CDR-Stream contains 100-turn dialogues in four state-tracking domains typical
-of operational information systems: a budget ledger, inventory across warehouses, a
-laboratory protocol with container volumes, and chains of project milestones.
-Each user turn states events that update a shared state, such as a delivery, a
-transfer or a correction, possibly with distractor sentences, and asks one
-question from six families: sum, difference, count above a threshold, maximum,
-what-if and share. An exact solver computes the gold answer of every turn, and
-the generator verifies a solver round trip at every turn.
+\paragraph{Dialogues}
+CDR-Stream contains 100-turn dialogues in four state-tracking domains: a budget
+ledger, inventory across warehouses, a laboratory protocol with container
+volumes, and chains of project milestones. Each user turn states events that
+update a shared state, such as a delivery, a transfer or a correction, possibly
+with distractor sentences, and asks one question: a sum, a difference, a count
+above a threshold, a maximum, a what-if or a share. An exact solver computes
+the gold answer of every turn.
 
-\paragraph{Calibrated difficulty}
+\paragraph{Calibrated difficulty and scenarios}
 Difficulty follows a 12-level ladder that changes one axis per step: query
 terms, events per turn, distractors or event complexity (supplementary
-Table~S5). Before any stream was generated, a single-turn
-calibration stage mapped easy, medium and hard regimes to ladder levels
-separately for each model and domain, targeting accuracy bands of 0.75--0.92,
-0.60--0.78 and 0.35--0.65. A frozen rule (isotonic fit
-\citep{barlow1972statistical}, one-sided Cochran--Armitage trend test
-\citep{armitage1955tests} and minimum regime gaps) excluded domains with a
-ceiling, a floor or no trend (Table~\ref{tab:s2map}). Per-model calibration
-keeps each model in its informative range, so that model and difficulty are
-not confounded.
+Table~S4). Before any stream existed, a single-turn calibration
+mapped easy, medium and hard regimes to ladder levels for each model and domain,
+targeting accuracy bands of 0.75--0.92, 0.60--0.78 and 0.35--0.65, and a frozen
+rule (isotonic fit, \citealp{barlow1972statistical}; one-sided Cochran--Armitage
+trend test, \citealp{armitage1955tests}; minimum regime gaps) excluded domains
+with a ceiling, a floor or no trend (supplementary Table~S5). Each
+model is thus evaluated in its own informative range. Five scenarios fix the
+regime sequence: stationary easy (S0-E) and hard (S0-H), which serve as
+monitoring nulls; a staircase from easy to hard with changes at turns 34 and 68
+(S1); a sudden easy-to-hard shift at turn 51 (S2); and easy to hard to easy
+with changes at 34 and 67 (S3). Within a regime, 50\% of turns come from the
+centre level, 20\% from each neighbouring level and 10\% from an adjacent
+regime.
 
-\begin{table}[!htbp]
-\centering
-\caption{Study 2 frozen difficulty mappings: ladder levels for the easy,
-medium and hard regimes (E/M/H). A dash marks a domain excluded by the
-calibration rule.}
-\label{tab:s2map}
-\small
-\begin{tabular}{lcccc}
-\toprule
-Model & Budget & Inventory & Laboratory & Milestones\\
-\midrule
-\inputtable{generated/table_cdr_mappings.tex}
-\bottomrule
-\end{tabular}
-\end{table}
-
-\paragraph{Scenarios}
-Each regime mixes levels: 50\% of turns from the centre level, 20\% from each
-neighbour and 10\% from an adjacent regime. Five scenarios fix the regime
-sequence: stationary easy (S0-E) and hard (S0-H); a staircase easy to medium to
-hard with changes at turns 34 and 68 (S1); a sudden easy-to-hard shift at turn
-51 (S2); and easy to hard to easy with changes at 34 and 67 (S3). The
-stationary scenarios serve as monitoring nulls.
-
-\paragraph{Models, arms and acquisition}
-The models were GPT-4o-mini, Llama-3 70B \citep{grattafiori2024llama3} and
-Gemma 3 12B \citep{gemma2025gemma3}, retained because they passed calibration
-and a technical pilot, not because of any stream outcome. Candidates at the
-floor or ceiling, or without repeat diversity, were replaced beforehand; this
-record and two disclosed deviations for Llama-3 70B are in the supplement. Each
-model received 30 held-out dialogues, six per scenario. The dialogue-history
-arm packed all earlier user turns and primary replies; the verified-state arm
-gave the solver-rendered state and the current turn. Both used the same prompt
-and contract, at most eight numbered reasoning lines followed by
-\texttt{FINAL\_ANSWER: <integer>}, temperature 0.7 and a 2,048-token ceiling.
-The dialogue arm also drew $K=3$ samples and $L=2$ rewordings per turn. A
-truncation policy frozen before the main run kept truncated replies verbatim
-and scored them as missing. The research budget staged the acquisition: all
-primary chains and all three control arms are complete, the Llama-3 70B and
-Gemma 3 12B controls under a separately frozen protocol, but CS, RS and SS
-samples are complete only for GPT-4o-mini.
-
-\paragraph{Analysis}
-Dialogues are the independent units. A prespecified secondary contrast
-compares accuracy at turns 1--50 and 51--100 at the \emph{same} ladder level
-within each dialogue. The confirmatory hypothesis H-C1 states that, for Llama-3
-70B and Gemma 3 12B, per-dialogue accuracy over turns 1--100 is higher under
-the verified state summary than under dialogue history, tested by one-sided
-sign-flip tests over 30 dialogues (20,000 draws; \citealp{good2005permutation})
-with bootstrap CIs and Holm correction. GPT-4o-mini control data had been seen
-before this protocol, so it is reported outside the family.
+\paragraph{Models, arms and analysis}
+GPT-4o-mini, Llama-3 70B \citep{grattafiori2024llama3} and Gemma 3 12B
+\citep{gemma2025gemma3} were retained because they passed calibration and a
+technical pilot, before any stream outcome existed; replaced candidates and two
+disclosed deviations for Llama-3 70B are documented in the supplement. Each
+model received 30 held-out dialogues, six per scenario, in two arms: dialogue
+history, and the verified state summary with the current turn. Both arms used
+the same prompt and contract (at most eight numbered reasoning lines followed by
+\texttt{FINAL\_ANSWER: <integer>}), temperature 0.7 and a 2,048-token ceiling.
+The dialogue arm also drew $K=3$ samples and $L=2$ rewordings per turn;
+because the research budget staged acquisition, these were completed only for
+GPT-4o-mini. Truncated replies were kept and scored as missing under a policy
+frozen before the main run. Dialogues are the independent units. A
+prespecified secondary contrast compares accuracy at turns 1--50 and 51--100 at
+the same ladder level within each dialogue. The confirmatory hypothesis H-C1
+states that, for Llama-3 70B and Gemma 3 12B, per-dialogue accuracy over turns
+1--100 is higher under the verified state summary, tested by one-sided
+sign-flip tests over 30 dialogues (20,000 draws;
+\citealp{good2005permutation}) with bootstrap intervals and Holm correction.
+GPT-4o-mini control data had been seen before this protocol and are reported
+outside the family.
 
 \subsection{Results}
 
 \paragraph{Accuracy collapses under accumulated history}
 In all three models, dialogue-history accuracy fell from about 0.6 in the first
 five turns to about 0.1 after turn 20 (Table~\ref{tab:s2collapse},
-Figure~\ref{fig:s2}a). The three models followed nearly identical curves
+Figure~\ref{fig:s2}a). The curves of the three models were nearly identical
 despite different sizes and mappings, and the collapse appeared in every
-scenario. In stationary easy dialogues, where questions never became harder,
-accuracy over turns 21--100 was \cdrSzeroEDialRange{} under dialogue history
-against \cdrSzeroECtrlRange{} under the verified state summary. At the same
-ladder level, late turns were less accurate than early turns by
+scenario. In stationary easy dialogues, where the questions never became
+harder, accuracy over turns 21--100 was \cdrSzeroEDialRange{} under dialogue
+history against \cdrSzeroECtrlRange{} under the verified state summary. At the
+same ladder level, late turns were less accurate than early turns by
 \cdrLevelMatched{} (prespecified secondary, $p$~\cdrLevelMatchedP{},
 $n=\cdrLevelMatchedN$ dialogues; \cdrLevelMatchedSzeroE{} in S0-E). Because most
-of the decline happens within the first half, this contrast understates the
-total loss.
+of the decline occurs in the first half, this contrast understates the total
+loss. The collapse also hides the scheduled task drifts: it is present in
+stationary dialogues and begins before any detector could form a baseline, so
+pre/post contrasts around the scheduled changes mix the two (supplementary
+Table~S7).
 
 \begin{table}[!htbp]
 \centering
@@ -129,17 +106,14 @@ scheduled difficulty changes.}
 
 \paragraph{A verified state summary preserves accuracy (confirmatory)}
 Under the verified state summary, accuracy stayed high and followed the
-difficulty schedule: it stepped down at the changes of S1 and S2 and recovered
-in the final easy regime of S3, a recovery that is invisible under dialogue
-history (Figure~\ref{fig:s2}). The frozen test confirmed the mitigation in
-both members of the family (Table~\ref{tab:s2control}). Over turns 1--100 the
-control-minus-history gap was \cdrLlamaControlGap{} for Llama-3 70B (95\% CI
-[\cdrLlamaControlCiLo{}, \cdrLlamaControlCiHi{}], Holm
-$p$~\cdrLlamaControlHolmP{}) and \cdrGemmaControlGap{} for Gemma 3 12B
-([\cdrGemmaControlCiLo{}, \cdrGemmaControlCiHi{}], Holm
-$p$~\cdrGemmaControlHolmP{}); over turns 21--100 it was
-\cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}. GPT-4o-mini showed the
-same direction.
+difficulty schedule, stepping down at the changes of S1 and S2 and recovering in
+the final easy regime of S3, a recovery that dialogue history never showed
+(Figure~\ref{fig:s2}). H-C1 was supported for both members of the family
+(Table~\ref{tab:s2control}): over turns 1--100 the gap was
+\cdrLlamaControlGap{} for Llama-3 70B and \cdrGemmaControlGap{} for Gemma 3 12B
+(Holm $p$~\cdrLlamaControlHolmP{} and \cdrGemmaControlHolmP{}), and over turns
+21--100 it was \cdrLlamaControlLateGap{} and \cdrGemmaControlLateGap{}.
+GPT-4o-mini showed the same direction.
 
 \begin{table}[!htbp]
 \centering
@@ -156,11 +130,3 @@ Model & Mean gap & 95\% bootstrap CI & Holm $p$ & Dialogues\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\paragraph{Scheduled drifts are masked by the background collapse}
-The frozen pre/post contrasts around each scheduled change mix task drift with
-the ongoing collapse, which is present even in stationary dialogues; we report
-them in supplementary Table~S7 but do not interpret them as
-task-drift effects. For monitoring, this means that the largest change in a
-stream may come from the context rather than the task, and it begins before any
-detector has a baseline.

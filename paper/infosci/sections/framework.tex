@@ -1,8 +1,8 @@
 \section{Monitoring framework and evaluation design}
 \label{sec:framework}
 
-This section defines what both studies share: the context policies, the
-per-turn quality signals, the streaming monitor and the evidence standards
+Both studies share the context policies, the per-turn quality signals, the
+streaming monitor and the evidence standards defined here
 (Figure~\ref{fig:framework}).
 
 \begin{figure}[!htbp]
@@ -60,30 +60,28 @@ from a context $C_t$ set by a policy $\pi$:
 \end{align}
 where $s_{t-1}$ is the exact task state after turn $t-1$, rendered by a
 solver. Dialogue history versus fresh prefix estimates the \emph{net} effect of
-retaining assistant-side history; context length and message positions differ
-as well, so the effect is not attributed to the content of the replies alone.
-The verified state summary shortens the context, removes earlier replies and
-supplies a correct state at once; it tests mitigation, not mechanism. Our code
-packs every context into the request, with server-side memory, retrieval and
-prompt rewriting disabled, after a pilot in which a gateway silently dropped
-native message history. Every context is therefore reproducible from the
-stored records.
+keeping assistant replies; context length and message positions also differ,
+so the effect is not attributed to the content of the replies alone. The
+verified state summary shortens the context, removes earlier replies and
+supplies a correct state at once, so it tests a mitigation, not a mechanism.
+Every context is packed into the request with server-side memory, retrieval and
+prompt rewriting disabled, which makes it reproducible from the stored records.
 
 \subsection{Per-turn quality signals}
 
-Each primary reply is accompanied by $K-1$ further samples from the same
-context and by $L$ replies to frozen rewordings of the instruction. RQEval
-\citep{rqeval2026} computes six dimensions in $[0,1]$, used unchanged:
-accuracy (CQ, the primary answer equals the gold); consistency (CS, pairwise
-agreement of the $K$ answers); robustness (RS, agreement of reworded replies
-with a correct primary answer); logical coherence (LS, absence of NLI
-contradictions between consecutive steps; \citealp{he2021deberta}); efficiency
-(ES, correctness combined with token economy); and stability (SS, BERTScore
-similarity of the $K$ traces; \citealp{zhang2020bertscore}). CQ, RS and ES
-require a final answer and gold, CS needs at least two answers, and LS and SS
-need only reasoning text. This matters for early warning: a signal that
-requires an answer is unobservable before the model is ready to give one.
-Missing values are never imputed and are reported with their support.
+Each primary reply comes with $K-1$ further samples from the same context and
+$L$ replies to frozen rewordings of the instruction. RQEval \citep{rqeval2026}
+computes six dimensions in $[0,1]$, used unchanged: accuracy (CQ, the primary
+answer equals the gold), consistency (CS, pairwise agreement of the $K$
+answers), robustness (RS, agreement of reworded replies with a correct primary
+answer), logical coherence (LS, absence of NLI contradictions between
+consecutive steps; \citealp{he2021deberta}), efficiency (ES, correctness
+combined with token economy) and stability (SS, BERTScore similarity of the $K$
+traces; \citealp{zhang2020bertscore}). CQ, RS and ES need a final answer and the
+gold, CS needs at least two answers, and LS and SS need only reasoning text.
+Only LS and SS can therefore serve as label-free warnings before a model is
+ready to answer. Missing values are never imputed and are reported with their
+support.
 
 \subsection{The streaming monitor}
 
@@ -100,81 +98,56 @@ observed. Once $|V_{m,t}|=W$, the monitored statistic is
 with $W=20$ primary. Missing values neither enter nor advance the window.
 \end{definition}
 
-Five detectors, CUSUM, Page--Hinkley (PH), EWMA, DDM and ADWIN, are paired with
-metrics by three strategies taken from the funded project design
-(Table~\ref{tab:strategies}). Each detector $D$ with threshold $h$ reads the
-sequence $\bar q_{m,1},\dots,\bar q_{m,t}$ and either alarms at $t$ or not.
+Five detectors, CUSUM, Page--Hinkley, EWMA, DDM and ADWIN, are assigned to
+metrics by three strategies fixed in the funded project design: CUSUM on every
+metric, a distribution-specific mapping, and ADWIN on every metric
+(supplementary Table~S8).
 
 \begin{definition}[Alarm, calibration and detection]
-The alarm time of metric $m$ in a stream of $T$ turns is
+For a detector with threshold $h$ reading $\bar q_{m,1},\dots,\bar q_{m,t}$,
+the alarm time in a stream of $T$ turns is
 \begin{equation}
-  \tau_m(h) = \min\{t\le T : D \text{ alarms at } t \text{ with threshold } h\},
+  \tau_m(h) = \min\{t\le T : \text{the detector alarms at } t\},
   \label{eq:alarm}
 \end{equation}
 with $\tau_m=\infty$ if no alarm occurs. The threshold $h^\ast$ is the most
 sensitive grid value whose first-alarm rate on stationary streams,
-$\widehat{P}_0(\tau_m(h)\le T)$, does not exceed $\alpha$; drift data are never
-used. For a change at turn $c$, the alarm is a \emph{false alarm} if
+$\widehat{P}_0(\tau_m(h)\le T)$, is at most $\alpha$; drift data are never used.
+For a change at turn $c$, an alarm is a \emph{false alarm} if
 $\tau_m(h^\ast)<c$ and a \emph{detection} if $c\le\tau_m(h^\ast)\le c+33$.
 \end{definition}
 
-Study~1 estimates $\widehat{P}_0$ with permutation nulls and family-wise
-$\alpha=0.05$, verified on disjoint permutations. Study~2 uses its stationary
-dialogues, with leave-one-out false-alarm estimates. A signal gives
+Study~1 estimates $\widehat{P}_0$ from permutation nulls with family-wise
+$\alpha=0.05$, Study~2 from its stationary dialogues. We call a signal an
 \emph{early warning} only if it detects drifts in time, respects the null
 calibration and does so across models.
-
-\begin{table}[!htbp]
-\centering
-\caption{Detector assignment strategies. All monitor a decrease of the window
-mean; CQ is additionally monitored on its raw binary stream by DDM.}
-\label{tab:strategies}
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{lcccccc}
-\toprule
-Strategy & CQ & CS & RS & LS & ES & SS\\
-\midrule
-Distribution-based & CUSUM & CUSUM & CUSUM & CUSUM & CUSUM & CUSUM\\
-Proposal mapping & CUSUM & ADWIN & DDM & PH & EWMA & ADWIN\\
-ADWIN everywhere & ADWIN & ADWIN & ADWIN & ADWIN & ADWIN & ADWIN\\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsection{A paired readiness measure}
 
 Sharded tasks allow an answer-free paired signal. Let $a_t^{\mathrm{F}}$ and
 $a_t^{\mathrm{D}}$ be 1 if the fresh-prefix and dialogue-history arms attempt an
-answer at turn $t$, and 0 if they state that more information is needed. The
+answer at turn $t$, and 0 if they ask for more information. The
 \emph{Cumulative Resolution Lag} of a task is
 \begin{equation}
   \mathrm{CRL} = \frac{1}{|\mathcal{T}|}\sum_{t\in\mathcal{T}}
   \max\!\left(a_t^{\mathrm{F}}-a_t^{\mathrm{D}},\,0\right),
 \end{equation}
-over the pre-final turns $\mathcal{T}$ at which both arms responded validly.
-CRL measures how persistently the history arm lags an information-matched
-counterfactual in becoming ready to answer. It was frozen as an auxiliary
-measure before the Study~1 data were collected and is not an RQEval dimension.
+over the pre-final turns $\mathcal{T}$ at which both arms responded validly. It
+measures how persistently the history arm lags an information-matched
+counterfactual in becoming ready to answer, and it was fixed as an auxiliary
+measure before the Study~1 data were collected.
 
 \subsection{Evidence standards}
 
-Every result carries one of four labels. \emph{Confirmatory} results test
-hypotheses frozen before the outcomes they concern were computed;
-\emph{prespecified secondary}
-results are frozen but outside the confirmatory family; \emph{exploratory}
-results use rules fixed before computation on data already seen; and
-\emph{post-hoc} results were designed after inspection. Protocols fixed the
-sample, prompts, models, scoring, missing-data policy and tests, and were
-hashed together with all input records. The timing differs between the
-studies. In Study~1 the full protocol, including the analysis, was frozen
-before any data were collected. In Study~2 the design, sample, difficulty
-mappings, prompt and truncation policy were frozen before the main run, but
-the analysis protocol was frozen during acquisition, when a budget pause had
-left 25,039 of 54,000 calls complete and before any main-run metric had been
-computed. A hash shows that a protocol has not changed since it was hashed,
-not when it was written, so supplementary Table~S17 gives
-the dated sequence. Raw responses are stored before scoring
-and never overwritten, failed gates are reported rather than relabelled, and
-every number, table and figure is regenerated by scripts from the hashed
-inputs.
+Each result carries one of four labels: \emph{confirmatory} (a hypothesis fixed
+before its outcomes were computed), \emph{prespecified secondary},
+\emph{exploratory} (rules fixed before computation on data already seen) or
+\emph{post hoc}. In Study~1 the whole protocol, including the analysis, was
+frozen before data collection. In Study~2 the design, sample, difficulty
+mappings, prompt and truncation policy were frozen before the main run; the
+analysis protocol was frozen when a budget pause had left 25,039 of 54,000
+calls complete, before any main-run metric was computed (dated timeline in
+supplementary Table~S18). Raw responses are stored before
+scoring and never overwritten, failed gates are reported rather than
+relabelled, and every number, table and figure is regenerated by scripts from
+hashed inputs.

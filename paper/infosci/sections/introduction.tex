@@ -1,70 +1,46 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Large language models (LLMs) are moving from single-question assistants to
-components of information and decision-support systems that keep a task alive over
-many turns. A procurement assistant tracks a budget as invoices arrive, and a
-logistics assistant follows stock across warehouses. The user supplies
-information piece by piece and asks questions whose answers depend on
-everything said so far. The model's context therefore accumulates its own
-earlier replies and a task state that changes at every turn. We call this
-accumulated context the \emph{conversation history}; the experimental
-condition that retains it is called \emph{dialogue history}.
+LLMs are increasingly used as components of information and decision-support
+systems that keep a task open over many turns. A procurement assistant tracks a
+budget as invoices arrive; a logistics assistant follows stock across
+warehouses. The user supplies information piece by piece and asks questions
+whose answers depend on everything said so far, so the model's context fills
+with its own earlier replies and with a task state that changes at every turn.
+We call this accumulated context the \emph{conversation history}, and the
+experimental condition that keeps it \emph{dialogue history}.
 
-This setting is known to be costly. \citet{laban2025lost} showed that
-performance drops substantially when a single-turn task is revealed over
-several turns, because models commit to early answers and fail to recover.
-Their tasks end in one scored answer after a few turns, so they show that
-degradation occurs but not how it unfolds over a long horizon or whether it
-can be seen coming.
-\citet{huang2026benefit} showed that removing the assistant's own previous
-replies often preserves or improves response quality, a harm they call
-\emph{context pollution}. Effective context is also much shorter than nominal
-context \citep{liu2024lost,hsieh2024ruler}, and models condition on their own
-earlier errors in long-horizon execution \citep{sinha2025illusion}.
+Multi-turn use is known to be costly. Models lose accuracy when a task is
+revealed over several turns \citep{laban2025lost}, earlier assistant replies can
+propagate errors \citep{huang2026benefit}, and the effective context is shorter
+than the nominal one \citep{liu2024lost,hsieh2024ruler}. These studies score
+one answer after a few turns. They do not show how the loss develops over a
+long horizon once task difficulty is held fixed, and they do not ask whether it
+can be seen before accuracy fails. The second question matters in practice,
+because a deployed system rarely observes the correct answer. It must rely on
+process signals such as agreement between samples, robustness to rewording,
+logical coherence and trace stability \citep{rqeval2026}, possibly turned into
+alarms by drift detectors with controlled false-alarm rates
+\citep{gama2014survey,lu2019learning}.
 
-Two operational questions remain open. First, does degradation persist over
-long horizons once task difficulty is controlled? Long dialogues change what
-they ask, so a falling accuracy curve may reflect harder questions rather than
-a harder context. Second, can the degradation be detected \emph{before}
-accuracy fails? A deployed system rarely observes the correct answer and must
-rely on process signals. Reasoning quality has been decomposed into sample
-agreement, robustness to rewording, logical coherence and trace stability
-\citep{rqeval2026}. If these dimensions deteriorated before accuracy, classic
-drift detectors could turn them into alarms with controlled false-alarm rates
-\citep{gama2014survey,lu2019learning}; ERGO uses token-entropy spikes in a
-related role \citep{khalid2025ergo}. To our knowledge, the warning value of
-established process metrics under accumulated history has not been tested with
-prospectively fixed analyses and calibrated false alarms.
+We study both questions in two experiments, each analysed under a protocol
+fixed before its outcomes were computed. Study~1 uses the math tasks of Lost in
+Conversation and compares, turn by turn, the same user information with and
+without the model's own earlier replies. Study~2 introduces CDR-Stream, a
+benchmark of 100-turn state-tracking dialogues with an exact answer at every
+turn, difficulty calibrated per model and scheduled difficulty shifts. Its
+control arm replaces the history with a solver-verified state summary. The two
+studies differ in tasks, models and controls, so we read them as two related
+failure modes rather than as one dose--response curve.
 
-We address both questions with two studies. Each analysis was frozen before
-the outcomes it concerns were computed (the dated timeline is in
-supplementary Table~S17). \emph{Study~1} uses the math tasks of
-Lost in Conversation: at every turn, each model answers from identical user
-information with and without its own earlier replies. \emph{Study~2}
-introduces CDR-Stream, 100-turn state-tracking dialogues with exact per-turn
-answers, per-model difficulty calibration and scheduled difficulty shifts; its
-control arm replaces the history with a solver-verified state summary. Across
-both studies we test quality metrics, a paired readiness measure and
-calibrated drift detectors as early warnings. Because the studies differ in
-tasks, models and controls, we read them as complementary failure modes, not as
-one dose--response curve.
-
-The paper makes four contributions:
-\begin{enumerate}
-  \item a frozen, task-paired confirmatory estimate of the effect of retaining
-    assistant replies, replicating the direction of \citet{huang2026benefit};
-  \item CDR-Stream, a long-horizon benchmark in which accuracy under full
-    history collapsed within about twenty turns at matched difficulty, while a
-    verified state summary preserved it in all three models;
-  \item a prospective test showing that no examined quality metric, paired
-    measure or single-stream detector gave robust, model-general early warning;
-    coherence and stability stayed level or rose as accuracy fell;
-  \item design guidance for LLM-based information systems, supported by a
-    bound on the smallest detectable accuracy drop, a power simulation and a
-    detector audit.
-\end{enumerate}
-Section~\ref{sec:related} reviews related work and Section~\ref{sec:framework}
-defines the framework. Sections~\ref{sec:study1}--\ref{sec:monitoring} present
-the studies and the early-warning analysis, and Section~\ref{sec:discussion}
-discusses implications and limitations.
+The paper makes three contributions. First, it gives a prospectively frozen, paired
+estimate of the cost of retaining assistant replies, which replicates the
+direction reported by \citet{huang2026benefit}. Second, it provides a
+long-horizon benchmark in which accuracy under full history collapsed within
+about twenty turns at matched difficulty, while a verified state summary
+preserved it. Third, it tests whether established quality metrics and
+calibrated detectors warn of this collapse. None gave robust, model-general
+warning: coherence and
+stability stayed level or rose as answers became wrong, and a bound on the
+smallest detectable drop together with a power simulation explains why single
+conversations are hard to monitor.
