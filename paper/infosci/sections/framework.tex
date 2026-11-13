@@ -44,8 +44,8 @@ streaming monitor and the evidence standards defined here
 \caption{The monitoring framework. A context policy decides what the model
 sees at turn $t$. Responses are scored into a per-turn quality vector, smoothed
 over a window and passed to drift detectors whose thresholds are calibrated on
-stationary dialogues. Exact gold is used only to score accuracy and evaluate
-alarms, never by the monitor.}
+stationary dialogues. Exact gold is needed for CQ, RS and ES and for
+evaluating alarms; CS, LS and SS do not use it.}
 \label{fig:framework}
 \end{figure}
 

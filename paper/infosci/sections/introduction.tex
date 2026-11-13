@@ -13,10 +13,10 @@ experimental condition that keeps it \emph{dialogue history}.
 Multi-turn use is known to be costly. Models lose accuracy when a task is
 revealed over several turns \citep{laban2025lost}, earlier assistant replies can
 propagate errors \citep{huang2026benefit}, and the effective context is shorter
-than the nominal one \citep{liu2024lost,hsieh2024ruler}. These studies score
-one answer after a few turns. They do not show how the loss develops over a
-long horizon once task difficulty is held fixed, and they do not ask whether it
-can be seen before accuracy fails. The second question matters in practice,
+than the nominal one \citep{liu2024lost,hsieh2024ruler}. Sharded-task studies
+score a single answer after a few turns \citep{laban2025lost}. Less is known
+about how the loss develops over a long horizon once task difficulty is held
+fixed, and whether it can be seen before accuracy fails. The second question matters in practice,
 because a deployed system rarely observes the correct answer. It must rely on
 process signals such as agreement between samples, robustness to rewording,
 logical coherence and trace stability \citep{rqeval2026}, possibly turned into
@@ -40,7 +40,7 @@ long-horizon benchmark in which accuracy under full history collapsed within
 about twenty turns at matched difficulty, while a verified state summary
 preserved it. Third, it tests whether established quality metrics and
 calibrated detectors warn of this collapse. None gave robust, model-general
-warning: coherence and
-stability stayed level or rose as answers became wrong, and a bound on the
+warning: coherence
+fell only slightly and stability rose as answers became wrong, and a bound on the
 smallest detectable drop together with a power simulation explains why single
 conversations are hard to monitor.
