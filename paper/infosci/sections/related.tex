@@ -22,6 +22,15 @@ rebuilds the prompt after spikes in token entropy \citep{khalid2025ergo}. Our
 verified state summary is an upper reference for such compact memory, not a
 deployable summariser.
 
+This body of work documents four related but distinct phenomena: losing
+information that sits in the middle of a long input, failing to keep a
+changing task state consistent across turns, being misled by one's own
+earlier (possibly wrong) replies, and being unable to tell, without the gold
+answer, that any of the first three is happening. The first three describe
+\emph{why} accuracy might fall; the fourth is the \emph{monitoring} question
+this paper tests, and none of the studies above calibrates a detector against
+it with a controlled false-alarm rate.
+
 \paragraph{Reasoning quality and drift monitoring}
 Reasoning quality has been characterised by agreement among sampled solutions
 \citep{wang2023selfconsistency}, faithfulness of chains of thought
@@ -31,7 +40,14 @@ their own correctness \citep{kadavath2022know}; sample checks
 \citep{farquhar2024detecting} estimate uncertainty without labels. Recent work
 adapts clinical cognitive tests to LLMs \citep{park2027lmmse} and optimises the
 steps of mathematical reasoning \citep{lee2026fgrpo}. These approaches judge one
-response at a time. CUSUM \citep{page1954continuous}, Page--Hinkley
+response at a time; we instead ask whether the same signals, aggregated per
+turn, anticipate a later failure. We use the six RQEval dimensions
+\citep{rqeval2026} unchanged, rather than proposing new ones, because they
+already span the two properties a label-free precursor would need: agreement
+(CS, RS) across repeated or reworded answers, and internal coherence or
+stability (LS, SS) of a single reasoning trace; CQ and ES require the gold
+answer and serve only as the outcome being warned about. CUSUM
+\citep{page1954continuous}, Page--Hinkley
 \citep{hinkley1971inference}, EWMA \citep{roberts1959control}, DDM
 \citep{gama2004learning} and ADWIN \citep{bifet2007learning} are standard
 stream detectors whose delay and false alarms have been compared extensively

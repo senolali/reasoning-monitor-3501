@@ -3,7 +3,40 @@
 
 Both studies share the context policies, the per-turn quality signals, the
 streaming monitor and the evidence standards defined here
-(Figure~\ref{fig:framework}).
+(Figure~\ref{fig:framework}); Table~\ref{tab:datasets} summarises the two
+benchmarks before the details below. Full model identifiers, gateway aliases
+and acquisition dates are in supplementary Table~S18.
+
+\begin{table}[!htbp]
+\centering
+\caption{The two benchmarks at a glance. K/L: same-context repeats / reworded
+instructions per turn; ``full'' metric coverage means CQ, CS, RS, LS, ES and
+SS, subject to the structural limits of Section~\ref{sec:framework} (CQ/RS/ES
+need a final answer).}
+\label{tab:datasets}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.17\linewidth}
+>{\raggedright\arraybackslash}p{0.40\linewidth}
+>{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
+\toprule
+ & Study 1 (Lost in Conversation) & Study 2 (CDR-Stream)\\
+\midrule
+Source & GSM8K math, sharded \citep{cobbe2021training,laban2025lost} &
+purpose-built, solver-checked\\
+Units & \nTasks{} tasks, 4--9 turns (median 6) & 30 dialogues/model, 100 turns
+each\\
+Domains & arithmetic word problems & budget, inventory, lab, milestones (4)\\
+Difficulty & not controlled & 12-level ladder, calibrated per model\\
+Scenarios & single ordered reveal & 5 (2 stationary null, 3 scheduled-change)\\
+Models & GPT-4o-mini, Llama-4 Scout, Mistral-7B & GPT-4o-mini, Llama-3 70B,
+Gemma 3 12B\\
+$K$ / $L$ & \Krep{} / \Lpar{}, all models & 3 / 2, GPT-4o-mini only\\
+Metric coverage & full, pre-final turns only (no gold yet) & full for
+GPT-4o-mini; CQ only for the other two\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[!htbp]
 \centering
@@ -67,6 +100,19 @@ supplies a correct state at once, so it tests a mitigation, not a mechanism.
 Every context is packed into the request with server-side memory, retrieval and
 prompt rewriting disabled, which makes it reproducible from the stored records.
 
+\paragraph{A worked example (CDR-Stream)}
+Suppose turn 7 reports ``warehouse~B received 40 crates of part~X,'' and turn
+8 asks ``how many crates of part~X does warehouse~B hold now?'' Under
+\emph{dialogue history}, $C_8$ is the full transcript of turns 1--8, including
+whatever the model itself answered at every earlier turn; if an earlier update
+or an earlier reply was wrong, $C_8$ still contains it, unflagged, alongside
+the new turn. Under the \emph{verified state summary}, $C_8$ replaces that
+transcript with the solver's current ledger for warehouse~B (one line per
+part, with its correct running count) plus the new turn only; the model never
+sees turns 1--7 or its own earlier replies. The gold answer is computed by the
+same solver from the same ledger, independently of what either arm is shown.
+Section~\ref{sec:study2} gives the full generator and prompt.
+
 \subsection{Per-turn quality signals}
 
 Each primary reply comes with $K-1$ further samples from the same context and
@@ -80,8 +126,16 @@ combined with token economy) and stability (SS, BERTScore similarity of the $K$
 traces; \citealp{zhang2020bertscore}). CQ, RS and ES need a final answer and the
 gold, CS needs at least two answers, and LS and SS need only reasoning text.
 Only LS and SS can therefore serve as label-free warnings before a model is
-ready to answer. Missing values are never imputed and are reported with their
-support.
+ready to answer. Concretely, LS splits a reply's reasoning into consecutive
+steps, scores each adjacent pair for contradiction with an NLI model, and
+reports one minus the mean contradiction probability, so a reply that never
+contradicts itself scores 1 regardless of whether its conclusion is right. SS
+instead compares the $K$ sampled \emph{replies} to the same context pairwise by
+BERTScore and reports their mean similarity, so near-duplicate phrasing across
+samples raises SS even when the shared answer is wrong. Both are computed only
+when the reasoning text itself is present and parseable; missing values are
+never imputed and are reported with their support (supplementary
+Section~S1.2 gives the exact splitting and scoring rules).
 
 \subsection{The streaming monitor}
 

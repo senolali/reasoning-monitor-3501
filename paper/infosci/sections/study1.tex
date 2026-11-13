@@ -25,8 +25,9 @@ determined answer, so CQ, RS and ES cannot be observed; the pre-final warning
 candidates were CS, LS and SS. Each was tested by a task-clustered partial
 correlation with final failure, adjusted for model, turn, revealed information
 and log context length, with Holm correction across the three metrics. CRL
-targeted a positive final readiness gap, in which the fresh prefix answers
-while the history arm is still waiting for information.
+(defined in Section~\ref{sec:framework}) measures delay in becoming ready to
+answer, not accuracy; it targeted a positive final readiness gap, in which the
+fresh prefix answers while the history arm is still waiting for information.
 
 \subsection{Results}
 
@@ -83,8 +84,12 @@ excluded.
 \begin{table}[!htbp]
 \centering
 \caption{Study 1 pre-final metrics as predictors of final failure under
-dialogue history ($r_{\text{partial}}$: task-clustered partial correlation;
-$p$: one-sided task-clustered permutation test).}
+dialogue history. A unit is one (task, model) pair (up to $3\times\nTasks{}$);
+turns are the pre-final turns of those units pooled together, the level at
+which the metric is observed; tasks are the distinct source tasks contributing
+at least one turn, the level at which the permutation test clusters
+observations. $r_{\text{partial}}$: task-clustered partial correlation; $p$:
+one-sided task-clustered permutation test.}
 \label{tab:s1rqeval}
 \small
 \begin{tabular}{lcccccc}

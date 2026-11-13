@@ -27,12 +27,15 @@ targeting accuracy bands of 0.75--0.92, 0.60--0.78 and 0.35--0.65, and a frozen
 rule (isotonic fit, \citealp{barlow1972statistical}; one-sided Cochran--Armitage
 trend test, \citealp{armitage1955tests}; minimum regime gaps) excluded domains
 with a ceiling, a floor or no trend (supplementary Table~S5). Each
-model is thus evaluated in its own informative range. Five scenarios fix the
+model is thus evaluated in its own informative range, at the cost of models not
+all being tested on the same set of domains; CDR-Stream is not designed to
+rank models against each other, and we do not compare raw accuracy across
+models for this reason. Five scenarios fix the
 regime sequence: stationary easy (S0-E) and hard (S0-H), which serve as
 monitoring nulls; a staircase from easy to hard with changes at turns 34 and 68
 (S1); a sudden easy-to-hard shift at turn 51 (S2); and easy to hard to easy
 with changes at 34 and 67 (S3); within a regime, levels are mixed around the
-centre level (supplementary Section~S2.1).
+centre level (supplementary Section~S2.2).
 
 \paragraph{Models, arms and analysis}
 GPT-4o-mini, Llama-3 70B \citep{grattafiori2024llama3} and Gemma 3 12B
@@ -48,10 +51,13 @@ because the research budget staged acquisition, these were completed only for
 GPT-4o-mini. Truncated replies were kept and scored as missing under a policy
 frozen before the main run. Dialogues are the independent units. A
 prespecified secondary contrast compares accuracy at turns 1--50 and 51--100 at
-the same ladder level within each dialogue. The confirmatory hypothesis H-C1
-states that, for Llama-3 70B and Gemma 3 12B, per-dialogue accuracy over turns
-1--100 is higher under the verified state summary, tested by one-sided
-sign-flip tests over 30 dialogues (20,000 draws;
+the same ladder level within each dialogue -- holding question-side difficulty
+fixed (query terms, events per turn, distractors and event complexity), not
+the conversation length or the accumulated state, since those grow across
+turns under both arms by design. The confirmatory hypothesis H-C1 states that,
+for Llama-3 70B and Gemma 3 12B, per-dialogue accuracy over turns 1--100 is
+higher under the verified state summary, tested by one-sided sign-flip tests
+over 30 dialogues (20,000 draws;
 \citealp{good2005permutation}) with bootstrap intervals and Holm correction.
 GPT-4o-mini control data had been seen before this protocol and are reported
 outside the family.
