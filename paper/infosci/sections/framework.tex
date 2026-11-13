@@ -10,9 +10,9 @@ and acquisition dates are in supplementary Table~S18.
 \begin{table}[!htbp]
 \centering
 \caption{The two benchmarks at a glance. K/L: same-context repeats / reworded
-instructions per turn; ``full'' metric coverage means CQ, CS, RS, LS, ES and
-SS, subject to the structural limits of Section~\ref{sec:framework} (CQ/RS/ES
-need a final answer).}
+instructions per turn. Metric coverage lists which of the six dimensions were
+computed where; CQ, RS and ES always need a final answer and the gold
+(Section~\ref{sec:framework}).}
 \label{tab:datasets}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
@@ -32,8 +32,9 @@ Scenarios & single ordered reveal & 5 (2 stationary null, 3 scheduled-change)\\
 Models & GPT-4o-mini, Llama-4 Scout, Mistral-7B & GPT-4o-mini, Llama-3 70B,
 Gemma 3 12B\\
 $K$ / $L$ & \Krep{} / \Lpar{}, all models & 3 / 2, GPT-4o-mini only\\
-Metric coverage & full, pre-final turns only (no gold yet) & full for
-GPT-4o-mini; CQ only for the other two\\
+Metric coverage & CQ/RS/ES at the final turn; CS/LS/SS at pre-final turns
+(gold not yet available) & CQ/LS/ES every turn, all three models; CS/RS/SS
+every turn, GPT-4o-mini only (repeat-based)\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -102,16 +103,14 @@ prompt rewriting disabled, which makes it reproducible from the stored records.
 
 \paragraph{A worked example (CDR-Stream)}
 Suppose turn 7 reports ``warehouse~B received 40 crates of part~X,'' and turn
-8 asks ``how many crates of part~X does warehouse~B hold now?'' Under
-\emph{dialogue history}, $C_8$ is the full transcript of turns 1--8, including
-whatever the model itself answered at every earlier turn; if an earlier update
-or an earlier reply was wrong, $C_8$ still contains it, unflagged, alongside
-the new turn. Under the \emph{verified state summary}, $C_8$ replaces that
-transcript with the solver's current ledger for warehouse~B (one line per
-part, with its correct running count) plus the new turn only; the model never
-sees turns 1--7 or its own earlier replies. The gold answer is computed by the
-same solver from the same ledger, independently of what either arm is shown.
-Section~\ref{sec:study2} gives the full generator and prompt.
+8 asks how many crates of part~X warehouse~B now holds. Under \emph{dialogue
+history}, $C_8$ is the full transcript of turns 1--8, including whatever the
+model itself answered at every earlier turn, right or wrong and unflagged
+either way. Under the \emph{verified state summary}, $C_8$ instead has only
+the solver's current ledger line for warehouse~B/part~X plus turn 8; the model
+never sees turns 1--7 or its own earlier replies. The gold answer comes from
+the same solver and ledger, independently of what either arm is shown
+(full generator and prompt in Section~\ref{sec:study2}).
 
 \subsection{Per-turn quality signals}
 
@@ -126,15 +125,13 @@ combined with token economy) and stability (SS, BERTScore similarity of the $K$
 traces; \citealp{zhang2020bertscore}). CQ, RS and ES need a final answer and the
 gold, CS needs at least two answers, and LS and SS need only reasoning text.
 Only LS and SS can therefore serve as label-free warnings before a model is
-ready to answer. Concretely, LS splits a reply's reasoning into consecutive
-steps, scores each adjacent pair for contradiction with an NLI model, and
-reports one minus the mean contradiction probability, so a reply that never
-contradicts itself scores 1 regardless of whether its conclusion is right. SS
-instead compares the $K$ sampled \emph{replies} to the same context pairwise by
-BERTScore and reports their mean similarity, so near-duplicate phrasing across
-samples raises SS even when the shared answer is wrong. Both are computed only
-when the reasoning text itself is present and parseable; missing values are
-never imputed and are reported with their support (supplementary
+ready to answer. LS splits a reply's reasoning into consecutive steps and
+reports one minus the mean NLI-scored contradiction probability between
+adjacent pairs, so a reply that never contradicts itself scores 1 regardless
+of whether its conclusion is right; SS instead BERTScores the $K$ sampled
+\emph{replies} against each other, so near-duplicate phrasing raises SS even
+when the shared answer is wrong. Both need parseable reasoning text; missing
+values are never imputed and are reported with their support (supplementary
 Section~S1.2 gives the exact splitting and scoring rules).
 
 \subsection{The streaming monitor}

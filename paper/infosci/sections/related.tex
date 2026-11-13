@@ -2,34 +2,31 @@
 \label{sec:related}
 
 \paragraph{Multi-turn and long-context degradation}
-MT-Bench, MT-Eval and MINT evaluate conversational ability over several
-exchanges \citep{zheng2023judging,kwan2024mteval,wang2024mint}.
+Benchmarks such as MT-Bench, MT-Eval and MINT evaluate conversational ability
+over several exchanges \citep{zheng2023judging,kwan2024mteval,wang2024mint}.
 \citet{laban2025lost} sharded fully specified tasks across turns and traced
 large losses to premature answers on which models then anchored.
 \citet{huang2026benefit} omitted or condensed assistant turns, including on the
 Lost in Conversation math tasks, and found that earlier replies can propagate
 errors, and \citet{sinha2025illusion} reported self-conditioning on earlier
-errors in long-horizon execution. Related work documents information lost in
-the middle of long inputs \citep{liu2024lost}, effective context below the
-advertised length \citep{hsieh2024ruler}, distraction by irrelevant context
+errors in long-horizon execution. Related mechanisms include information lost
+in the middle of long inputs \citep{liu2024lost}, effective context shorter
+than advertised \citep{hsieh2024ruler}, distraction by irrelevant context
 \citep{shi2023distracted}, sycophancy \citep{sharma2024sycophancy}, unreliable
-self-correction \citep{huang2024cannot} and difficulty in tracking entity states
-\citep{kim2023entity}. Memory architectures summarise or page earlier content
-\citep{packer2023memgpt,zhong2024memorybank,wang2023recursive}, long-term
-memory benchmarks test whether facts survive across sessions
-\citep{maharana2024locomo,wu2025longmemeval}, and ERGO
-rebuilds the prompt after spikes in token entropy \citep{khalid2025ergo}. Our
-verified state summary is an upper reference for such compact memory, not a
-deployable summariser.
+self-correction \citep{huang2024cannot} and difficulty tracking entity states
+\citep{kim2023entity}. On the mitigation side, memory architectures summarise
+or page earlier content and are tested on whether facts survive across
+sessions \citep{packer2023memgpt,zhong2024memorybank,wang2023recursive,
+maharana2024locomo,wu2025longmemeval}, and ERGO rebuilds the prompt after
+spikes in token entropy \citep{khalid2025ergo}; our verified state summary is
+an upper reference for such compact memory, not a deployable summariser.
 
-This body of work documents four related but distinct phenomena: losing
-information that sits in the middle of a long input, failing to keep a
-changing task state consistent across turns, being misled by one's own
-earlier (possibly wrong) replies, and being unable to tell, without the gold
-answer, that any of the first three is happening. The first three describe
-\emph{why} accuracy might fall; the fourth is the \emph{monitoring} question
-this paper tests, and none of the studies above calibrates a detector against
-it with a controlled false-alarm rate.
+This work documents three distinct reasons accuracy might fall -- lost
+mid-input information, inconsistent task-state tracking, and anchoring on
+one's own earlier replies -- but not whether any of the three can be seen,
+without the gold answer, before it shows up in the final answer; none of the
+cited studies calibrates a detector against such a signal with a controlled
+false-alarm rate.
 
 \paragraph{Reasoning quality and drift monitoring}
 Reasoning quality has been characterised by agreement among sampled solutions
@@ -42,11 +39,12 @@ adapts clinical cognitive tests to LLMs \citep{park2027lmmse} and optimises the
 steps of mathematical reasoning \citep{lee2026fgrpo}. These approaches judge one
 response at a time; we instead ask whether the same signals, aggregated per
 turn, anticipate a later failure. We use the six RQEval dimensions
-\citep{rqeval2026} unchanged, rather than proposing new ones, because they
-already span the two properties a label-free precursor would need: agreement
-(CS, RS) across repeated or reworded answers, and internal coherence or
-stability (LS, SS) of a single reasoning trace; CQ and ES require the gold
-answer and serve only as the outcome being warned about. CUSUM
+\citep{rqeval2026} unchanged, rather than proposing new ones, because three of
+them are already label-free candidate precursors: CS and SS compare repeated
+samples of the same reply, and LS scores coherence within one reasoning trace,
+none needing the gold answer (unlike CQ and ES, the outcome itself, and RS,
+which needs the gold to judge a reworded reply against a \emph{correct}
+primary answer). CUSUM
 \citep{page1954continuous}, Page--Hinkley
 \citep{hinkley1971inference}, EWMA \citep{roberts1959control}, DDM
 \citep{gama2004learning} and ADWIN \citep{bifet2007learning} are standard

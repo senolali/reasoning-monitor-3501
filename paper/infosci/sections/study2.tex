@@ -43,9 +43,9 @@ GPT-4o-mini, Llama-3 70B \citep{grattafiori2024llama3} and Gemma 3 12B
 technical pilot, before any stream outcome existed; replaced candidates and two
 disclosed deviations for Llama-3 70B are documented in the supplement. Each
 model received 30 held-out dialogues, six per scenario, in two arms: dialogue
-history, and the verified state summary with the current turn. Both arms used
-the same prompt and contract (at most eight numbered reasoning lines followed by
-\texttt{FINAL\_ANSWER: <integer>}), temperature 0.7 and a 2,048-token ceiling.
+history, and the verified state summary with the current turn. Both arms used the same frozen prompt and response contract (verbatim in
+supplementary Section~S2.1), temperature 0.7 and a 2,048-token
+ceiling.
 The dialogue arm also drew $K=3$ samples and $L=2$ rewordings per turn;
 because the research budget staged acquisition, these were completed only for
 GPT-4o-mini. Truncated replies were kept and scored as missing under a policy

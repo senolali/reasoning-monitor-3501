@@ -2,21 +2,18 @@
 \label{sec:monitoring}
 
 A deployed system does not observe accuracy, so we asked whether the framework
-of Section~\ref{sec:framework} would have warned. ``Stationary'' throughout
-this section describes the task-difficulty schedule (S0-E, S0-H), not the
-behaviour of a metric; a metric can drift on a stationary task, and that
-drift is exactly the false-alarm risk a calibrated detector must control for.
-We separate three distinct evaluations, because they ask different things and
-support different conclusions. (i) \emph{The initial collapse}: under
-dialogue history, accuracy falls within the first 20 turns even on stationary
-tasks, before any detector has a reference period to calibrate against. (ii)
-\emph{Scheduled-drift detection}: under the verified-state arms, which remove
-that background collapse, can a detector flag the experimenter-imposed
-difficulty changes of S1--S3 within a bounded delay, without alarming on
-S0-E/S0-H? (iii) \emph{Relative timing}: among dialogues where both a
-candidate signal and CQ alarm, does the candidate alarm before CQ, and does
-any such lead replicate across models? No test gave robust, model-general
-early warning by any of these criteria.
+of Section~\ref{sec:framework} would have warned. ``Stationary'' here is the
+task-difficulty schedule (S0-E, S0-H), not the metric: a metric can still
+drift on a stationary task, and that drift is the false-alarm risk a
+calibrated detector must control. We separate three evaluations. (i) The
+\emph{initial collapse}: under dialogue history, accuracy falls within the
+first 20 turns even on stationary tasks, before any detector has a reference
+period. (ii) \emph{Scheduled-drift detection}: under the verified-state arms,
+which remove that background collapse, can a detector flag the
+experimenter-imposed changes of S1--S3 within a bounded delay without alarming
+on S0-E/S0-H? (iii) \emph{Relative timing}: where both a candidate signal and
+CQ alarm, does the candidate alarm first, and does any such lead replicate
+across models? No test passed any of these three.
 
 \subsection{Quality metrics do not fall with accuracy}
 
@@ -116,14 +113,13 @@ Gemma 3 12B & 2/12 & 0/12 & 15/18 & 8/18 & 1/7 & $+10$\\
 
 \subsection{Why single streams are underpowered}
 
-This subsection addresses a different question from the last two. A signal
-can fail to warn for two unrelated reasons: it may carry no information about
-the coming failure (Section~\ref{sec:monitoring}, above), or it may carry some
-information that a single 100-turn stream is simply too short to detect at a
-controlled false-alarm rate. The bound and simulation below quantify the
-second reason only, for CQ itself; they do not rehabilitate CS, LS or ES,
-whose failure above was a direction and transfer problem, not (only) a sample-
-size one.
+A signal can fail to warn for two unrelated reasons: it may carry no
+information about the coming failure, as CS, LS and ES did above, or it may
+carry some information that a single 100-turn stream is simply too short to
+detect at a controlled false-alarm rate. The bound and simulation below
+quantify the second reason only, for CQ itself; they do not rehabilitate the
+other metrics, whose failure was a direction and transfer problem, not a
+sample-size one.
 
 A simple bound shows how little one stream can reveal. Consider the accuracy
 window mean (\ref{eq:windowmean}) pooled over $m$ dialogues at the same turn,

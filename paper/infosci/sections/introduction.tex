@@ -30,9 +30,9 @@ revealed over several turns because they commit to premature answers
 nominal one \citep{liu2024lost,hsieh2024ruler}.
 
 \paragraph{Two gaps these results leave open}
-First, a \emph{measurement gap}: the cited studies score a single answer after
-at most a handful of turns, so they show that history can hurt but not how the
-loss develops over a long horizon. Over tens of turns, the questions themselves
+First, a \emph{measurement gap}: sharded-task studies such as \citet{laban2025lost}
+score a single answer after at most a handful of turns, so they show that
+history can hurt but not how the loss develops over a long horizon. Over tens of turns, the questions themselves
 may also become harder, so a falling accuracy curve can reflect the questions
 rather than the context unless difficulty is explicitly held fixed. Second, a
 \emph{monitoring gap}: none of these studies treats reasoning-quality metrics
@@ -72,7 +72,7 @@ The paper makes three contributions:
     they move before accuracy fails, but whether any such lead survives a
     controlled false-alarm rate and repeats across models. None did: coherence
     and stability moved the wrong way, staying flat or rising as accuracy
-    fell, and a closed-form bound together with a power simulation explains
-    how much of this is a fundamental limit of single-conversation monitoring
-    rather than a property of the metrics themselves.
+    fell, and a closed-form bound together with a power simulation show that,
+    for the detectors we tested, much of this reflects what a single 100-turn
+    conversation can reveal rather than a property of the metrics themselves.
 \end{enumerate}

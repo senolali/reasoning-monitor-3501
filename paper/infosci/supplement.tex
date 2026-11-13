@@ -135,18 +135,16 @@ Model & Scenario & Max.\ detection & Metric / strategy\\\midrule
 
 \subsection{Prompt and message construction}
 \label{sec:s2-prompt}
-Every call, in both arms, uses the same frozen system prompt: \emph{``You keep
+Every call in both arms uses the same frozen system prompt -- \emph{``You keep
 exact track of an evolving record for a user. Use only the information
-provided in the message. Compute every quantity exactly.''} Every call ends
-its user message with the same response contract: \emph{``RESPONSE CONTRACT:
-Give at most eight short numbered reasoning lines. Then end with exactly one
-final line in the form FINAL\_ANSWER: <integer>.''} Under the dialogue-history
-arm, the user message packs the full prior transcript as JSON (oldest turn
-first, each with its role) followed by the new turn and the contract; under
-the verified-state arm, it instead gives the solver's current record for the
-affected entities, rendered as text, followed by the new turn and the
-contract. The worked example in Section~3 of the article shows both forms
-for one turn.
+provided in the message. Compute every quantity exactly.''} -- and the same
+response contract -- \emph{``RESPONSE CONTRACT: Give at most eight short
+numbered reasoning lines. Then end with exactly one final line in the form
+FINAL\_ANSWER: <integer>.''} The dialogue-history user message packs the full
+prior transcript as JSON (oldest first, with role) before the new turn and
+contract; the verified-state message instead gives the solver's current
+record for the affected entities, as text, before the same new turn and
+contract (worked example: main text, Section~3).
 
 \subsection{Generator, ladder and mappings}
 \label{sec:s2-generator}
