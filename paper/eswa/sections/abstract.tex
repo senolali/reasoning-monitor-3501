@@ -1,0 +1,19 @@
+Large language models (LLMs) in multi-turn expert systems accumulate
+their own earlier replies and a growing task state. We asked whether this
+conversation history lowers accuracy, and whether process-level quality
+metrics warn before it does. Each analysis was fixed before its outcomes were
+computed. In Study~1, on 48 sharded math tasks, retaining its replies
+lowered final success by 0.21 for GPT-4o-mini and 0.29 for Mistral-7B
+(Holm-adjusted $p=0.026$ and $0.004$); Llama-4 Scout showed the same
+direction, not significant. Study~2 introduces CDR-Stream, 100-turn
+state-tracking dialogues with an exact answer per turn and per-model
+difficulty calibration. With the full history, accuracy fell from about 0.6 to
+0.1 within twenty turns at matched difficulty, whereas a solver-verified state
+summary kept it 0.52--0.59 higher (Holm-adjusted $p<0.001$). Consistency and
+logical coherence fell far less than accuracy, and stability rose. None
+of these metrics, a paired readiness measure or calibrated single-stream drift
+detectors gave robust, model-general early warning, although in Study~2 the
+repeat-based metrics were complete only for GPT-4o-mini. In the monitors we
+tested, a single 100-turn stream had power only for very large drops. Systems
+built on LLMs should keep task state outside the transcript and monitor across
+sessions.

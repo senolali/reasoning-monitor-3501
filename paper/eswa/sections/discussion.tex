@@ -1,0 +1,59 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What the two studies show}
+Study~1 isolates the net cost of keeping the model's own replies, with the user
+information held fixed. Study~2 shows a far larger loss in long state tracking,
+but it does not separate history length, the number of state updates and
+accumulated errors, because the verified summary changes all three at once.
+Its result is therefore a joint failure of state tracking under a growing
+transcript, not evidence that the assistant's replies alone cause the collapse;
+that narrower claim rests on Study~1. Either way, a raw transcript as the only
+memory of a stateful task has a large and avoidable cost.
+
+\paragraph{Why the quality metrics stay silent}
+Consistency, coherence and stability describe local properties of responses,
+and a model that has adopted a wrong state can reason coherently and repeatably
+from it. In our data these metrics fell far less than accuracy, and stability rose,
+which
+suggests that accumulated context makes responses more anchored rather than
+more erratic, in line with reports of self-conditioning and sycophancy
+\citep{sinha2025illusion,sharma2024sycophancy}. Two classes of signal remain
+untested. Token entropy, used by ERGO \citep{khalid2025ergo}, needs token
+probabilities, which our protocols did not collect. Semantic entropy
+\citep{farquhar2024detecting} can be computed from sampled answers alone; our
+consistency metric also summarises agreement among samples, but it is a
+pairwise agreement rate rather than an entropy, and we did not compute
+semantic entropy. Counterfactual signals, which compare the deployed context
+with a history-free or state-grounded re-query, target anchoring directly;
+CRL tracked the current readiness gap rather than anticipating it, and
+comparing answers rather than readiness is a natural next step.
+
+\paragraph{Implications for LLM-based expert systems}
+Where the task state can be represented explicitly, as in ledgers,
+inventories, protocols and schedules, it should be kept in a verified store and
+sent with each request; in our setting this kept accuracy 0.52--0.59 above full
+history and shrank the prompt at turn 100 from tens of thousands of tokens to a
+few hundred; summaries written by the model itself should be expected to do
+less well than our solver-verified one. A dashboard of one conversation's
+consistency, coherence or stability is likely to stay reassuring while accuracy
+collapses, so pooling sessions or comparing against counterfactual re-queries
+is the better route. Any detector should first be shown to fire on streams of
+the intended length, with a reference period free of the degradation it is
+meant to detect.
+
+\paragraph{Limitations}
+Both studies use arithmetic and state-tracking tasks with exact answers, which
+make accuracy observable but are narrower than open-ended dialogue. All models
+were accessed through one academic gateway, the two studies use different
+model sets, and the models are not the strongest available. This is partly a
+property of the design: calibration needs an informative accuracy range, and
+a stronger open model, Gemma~4 31B, stayed above the hard band even at the
+contingency levels of the ladder (supplementary
+Section~S2.3), so testing frontier models requires a
+harder ladder rather than only more calls. In Study~2, the repeat-based
+metrics were complete only for GPT-4o-mini, and no user-only arm was run, so
+the share of the collapse due to the assistant's replies is not estimated.
+Monitoring analyses beyond the frozen tests are exploratory or post hoc, two
+deviations for Llama-3 70B followed gate results and are disclosed, and one
+investigator performed the task audit and calibration.

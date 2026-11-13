@@ -1,0 +1,5 @@
+Retaining the model's own replies lowered final success on multi-turn math tasks
+CDR-Stream: 100-turn state-tracking dialogues with exact per-turn answers
+With full history, accuracy fell from about 0.6 to 0.1 within twenty turns
+A verified state summary kept accuracy 0.52 to 0.59 higher than full history
+No examined metric or detector gave robust, model-general early warning

@@ -1,0 +1,14 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+Keeping an LLM's own replies lowered success on short multi-turn tasks, and in
+100-turn state tracking the full history collapsed accuracy within about twenty
+turns at matched difficulty, while a verified state summary preserved it. The
+loss was silent to the monitors we tested: no quality metric, paired readiness
+measure or calibrated single-stream detector gave robust, model-general early
+warning; coherence changed little and stability rose as accuracy fell.
+Systems built on LLMs should keep task state outside the transcript and monitor
+across sessions or against counterfactual re-queries. Open questions include
+uncertainty-based and counterfactual signals, the separate roles of history
+length, state load and error accumulation, and state files that models keep
+and verify themselves.
