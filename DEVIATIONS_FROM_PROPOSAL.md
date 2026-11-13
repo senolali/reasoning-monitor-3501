@@ -1,5 +1,37 @@
 # Deviations from the Project Proposal (TÜBİTAK 3501)
 
+## CDR-Stream call-free early-warning forensic sensitivity (2026-11-05)
+
+**Observation.** The frozen primary monitoring path first forms a W=20 rolling
+mean and then applies detectors with a 20-update warm-up. Its earliest possible
+source-turn alarm is therefore turn 40. The first S1/S3 scheduled change is turn
+34, so this path can detect those changes only after onset. The negative result
+must not be paraphrased as evidence that every possible early-warning rule fails.
+
+**Why it matters.** Drift detection after a known exogenous change and warning
+before a later CQ failure are different estimands. In addition, LS/SS and other
+construct scores may move upward during confidently wrong reasoning, while the
+historical primary direction is a quality decrease.
+
+**Change.** A separate post-hoc, call-free forensic audit was added without
+altering any frozen result. It (i) injects known synthetic precursors through the
+historical and a fixed-baseline raw CUSUM path, (ii) applies a two-sided
+fixed-baseline sensitivity rule calibrated on GPT stationary control streams and
+transferred unchanged to Llama/Gemma, and (iii) reports descriptive lead-lag AUROC
+for horizons 1-20 while current CQ remains correct. Outputs are isolated under
+`results/cdr_stream_v1_early_warning_forensics/`.
+
+**Cost and status.** No model call is made. This is an exploratory diagnostic,
+not a replacement analysis or a fitted confirmatory detector. Only CQ/LS/ES are
+available in the K=1 control arm; all six are available only in GPT Stage A.
+Within-dialogue dependence is not converted into inferential p-values.
+
+**Final report must state.** The structural turn-40 floor; that fixed-baseline
+raw monitoring improves synthetic responsiveness but fails to transfer with
+controlled false alarms; and that no tested non-CQ signal jointly satisfies
+lead, stationary specificity and cross-model transfer. Use “no robust warning
+under the tested protocol,” not “no detector can warn.”
+
 ## ADWIN defect and the opt-in corrected detector `adwin_v` (2026-10-04)
 
 **Observation.** `detectors.ADWIN` uses the cut bound

@@ -1,0 +1,56 @@
+# LHE-RQ-v1 pilot-2 (deviation after pilot-1; LHE_RQ_EARLY_WARNING_PROTOCOL.md §7a).
+# Pilot-1 (k in {1,2,4}, chain of thought, 60 turns) produced no decline for any
+# model under the frozen rule. Pilot-2 tries harder settings on the same
+# calibration conversations 0-9, primary replies only (K=1, L=0), horizon 100:
+#   chain of thought with k in {8, 16}; direct answer with k in {4, 8, 16}.
+# Same selection rule: smallest qualifying k per (model, mode); median onset tau
+# in turns 15-45, >= 70% healthy starts, <= 50% non-declining conversations.
+# Claude 5.5 Haiku left out by investigator decision (2026-11-06).
+protocol_id: LHE-RQ-v1-pilot2
+execution_authorized: true           # investigator approved option C in chat, 2026-11-06
+data_dir: data/external/long_horizon_execution
+output_dir: results/lhe_rq_v1_pilot2
+conversation_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+horizon: 100
+k_samples: 1
+l_paraphrases: 0
+base_url: https://api-main.aiml.asu.edu/v1
+api_key_env: ASU_API_KEY
+temperature: 0.7
+max_output_tokens: 1024
+request_options:
+  enable_history: false
+  enable_search: false
+  enhance_prompt: {time: false, date: false}
+max_retries: 6
+# Not part of the fingerprint.
+workers: 16
+tokens_per_minute: 600000
+rate_limit_backoff_s: 65
+assumed_reply_chars:
+  cot: {8: 450, 16: 800}
+  direct: {4: 20, 8: 20, 16: 20}
+prices_per_million:
+  openai/gpt4o_mini: [0.15, 0.60]
+  aws/gemma3_12b_it: null
+models:
+  - {name: gpt4o_mini_cot_k8, provider_model: openai/gpt4o_mini, mode: cot, k: 8,
+     send_seed: true, probe: results/probe_lhe_gpt4o_mini_production.json}
+  - {name: gpt4o_mini_cot_k16, provider_model: openai/gpt4o_mini, mode: cot, k: 16,
+     send_seed: true, probe: results/probe_lhe_gpt4o_mini_production.json}
+  - {name: gpt4o_mini_direct_k4, provider_model: openai/gpt4o_mini, mode: direct, k: 4,
+     send_seed: true, probe: results/probe_lhe_gpt4o_mini_production.json}
+  - {name: gpt4o_mini_direct_k8, provider_model: openai/gpt4o_mini, mode: direct, k: 8,
+     send_seed: true, probe: results/probe_lhe_gpt4o_mini_production.json}
+  - {name: gpt4o_mini_direct_k16, provider_model: openai/gpt4o_mini, mode: direct, k: 16,
+     send_seed: true, probe: results/probe_lhe_gpt4o_mini_production.json}
+  - {name: gemma3_12b_cot_k8, provider_model: aws/gemma3_12b_it, mode: cot, k: 8,
+     send_seed: true, probe: results/probe_lhe_gemma3_12b_it_production.json}
+  - {name: gemma3_12b_cot_k16, provider_model: aws/gemma3_12b_it, mode: cot, k: 16,
+     send_seed: true, probe: results/probe_lhe_gemma3_12b_it_production.json}
+  - {name: gemma3_12b_direct_k4, provider_model: aws/gemma3_12b_it, mode: direct, k: 4,
+     send_seed: true, probe: results/probe_lhe_gemma3_12b_it_production.json}
+  - {name: gemma3_12b_direct_k8, provider_model: aws/gemma3_12b_it, mode: direct, k: 8,
+     send_seed: true, probe: results/probe_lhe_gemma3_12b_it_production.json}
+  - {name: gemma3_12b_direct_k16, provider_model: aws/gemma3_12b_it, mode: direct, k: 16,
+     send_seed: true, probe: results/probe_lhe_gemma3_12b_it_production.json}
