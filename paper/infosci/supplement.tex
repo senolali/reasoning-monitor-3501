@@ -398,26 +398,32 @@ dialogue-history arm, no threshold met the target for CS, RS or ES, and the
 calibrated LS and SS rules detected 0.11 and 0 of the drift dialogues.
 
 \paragraph{Prospective discrimination}
-As a descriptive check, we computed the AUROC with which a metric at turn $t$
-separates turns followed by a CQ failure within $h$ turns from turns that are
-not, among turns at which CQ is still correct, and kept the best
+As a descriptive check, each metric was scored at turn $t$ by its standardised
+deviation from the dialogue's own baseline of turns 1--30: the downward
+deviation for CQ and the absolute deviation for the other metrics. Eligible
+turns were turns 31 onward in the drift dialogues at which CQ was correct, and
+the label was a CQ failure at turn $t+h$. We report the AUROC for the best
 $h\in\{1,\dots,20\}$. On the control arms the best values were 0.52--0.57 on
-616--780 turns. In the GPT-4o-mini dialogue arm they were higher
-(Table~\ref{tab:auc}), but almost every eligible turn is followed by a failure
-there, so each value rests on 4--14 turns without one, after choosing the best
-of 20 horizons. These values do not show that the metrics carry no predictive
-information, but they cannot support a warning claim either. No confidence
-intervals are given, because turns within a dialogue are dependent and the
-horizon was selected post hoc.
+616--780 eligible turns. In the GPT-4o-mini dialogue arm they were higher
+(Table~\ref{tab:auc}), but almost every eligible turn there is followed by a
+failure, so each value rests on 4--14 turns that are not, after choosing the
+best of 20 horizons. The CQ row is a reference, not a warning signal: CQ equals
+1 on every eligible turn, so its score is constant within a dialogue and its
+AUROC only reflects differences in baseline accuracy between dialogues. These
+values do not show that the metrics carry no predictive information, but they
+cannot support a warning claim either. No confidence intervals are given,
+because turns within a dialogue are dependent and the horizon was selected
+post hoc.
 
 \begin{table}[h]\centering\small
 \caption{Best-horizon AUROC in the GPT-4o-mini dialogue-history arm
-(descriptive, post hoc). Followed by failure / not: eligible turns with and
-without a CQ failure within $h$ turns.}
+(descriptive, post hoc). Failure / no failure: eligible turns with and without
+a CQ failure at turn $t+h$. For CQ the score is constant within a dialogue
+(see text).}
 \label{tab:auc}
 \begin{tabular}{lcccc}\toprule
-Metric & Best $h$ & AUROC & Followed by failure & Not followed\\\midrule
-CQ & 14 & 0.660 & 88 & 5\\
+Metric & Best $h$ & AUROC & Failure at $t+h$ & No failure\\\midrule
+CQ (reference) & 14 & 0.660 & 88 & 5\\
 CS & 12 & 0.675 & 82 & 14\\
 RS & 17 & 0.628 & 82 & 7\\
 LS & 4 & 0.701 & 99 & 4\\
