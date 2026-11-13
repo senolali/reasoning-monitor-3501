@@ -10,37 +10,63 @@ with its own earlier replies and with a task state that changes at every turn.
 We call this accumulated context the \emph{conversation history}, and the
 experimental condition that keeps it \emph{dialogue history}.
 
-Multi-turn use is known to be costly. Models lose accuracy when a task is
-revealed over several turns \citep{laban2025lost}, earlier assistant replies can
-propagate errors \citep{huang2026benefit}, and the effective context is shorter
-than the nominal one \citep{liu2024lost,hsieh2024ruler}. Sharded-task studies
-score a single answer after a few turns \citep{laban2025lost}. Less is known
-about how the loss develops over a long horizon once task difficulty is held
-fixed, and whether it can be seen before accuracy fails. The second question matters in practice,
-because a deployed system rarely observes the correct answer. It must rely on
-process signals such as agreement between samples, robustness to rewording,
-logical coherence and trace stability \citep{rqeval2026}, possibly turned into
-alarms by drift detectors with controlled false-alarm rates
-\citep{gama2014survey,lu2019learning}.
+\paragraph{The problem}
+Two practical questions follow from this setting. First, does keeping the
+model's own history in context cost accuracy, and does that cost persist or
+compound as a conversation grows long? Second, if it does, can a deployed
+system see the cost coming, or does it only show up in the final answer? The
+second question matters because a deployed system rarely has the gold answer
+at hand; it must rely on process signals, such as agreement between repeated
+samples, robustness to rewording, logical coherence and trace stability
+\citep{rqeval2026}, possibly turned into alarms by drift detectors with
+controlled false-alarm rates \citep{gama2014survey,lu2019learning}.
 
-We study both questions in two experiments, each analysed under a protocol
-fixed before its outcomes were computed. Study~1 uses the math tasks of Lost in
+\paragraph{What is known, and what is not measured}
+Multi-turn use is known to be costly. Models lose accuracy when a task is
+revealed over several turns because they commit to premature answers
+\citep{laban2025lost}; earlier assistant replies can propagate errors
+\citep{huang2026benefit}; and the effective context is shorter than the
+nominal one \citep{liu2024lost,hsieh2024ruler}. These studies, however, score a
+single answer after at most a handful of turns. They do not show how the loss
+develops over a long horizon once task difficulty is held fixed, so it remains
+unclear whether a short-task effect compounds, saturates or reverses as a
+conversation grows to tens of turns. Nor do they test whether the loss can be
+seen before it happens: none of them treats reasoning-quality metrics as a
+monitored stream, applies a calibrated detector to it, or reports a
+false-alarm rate on a stationary baseline. ERGO is the closest exception, but
+it uses token-entropy spikes rather than the quality metrics above, and it is
+not evaluated against a long, difficulty-controlled horizon
+\citep{khalid2025ergo}. To our knowledge, no prior study jointly (i) holds
+difficulty fixed over a long multi-turn horizon and (ii) tests established
+quality metrics as calibrated early-warning signals with a controlled
+false-alarm rate.
+
+\paragraph{This paper}
+We close this gap with two experiments, each analysed under a protocol fixed
+before its outcomes were computed. Study~1 uses the math tasks of Lost in
 Conversation and compares, turn by turn, the same user information with and
 without the model's own earlier replies. Study~2 introduces CDR-Stream, a
 benchmark of 100-turn state-tracking dialogues with an exact answer at every
-turn, difficulty calibrated per model and scheduled difficulty shifts. Its
+turn, difficulty calibrated per model and scheduled difficulty shifts; its
 control arm replaces the history with a solver-verified state summary. The two
 studies differ in tasks, models and controls, so we read them as two related
 failure modes rather than as one dose--response curve.
 
-The paper makes three contributions. First, it gives a prospectively frozen, paired
-estimate of the cost of retaining assistant replies, which replicates the
-direction reported by \citet{huang2026benefit}. Second, it provides a
-long-horizon benchmark in which accuracy under full history collapsed within
-about twenty turns at matched difficulty, while a verified state summary
-preserved it. Third, it tests whether established quality metrics and
-calibrated detectors warn of this collapse. None gave robust, model-general
-warning: coherence
-fell only slightly and stability rose as answers became wrong, and a bound on the
-smallest detectable drop together with a power simulation explains why single
-conversations are hard to monitor.
+The paper makes four contributions:
+\begin{enumerate}
+  \item a prospectively frozen, paired estimate of the cost of retaining
+    assistant replies on short sharded tasks, which replicates the direction
+    reported by \citet{huang2026benefit};
+  \item CDR-Stream, a long-horizon, difficulty-calibrated benchmark in which
+    accuracy under full history collapsed within about twenty turns at matched
+    difficulty, while a verified state summary preserved it;
+  \item a direct, prospectively defined test of whether established
+    reasoning-quality metrics and calibrated single-stream detectors warn of
+    this collapse before it happens: none gave robust, model-general warning,
+    and coherence and stability moved the wrong way, staying flat or rising as
+    accuracy fell;
+  \item an explanation of that failure and its limits: a closed-form bound on
+    the smallest detectable accuracy drop, a matching power simulation, and a
+    post-hoc audit that isolates how much of the failure is attributable to
+    the monitor's own reference period rather than to the metrics themselves.
+\end{enumerate}
