@@ -23,6 +23,8 @@ WINDOWS = (10, 20, 30)
 BASELINE_END, Z, PERSIST = 30, 2.0, 3
 CHANGE = {"S1": 34, "S2": 51, "S3": 34}
 COLORS = {"CQ": "#0072B2", "LS": "#CC79A7", "ES": "#56B4E9"}
+MODEL_LABELS = {"gpt4o_mini": "GPT-4o-mini", "llama3_70b": "Llama-3 70B",
+                "gemma3_12b_it": "Gemma 3 12B"}
 
 
 def windowed(values: pd.Series, turns: pd.Series, window: int) -> pd.Series:
@@ -94,7 +96,8 @@ def summarize(table: pd.DataFrame) -> dict:
     return out
 
 
-def plot(frame: pd.DataFrame, table: pd.DataFrame, output: Path, window: int) -> list[str]:
+def plot(frame: pd.DataFrame, table: pd.DataFrame, output: Path, window: int,
+         model_label: str = "GPT-4o-mini") -> list[str]:
     import matplotlib
 
     matplotlib.use("Agg")
@@ -122,7 +125,7 @@ def plot(frame: pd.DataFrame, table: pd.DataFrame, output: Path, window: int) ->
                      fontsize=8)
         ax.set_ylim(-0.02, 1.02)
     axes[0, 0].legend(fontsize=7, loc="lower left")
-    fig.suptitle(f"GPT-4o-mini control arm, W={window} (EXPLORATORY). Grey = baseline "
+    fig.suptitle(f"{model_label} control arm, W={window} (EXPLORATORY). Grey = baseline "
                  "turns 1-30; dashed black = scheduled change; dotted = metric threshold; "
                  "solid vertical = first signal (3 turns below). Lead < 0: before CQ.",
                  fontsize=10)
@@ -150,7 +153,8 @@ def main(argv=None) -> int:
                "addendum_sha256": hashlib.sha256(ADDENDUM.read_bytes()).hexdigest(),
                "rule": {"baseline_turns": f"1-{BASELINE_END}", "z": Z, "persist": PERSIST},
                "by_window": summarize(table)}
-    summary["figures"] = [f for w in WINDOWS for f in plot(frame, table, output, w)]
+    label = MODEL_LABELS.get(args.model, args.model)
+    summary["figures"] = [f for w in WINDOWS for f in plot(frame, table, output, w, label)]
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary["by_window"], indent=2))
     return 0

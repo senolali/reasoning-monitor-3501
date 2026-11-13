@@ -31,6 +31,8 @@ WINDOWS = (10, 20, 30)
 CHANGES = {"S1": (34, 68), "S2": (51,), "S3": (34,)}
 N_NULL, SEED, ALPHA, SPAN, T = 2000, 20261010, 0.05, ca.DETECTION_SPAN, 100
 COLORS = {"CQ": "#0072B2", "LS": "#CC79A7", "ES": "#56B4E9"}
+MODEL_LABELS = {"gpt4o_mini": "GPT-4o-mini", "llama3_70b": "Llama-3 70B",
+                "gemma3_12b_it": "Gemma 3 12B"}
 
 
 def es_series(cq: np.ndarray, tokens: np.ndarray) -> np.ndarray:
@@ -127,7 +129,7 @@ def main() -> int:
               f"({(time.time() - started) / 60:.1f} min)", flush=True)
     table = pd.DataFrame(rows)
     table.to_csv(OUTPUT / "aggregated_alarms.csv", index=False)
-    plot(streams, table)
+    plot(streams, table, model_label=MODEL_LABELS.get(args.model, args.model))
     summary = {"exploratory": True, "n_null": N_NULL, "calibration": calib,
                "alarms": table.to_dict(orient="records")}
     (OUTPUT / "summary.json").write_text(json.dumps(summary, indent=2, default=str) + "\n",
@@ -136,7 +138,8 @@ def main() -> int:
     return 0
 
 
-def plot(streams, table) -> None:
+def plot(streams, table, output: Path | None = None, model_label: str = "GPT") -> None:
+    output = OUTPUT if output is None else output
     import matplotlib
 
     matplotlib.use("Agg")
@@ -161,11 +164,11 @@ def plot(streams, table) -> None:
             ax.set_ylim(0, 1.02)
         axes[0].set_ylabel(f"window mean, W={window}")
         axes[0].legend(loc="lower left")
-        fig.suptitle(f"GPT control arm, 6 dialogues aggregated per turn, W={window} "
+        fig.suptitle(f"{model_label} control arm, 6 dialogues aggregated per turn, W={window} "
                      "(EXPLORATORY). Triangles: first alarms of the five detectors "
                      "(threshold: null FAR <= 0.05 on 2,000 permuted S0-E streams).")
         for ext in ("png", "pdf"):
-            fig.savefig(OUTPUT / f"aggregated_W{window}.{ext}", dpi=120)
+            fig.savefig(output / f"aggregated_W{window}.{ext}", dpi=120)
         plt.close(fig)
 
 

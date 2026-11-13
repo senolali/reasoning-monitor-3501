@@ -231,9 +231,10 @@ def main() -> int:
             CTRL / "aggregated/aggregated_W20.pdf": "supp_s2_aggregated_W20.pdf"}
     for model, short in (("llama3_70b", "llama"), ("gemma3_12b_it", "gemma")):
         base = ROOT / "results/cdr_stream_v1_control_monitoring/validation" / model
-        figs[base / "early_signal/early_signal_W20.pdf"] = \
+        # Model-labelled redraws: scripts/relabel_control_validation_figures.py
+        figs[base / "relabelled/early_signal_W20.pdf"] = \
             f"supp_s2_validation_{short}_early.pdf"
-        figs[base / "aggregated/aggregated_W20.pdf"] = \
+        figs[base / "relabelled/aggregated_W20.pdf"] = \
             f"supp_s2_validation_{short}_agg.pdf"
     for src, name in figs.items():
         USED[str(src.relative_to(ROOT))] = sha(src)
