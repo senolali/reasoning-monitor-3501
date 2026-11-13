@@ -69,18 +69,39 @@ Section~S4).
 The frozen monitor forms a $W=20$ window and then ignores the first 20 window
 values, so it cannot alarm before turn 40, after the first scheduled change at
 turn 34. A post-hoc audit removed this floor with a CUSUM on raw values
-standardised against turns 1--30 (supplementary
-Section~S5). On synthetic streams it caught a shift injected at
-turn 31 by turn 33 in 45\% of streams for a shift of 0.3 and in nearly all for
-0.5, where the frozen monitor caught none. On the control arms, with thresholds
-set on GPT-4o-mini and transferred unchanged, the CQ detector alarmed in 0.25
-and 0.17 of the stationary Llama and Gemma dialogues. LS, the label-free
-candidate, detected under half of the drift dialogues and alarmed before CQ in
-3 of 5 joint detections for GPT-4o-mini and in at most 1 elsewhere. ES did no
-better and needs the gold answer, so it could not serve as a deployed warning
-in any case. For the scheduled changes, therefore, the negative result does not
-depend on the turn-40 floor. The audit does not address the early collapse
-under dialogue history, which begins inside its reference period.
+standardised against turns 1--30 (supplementary Section~S5). On synthetic
+streams it caught a shift injected at turn 31 by turn 33 in 45\% of streams for
+a shift of 0.3 and in nearly all for 0.5, where the frozen monitor caught none.
+Table~\ref{tab:audit} applies it to the control arms, with thresholds set on
+GPT-4o-mini and transferred unchanged. The CQ detector did not transfer, and
+LS, the label-free candidate, detected few drift dialogues and was usually
+later than CQ. Its earlier alarms in GPT-4o-mini (3 of the 5 dialogues in which
+both alarmed) were not repeated in the other models. ES, which needs the gold
+answer, did no better (supplementary Table~S17). The result is therefore not
+an absence of early alarms but low coverage, mostly late alarms and poor
+transfer. It concerns the scheduled changes only; the early collapse under
+dialogue history begins inside the audit's own reference period.
+
+\begin{table}[!htbp]
+\centering
+\caption{Post-hoc fixed-baseline CUSUM on the control arms (18 drift and 12
+stationary dialogues per model; thresholds set on GPT-4o-mini). LS first:
+dialogues in which LS alarmed before CQ, among those in which both alarmed;
+offset: median LS alarm turn minus CQ alarm turn.}
+\label{tab:audit}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Stationary alarms} & \multicolumn{2}{c}{Drift detected} & & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Model & CQ & LS & CQ & LS & LS first & Offset\\
+\midrule
+GPT-4o-mini & 0/12 & 0/12 & 13/18 & 5/18 & 3/5 & $-1$\\
+Llama-3 70B & 3/12 & 1/12 & 14/18 & 5/18 & 0/2 & $+27$\\
+Gemma 3 12B & 2/12 & 0/12 & 15/18 & 8/18 & 1/7 & $+10$\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Why single streams are underpowered}
 

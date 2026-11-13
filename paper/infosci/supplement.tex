@@ -116,7 +116,9 @@ Model & Scenario & Max.\ detection & Metric / strategy\\\midrule
 
 \subsection{Generator, ladder and mappings}
 Each user turn realises one or more state events, may add distractor
-sentences, and asks one question. Exact solvers keep the state and compute the
+sentences, and asks one question. Within a regime, 50\% of turns come from the
+centre level, 20\% from each neighbouring level and 10\% from an adjacent
+regime. Exact solvers keep the state and compute the
 gold; the generator checks a solver round trip at every turn and that reworded
 questions re-derive the same answer. Table~\ref{tab:ladder} gives the ladder, in
 which exactly one axis changes per step; levels 13--14 are contingency levels
@@ -393,12 +395,35 @@ are in-sample (Table~\ref{tab:forensic-emp}). The CQ detector did not transfer.
 LS and ES stayed within the false-alarm target in most cases but detected under
 half of the drift dialogues and rarely alarmed before CQ. In the GPT-4o-mini
 dialogue-history arm, no threshold met the target for CS, RS or ES, and the
-calibrated LS and SS rules detected 0.11 and 0 of the drift dialogues. As a
-descriptive upper bound, the AUROC with which a metric at turn $t$ separates
-turns followed by a CQ failure within $h$ turns, among turns at which CQ is
-still correct and taking the best $h\le20$, was 0.52--0.57 on the control arms
-and 0.63--0.73 in the GPT-4o-mini dialogue arm, the latter on 84--103 turns and
-after choosing the best of 20 horizons.
+calibrated LS and SS rules detected 0.11 and 0 of the drift dialogues.
+
+\paragraph{Prospective discrimination}
+As a descriptive check, we computed the AUROC with which a metric at turn $t$
+separates turns followed by a CQ failure within $h$ turns from turns that are
+not, among turns at which CQ is still correct, and kept the best
+$h\in\{1,\dots,20\}$. On the control arms the best values were 0.52--0.57 on
+616--780 turns. In the GPT-4o-mini dialogue arm they were higher
+(Table~\ref{tab:auc}), but almost every eligible turn is followed by a failure
+there, so each value rests on 4--14 turns without one, after choosing the best
+of 20 horizons. These values do not show that the metrics carry no predictive
+information, but they cannot support a warning claim either. No confidence
+intervals are given, because turns within a dialogue are dependent and the
+horizon was selected post hoc.
+
+\begin{table}[h]\centering\small
+\caption{Best-horizon AUROC in the GPT-4o-mini dialogue-history arm
+(descriptive, post hoc). Followed by failure / not: eligible turns with and
+without a CQ failure within $h$ turns.}
+\label{tab:auc}
+\begin{tabular}{lcccc}\toprule
+Metric & Best $h$ & AUROC & Followed by failure & Not followed\\\midrule
+CQ & 14 & 0.660 & 88 & 5\\
+CS & 12 & 0.675 & 82 & 14\\
+RS & 17 & 0.628 & 82 & 7\\
+LS & 4 & 0.701 & 99 & 4\\
+ES & 6 & 0.669 & 96 & 7\\
+SS & 19 & 0.729 & 75 & 9\\
+\bottomrule\end{tabular}\end{table}
 
 \begin{table}[h]\centering\small
 \caption{Fixed-baseline CUSUM on the control arms (18 drift and 12 stationary

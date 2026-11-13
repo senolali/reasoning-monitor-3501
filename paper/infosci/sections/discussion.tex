@@ -34,14 +34,13 @@ Where the task state can be represented explicitly, as in ledgers,
 inventories, protocols and schedules, it should be kept in a verified store and
 sent with each request; in our setting this kept accuracy 0.52--0.59 above full
 history and shrank the prompt at turn 100 from tens of thousands of tokens to a
-few hundred. Our solver-verified summary is an upper reference, and summaries
-written by the model itself should be expected to do less well. A dashboard of
-one conversation's consistency, coherence or stability is likely to stay
-reassuring while accuracy collapses. Pooling concurrent sessions or comparing
-against counterfactual re-queries is more promising, at the price of delayed
-per-session alarms or extra calls. Finally, a detector should be shown to fire
-on streams of the intended length, and its reference period should be free of
-the degradation it is meant to detect.
+few hundred; summaries written by the model itself should be expected to do
+less well than our solver-verified one. A dashboard of one conversation's
+consistency, coherence or stability is likely to stay reassuring while accuracy
+collapses, so pooling sessions or comparing against counterfactual re-queries
+is the better route. Any detector should first be shown to fire on streams of
+the intended length, with a reference period free of the degradation it is
+meant to detect.
 
 \paragraph{Limitations}
 Both studies use arithmetic and state-tracking tasks with exact answers, which
