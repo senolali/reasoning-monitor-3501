@@ -1,0 +1,14 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+Across two frozen studies, retaining an LLM's own replies lowered success on
+short multi-turn tasks, and accumulated history collapsed accuracy within about
+twenty turns of 100-turn state-tracking dialogues, even at matched difficulty,
+while a verified state summary preserved it. The loss was silent: no examined
+quality metric, paired readiness measure or calibrated single-stream detector
+gave robust, model-general early warning, and coherence and stability often
+held or rose as accuracy fell. LLM-based information systems should therefore manage
+task state explicitly and monitor across sessions or against counterfactual
+re-queries. Future work should test token-level and counterfactual uncertainty
+signals, separate the length, state-load and error components of the collapse,
+and evaluate state representations that models maintain and verify themselves.

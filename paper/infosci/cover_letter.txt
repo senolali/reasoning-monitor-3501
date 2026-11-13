@@ -1,0 +1,22 @@
+Dear Editor,
+
+Please consider the enclosed manuscript, "The Silent Cost of Conversation History in LLM Reasoning", for publication in Information Sciences as a research article.
+
+Large language models are now used in information systems that keep a task going over many turns, such as assistants that track a budget, an inventory or a project schedule. In these settings the model's context keeps growing with its own earlier replies and a changing task state. The paper asks two practical questions: does this history make the model less accurate, and can the loss be detected before it happens?
+
+We answer them with two studies, each analysed under a protocol fixed before the data were collected.
+
+- On 48 multi-turn math tasks, keeping the model's own earlier replies lowered final success, significantly for two of three models.
+- We built CDR-Stream, a benchmark of 100-turn state-tracking dialogues with an exact answer at every turn and difficulty calibrated for each model. With the full history, accuracy fell from about 0.6 to about 0.1 within twenty turns, even at matched difficulty. A verified state summary kept it 0.52 to 0.59 higher.
+- We then treated per-turn quality metrics as data streams and applied standard drift detectors with calibrated false-alarm rates. None gave a robust early warning. A simple bound on the smallest detectable accuracy drop, together with a power simulation, shows why a single conversation is usually too short, and how pooling sessions helps.
+
+The methodological contribution is the evaluation design itself: a formally defined streaming monitor for LLM dialogues, thresholds calibrated only on stationary streams, protocols fixed before data collection, and a benchmark with exact answers at every turn. We think this fits the journal's interest in intelligent systems, data-stream analysis and the reliability of information systems. The results also translate into concrete design advice: keep the task state outside the transcript, and monitor across sessions rather than relying on quality scores from a single conversation.
+
+The quality metrics used here were introduced in our earlier article (Şenol, Agrawal and Liu, Big Data and Cognitive Computing, 2026, 10(9):300), which is cited in the manuscript. The present work uses new data, a new benchmark and a different research question. The manuscript is original, has not been published, and is not under consideration elsewhere. The work was funded by TÜBİTAK under the 3501 programme (project 126E663). All protocols, code and generated results are kept in a version-controlled repository, which I can make available to the reviewers on request.
+
+Thank you for considering the manuscript.
+
+Sincerely,
+Ali Şenol
+Tarsus University, Tarsus, Mersin, Türkiye
+alisenol@tarsus.edu.tr

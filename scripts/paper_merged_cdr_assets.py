@@ -8,12 +8,17 @@ Stage A record-prefix hash and the frozen mappings hash; output hashes of every
 input are written to the assets manifest.
 
   python scripts\\paper_merged_cdr_assets.py
+  python scripts\\paper_merged_cdr_assets.py --informatica
+
+``--informatica`` writes the same numbers and tables, and figures redrawn for
+the 124 mm text width of the journal Informatica, to paper/informatica.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
@@ -22,8 +27,17 @@ import pandas as pd
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-PAPER = ROOT / "paper/merged"
+COMPACT = "--informatica" in sys.argv[1:]
+PAPER = ROOT / ("paper/informatica" if COMPACT else "paper/merged")
 GEN, FIG = PAPER / "generated", PAPER / "figures"
+FONT = 7.5 if COMPACT else 10
+# Figure sizes in inches: (merged elsarticle preprint, Informatica 124 mm text width).
+SIZES = {"study1": ((9, 3.4), (4.9, 2.7)), "study2": ((9.2, 5.4), (4.9, 5.9)),
+         "silent": ((9.2, 3.4), (4.9, 4.9)), "power": ((8, 3.2), (4.9, 2.4))}
+
+
+def size(name: str) -> tuple[float, float]:
+    return SIZES[name][1 if COMPACT else 0]
 STAGE_A = ROOT / "results/cdr_stream_v1_main/analysis_stage_a"
 CONTROL = ROOT / "results/cdr_stream_v1_control_monitoring/gpt_screen/gpt4o_mini"
 CONTROL_COMPLETION = ROOT / "results/cdr_stream_v1_control_completion"
@@ -73,15 +87,16 @@ def setup_plt():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    plt.rcParams.update({"font.size": 10, "axes.spines.top": False,
-                         "axes.spines.right": False})
+    plt.rcParams.update({"font.size": FONT, "axes.spines.top": False,
+                         "axes.spines.right": False, "legend.fontsize": FONT - 1})
     return plt
 
 
 def fig_study1(conf: dict) -> None:
     plt = setup_plt()
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.4), constrained_layout=True,
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=size("study1"), constrained_layout=True,
                                    gridspec_kw={"width_ratios": [1.3, 1]})
+    small = FONT - 2 if COMPACT else 8
     for i, model in enumerate(LIC_MODELS):
         e = conf["primary_endpoint"][model]
         n = e["tasks"]
@@ -97,17 +112,19 @@ def fig_study1(conf: dict) -> None:
         lo, hi = e["paired_risk_difference_bootstrap_95_ci"]
         ax2.errorbar(d, i, xerr=[[d - lo], [hi - d]], fmt="D", color="black", capsize=3)
         ax2.text(hi + 0.015, i, f"Holm p={p(e['holm_adjusted_p_across_models'])}",
-                 va="center", fontsize=8)
+                 va="center", fontsize=small)
     for ax in (ax1, ax2):
         ax.set_yticks(range(len(LIC_MODELS)))
         ax.set_yticklabels([LABEL[m] for m in LIC_MODELS])
         ax.invert_yaxis()
     ax1.set_xlabel("final-turn success (95% Wilson CI)")
     ax1.set_xlim(0, 1.05)
-    ax1.legend(loc="lower right", fontsize=8, frameon=False)
+    ax1.legend(loc="upper left" if COMPACT else "lower right", fontsize=small,
+               frameon=False)
     ax2.axvline(0, color="#999999", lw=0.8)
-    ax2.set_xlabel("paired difference, fresh minus history\n(95% task-bootstrap CI)")
-    ax2.set_xlim(-0.05, 0.75)
+    ax2.set_xlabel("paired difference,\nfresh minus history (95% CI)" if COMPACT
+                   else "paired difference, fresh minus history\n(95% task-bootstrap CI)")
+    ax2.set_xlim(-0.05, 0.85 if COMPACT else 0.75)
     ax2.set_yticklabels([])
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"study1_paired.{ext}", dpi=200)
@@ -127,7 +144,8 @@ def fig_study2(turns: pd.DataFrame) -> None:
     bins = list(range(0, 101, 5))
     mids = [(a + b) / 2 for a, b in zip(bins, bins[1:], strict=False)]
     turns = turns.assign(segment=pd.cut(turns["turn"], bins))
-    fig, axes = plt.subplots(2, 3, figsize=(9.2, 5.4), sharex=True, sharey=True,
+    shape = (3, 2) if COMPACT else (2, 3)
+    fig, axes = plt.subplots(*shape, figsize=size("study2"), sharex=True, sharey=True,
                              constrained_layout=True)
     for ax, key in zip(axes.flat, SCENARIO_TITLES, strict=True):
         sub = turns if key == "all" else turns[turns["scenario"] == key]
@@ -138,11 +156,11 @@ def fig_study2(turns: pd.DataFrame) -> None:
             g = part.groupby("segment", observed=False)
             ax.plot(mids, g["CQ"].mean().to_numpy(), "-", color=COLORS[model], lw=1.6)
             ax.plot(mids, g["CQ_ctrl"].mean().to_numpy(), "--", color=COLORS[model], lw=1.6)
-        ax.set_title(SCENARIO_TITLES[key], fontsize=9, loc="left")
+        ax.set_title(SCENARIO_TITLES[key], fontsize=FONT if COMPACT else 9, loc="left")
         ax.set_ylim(0, 1)
         ax.set_xlim(0, 100)
         ax.grid(axis="y", color="#e5e5e5", lw=0.6)
-    for ax in axes[1]:
+    for ax in axes[-1]:
         ax.set_xlabel("turn")
     for ax in axes[:, 0]:
         ax.set_ylabel("accuracy (CQ)")
@@ -151,7 +169,8 @@ def fig_study2(turns: pd.DataFrame) -> None:
     handles += [Line2D([], [], color="#444444", lw=1.6, ls="-", label="dialogue history"),
                 Line2D([], [], color="#444444", lw=1.6, ls="--",
                        label="verified state summary")]
-    fig.legend(handles=handles, loc="outside lower center", ncol=5, fontsize=8, frameon=False)
+    fig.legend(handles=handles, loc="outside lower center", ncol=3 if COMPACT else 5,
+               fontsize=FONT - 0.5 if COMPACT else 8, frameon=False)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"study2_accuracy_over_turns.{ext}", dpi=200)
     plt.close(fig)
@@ -160,7 +179,10 @@ def fig_study2(turns: pd.DataFrame) -> None:
 def fig_silent(turns: pd.DataFrame, bands: pd.DataFrame) -> None:
     """Descriptive: quality metrics do not fall with accuracy (S2 GPT; S1 replay)."""
     plt = setup_plt()
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9.2, 3.4), constrained_layout=True)
+    fig, (ax1, ax2) = plt.subplots(2 if COMPACT else 1, 1 if COMPACT else 2,
+                                   figsize=size("silent"), constrained_layout=True)
+    title_size = FONT if COMPACT else 9
+    legend_size = FONT - 1 if COMPACT else 7.5
     colors = {"CQ": "#000000", "CS": "#E69F00", "LS": "#CC79A7", "SS": "#0072B2"}
     names = {"CQ": "accuracy (CQ)", "CS": "consistency (CS)", "LS": "coherence (LS)",
              "SS": "stability (SS)"}
@@ -173,11 +195,13 @@ def fig_silent(turns: pd.DataFrame, bands: pd.DataFrame) -> None:
                  label=names[metric])
     ax1.plot(mids, g["CQ_ctrl"].mean().to_numpy(), "--", color="#777777", lw=1.4,
              label="CQ, verified state summary")
-    ax1.set_title("(a) Study 2, GPT-4o-mini, dialogue history", fontsize=9, loc="left")
+    ax1.set_title("(a) Study 2, GPT-4o-mini, dialogue history", fontsize=title_size,
+                  loc="left")
     ax1.set_xlabel("turn")
     ax1.set_ylabel("5-turn mean")
     ax1.set_ylim(0, 1.02)
-    ax1.legend(fontsize=7.5, frameon=False, loc="center right", bbox_to_anchor=(1.0, 0.33))
+    ax1.legend(fontsize=legend_size, frameon=False, loc="center right",
+               bbox_to_anchor=(1.0, 0.27 if COMPACT else 0.33))
     rep = bands[(bands["model"] == "gpt4o_mini") & (bands["scenario"] == "sudden")
                 & (bands["window"] == 20)]
     for metric in ("CQ", "LS", "SS"):
@@ -186,11 +210,11 @@ def fig_silent(turns: pd.DataFrame, bands: pd.DataFrame) -> None:
         ax2.fill_between(r["t"], r["p10"], r["p90"], color=colors[metric], alpha=0.12, lw=0)
     ax2.axvline(48.5, color="#888888", ls=":", lw=0.9)
     ax2.set_title("(b) Study 1 replay, GPT-4o-mini, fresh → history at session 49",
-                  fontsize=9, loc="left")
+                  fontsize=title_size, loc="left")
     ax2.set_xlabel("session index in stream")
     ax2.set_ylabel("window mean, W = 20")
     ax2.set_ylim(0, 1.02)
-    ax2.legend(fontsize=7.5, frameon=False, loc="lower left")
+    ax2.legend(fontsize=legend_size, frameon=False, loc="lower left")
     for ax in (ax1, ax2):
         ax.grid(axis="y", color="#e5e5e5", lw=0.6)
     for ext in ("pdf", "png"):
@@ -203,7 +227,8 @@ def fig_power(grid: pd.DataFrame) -> None:
     best = (grid[(grid["calibration"] == "n12") & (grid["window"] == 20)]
             .sort_values("detection_33", ascending=False)
             .groupby(["m", "delta", "change"], as_index=False).first())
-    fig, axes = plt.subplots(1, 2, figsize=(8, 3.2), sharey=True, constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=size("power"), sharey=True,
+                             constrained_layout=True)
     shades = {1: "#D55E00", 3: "#E69F00", 6: "#009E73", 18: "#0072B2"}
     for ax, change in zip(axes, (34, 51), strict=True):
         for m, color in shades.items():
@@ -211,10 +236,10 @@ def fig_power(grid: pd.DataFrame) -> None:
             ax.plot(sub["delta"], sub["detection_33"], "o-", color=color,
                     label=f"{m} dialogue{'s' if m > 1 else ''} per turn")
         ax.axhline(0.8, color="#999999", ls=":", lw=0.8)
-        ax.set_title(f"change at turn {change}", fontsize=10)
+        ax.set_title(f"change at turn {change}", fontsize=FONT if COMPACT else 10)
         ax.set_xlabel("accuracy drop from 0.80")
     axes[0].set_ylabel("detection within 33 turns")
-    axes[0].legend(fontsize=8, frameon=False)
+    axes[0].legend(fontsize=FONT - 1 if COMPACT else 8, frameon=False)
     for ext in ("pdf", "png"):
         fig.savefig(FIG / f"detector_power.{ext}", dpi=200)
     plt.close(fig)

@@ -1,75 +1,61 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\paragraph{Two complementary failure modes.}
-The two studies reveal two complementary ways in which multi-turn context can
-degrade reasoning.
+\paragraph{Two complementary failure modes}
+On short sharded tasks, retaining the model's own replies lowered final
+success, replicating the direction of \citet{huang2026benefit} under a frozen
+paired analysis. Over 100 turns of state tracking the loss was far larger:
+accuracy fell to about a sixth of its initial level within twenty turns, in
+every scenario and for three models of different families and sizes, and a
+compact verified state removed most of it. We do not claim that the short-task
+effect grows causally into the long-horizon collapse, and Study~2 cannot
+separate history length, the number of state updates and error accumulation,
+because the verified summary changes all three. The practical finding stands:
+in stateful multi-turn use, keeping the raw transcript as the only memory has a
+large and avoidable accuracy cost.
 
-\begin{itemize}
-  \item \textbf{Short tasks (Study 1).} Retaining the assistant's own replies
-    lowered final success relative to an information-matched context without
-    them. This replicates the direction reported by \citet{huang2026benefit}
-    under a frozen, task-paired analysis. Mistral-7B illustrates one mechanism:
-    with its own replies in context it tended to remain in an explicit ``need
-    more information'' state, while the same model given the same information
-    without those replies attempted an answer.
-  \item \textbf{Long horizons (Study 2).} With a steadily updated state, accuracy
-    collapsed within about twenty turns, even at fixed difficulty. A verified
-    state summary avoided the collapse in all three models.
-\end{itemize}
+\paragraph{Why quality metrics stay silent}
+Consistency, coherence and stability describe local properties of responses. A
+model that has adopted a wrong state can reason coherently and repeatably from
+it. In our data these metrics stayed level or rose as accuracy fell, suggesting
+that accumulated context makes responses more anchored rather than more
+erratic, in line with reports of self-conditioning and sycophancy
+\citep{sinha2025illusion,sharma2024sycophancy}. The failure mode does not
+produce the incoherence or disagreement these metrics register. Two classes of
+signal remain open. Token-level and semantic uncertainty
+\citep{khalid2025ergo,farquhar2024detecting} differ in kind from the metrics we
+tested and require token probabilities, which our protocols did not collect.
+Counterfactual signals, which compare the deployed context with a history-free
+or state-grounded re-query, target the anchoring directly; CRL tracked the
+current gap rather than anticipating it, and comparing answers rather than
+readiness is a natural next step.
 
-The studies differ in tasks, models and controls. We therefore do not claim that
-the short-task effect causally grows into the long-horizon collapse. Study 2 also
-cannot separate three possible causes: history length, the number of state
-updates, and error accumulation.
+\paragraph{Implications for LLM-based expert systems}
+Four design rules follow. \emph{Keep state outside the transcript}: where the
+state can be represented explicitly, as in ledgers, inventories, protocols and
+schedules, maintain it in a verified store and send the current state with each
+request. In our setting this kept accuracy 0.52--0.59 above full history and
+shrank the prompt at turn 100 from tens of thousands of tokens to a few
+hundred. Our solver-verified summary is an upper reference; model-written
+summaries should be expected to do less well. \emph{Do not rely on
+single-stream quality scores}: a dashboard of one conversation's consistency,
+coherence or stability will typically remain reassuring while accuracy
+collapses. \emph{Monitor by comparison or aggregation}: pooling concurrent
+sessions makes realistic drops detectable, and counterfactual re-queries target
+the history effect itself, at the price of delayed per-session alarms or extra
+calls. \emph{Test the monitor before trusting it}: verify that each detector
+can fire on streams of the intended length and that its reference period is
+free of the degradation to be detected.
 
-\paragraph{Why quality metrics stay silent.}
-Consistency, coherence and stability measure local properties of responses. A
-model that has committed to a wrong premise or a wrong state can reason
-coherently and repeatably from it. In our replay these metrics even rose as
-accuracy fell, which suggests that accumulated context makes responses more
-anchored.
-
-The paired process measure fared no better than the current readiness state
-itself. Accuracy-based detectors, for their part, are limited by the noise of a
-single stream. Monitoring designs that assume quality metrics fall before
-accuracy are therefore unlikely to work in this setting. Token-level uncertainty
-signals such as those used by ERGO \citep{khalid2025ergo} are a different class
-of signal. We did not test them, because our protocols did not collect token
-probabilities.
-
-\paragraph{Implications for practice.}
-Three practices follow from our results:
-\begin{itemize}
-  \item Do not let the raw history grow indefinitely in tasks that maintain
-    state. Re-ground the model periodically in a compact, verified state
-    representation.
-  \item Monitor by comparison: against a verified-state or history-free
-    re-query, or across many concurrent sessions. Single-stream quality
-    trajectories are not a substitute.
-  \item Before using a generic drift detector as a comparator, verify that it
-    can fire on streams of the intended length.
-\end{itemize}
-
-\paragraph{Limitations.}
-\begin{itemize}
-  \item \textbf{Scope.} Both studies use arithmetic reasoning with exact answers
-    and models available through one academic gateway, and the two studies use
-    different models. Effects may differ for other domains, newer models or other
-    serving stacks.
-  \item \textbf{Net effects.} Study 1 estimates the net effect of retaining
-    assistant replies, which contain both harmful commitments and potentially
-    useful work. Study 2's control is a packaged intervention, not a mechanism
-    test.
-  \item \textbf{Observability.} Accuracy, robustness and efficiency were
-    unobservable before the final turn in Study 1. Their early-warning value
-    there was not tested.
-  \item \textbf{Exploratory analyses.} The Study 2 monitoring analyses, the CRL
-    persistence check, the accuracy-loss target and the stream replay are
-    exploratory or post-hoc, and are labelled as such.
-  \item \textbf{Study 2 acquisition.} A funding pause staged the acquisition.
-    The primary chains and all three control arms are complete, but consistency,
-    robustness and stability samples remain complete for GPT-4o-mini only.
-  \item \textbf{Single investigator.} The audit of Study 1 tasks and the
-    calibration of Study 2 were carried out by one investigator.
-\end{itemize}
+\paragraph{Limitations}
+Both studies use arithmetic and state-tracking tasks with exact answers, which
+make accuracy observable but are narrower than open-ended dialogue. All models
+were accessed through one academic gateway, the two studies use different
+model sets, and newer models may degrade differently. Study~1 estimates a net
+effect that includes length and position differences, and Study~2's control is
+a packaged intervention, not a mechanism test. Accuracy, robustness and
+efficiency were unobservable before the final turn in Study~1. Study~2's CS, RS
+and SS samples are complete only for GPT-4o-mini. Monitoring analyses beyond
+the frozen tests are exploratory or post-hoc, two deviations for Llama-3 70B
+followed gate results and are disclosed, and one investigator performed the
+task audit and calibration.

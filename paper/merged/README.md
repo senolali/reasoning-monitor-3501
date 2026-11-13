@@ -24,17 +24,24 @@ python scripts\paper_merged_supplement_assets.py
 
 ## Compile
 
-Upload this folder to Overleaf, or run `latexmk -pdf main.tex`. The repository
-also contains verified PDFs under `output/pdf/` and an upload-ready archive at
-`paper/merged_overleaf.zip` after running the release workflow.
+The main article cites supplementary tables through `xr` (`supp-` labels), so
+compile the supplement first:
 
-The balanced submission build is 20 pages for the main article and 5 pages for
-the supplementary material. It preserves the full scientific argument while
-using Elsevier's single-spaced preprint layout and avoiding duplicated plots.
+```bat
+latexmk -pdf supplement.tex
+latexmk -pdf main.tex
+```
+
+In Overleaf, compile `supplement.tex` once as the main document, then switch
+back to `main.tex`. Verified PDFs are under `output/pdf/`.
+
+The current build (2026-11-05 rewrite) is 23 pages for the main article in
+Elsevier's preprint layout (about 20 pages of text, 3.5 of references) and 14
+pages of supplementary material. Section 3 (`sections/framework.tex`) defines
+the context policies, metrics, detectors, CRL and evidence labels.
 
 ## Supplementary material
 
-`supplement.tex` is a separate document. In Overleaf, select it as the main
-document or compile it locally with `latexmk -pdf supplement.tex`. Detailed
-trajectory graphics and full intermediate grids remain in the reproducibility
-archive rather than being duplicated in the PDF.
+`supplement.tex` is a separate, audit-focused document: design details,
+deviations, staged acquisition, secondary tables, per-model trajectories, the
+power simulation, the ADWIN audit and input hashes.

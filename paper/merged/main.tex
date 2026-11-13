@@ -2,21 +2,24 @@
 % Claim boundaries: MERGED_PAPER_CLAIMS.md (approved 2026-10-04) -- binding.
 % Numbers: generated/numbers.tex (Study 1, scripts/paper_lic_rq_v2_assets.py --paper paper/merged)
 %          generated/cdr_numbers.tex (Study 2 + cross-study, scripts/paper_merged_cdr_assets.py)
-\documentclass[preprint,10pt,authoryear]{elsarticle}
+% Cross-references to the supplement (supp-...) need supplement.aux:
+% compile supplement.tex first, then main.tex.
+\documentclass[preprint,11pt,authoryear]{elsarticle}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage{booktabs,array}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{xr}
+\externaldocument[supp-]{supplement}
 \usepackage[hidelinks]{hyperref}
-\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
-\setlength{\floatsep}{8pt plus 2pt minus 2pt}
-\setlength{\intextsep}{8pt plus 2pt minus 2pt}
-\renewcommand{\bibfont}{\small}
-\setlength{\bibsep}{1pt}
 
+\renewcommand{\bibfont}{\small}
+\setlength{\bibsep}{1.5pt plus 0.5pt}
 \graphicspath{{figures/}}
 \input{generated/numbers}
 \input{generated/cdr_numbers}
@@ -45,9 +48,8 @@
 \end{abstract}
 
 \begin{keyword}
-large language models \sep multi-turn dialogue \sep assistant history \sep
-long-horizon state tracking \sep reasoning quality \sep early warning \sep
-drift detection
+large language models \sep multi-turn dialogue \sep conversation history \sep
+state tracking \sep reasoning quality \sep drift detection \sep early warning
 \end{keyword}
 
 \end{frontmatter}
@@ -62,13 +64,13 @@ drift detection
 \input{sections/conclusion}
 
 \section*{Data and code availability}
-All prompts, frozen protocols, configurations, analysis code and scripts that
-generate every number in this article are maintained in the version-controlled
-\href{https://github.com/senolali/reasoning-monitor-3501}{version-controlled
-GitHub repository}. The
-repository is private during manuscript preparation. A public archival release
-with a persistent DOI, derived data and provider-permitted model responses will
-be made no later than publication.
+All prompts, frozen protocols, configurations, analysis code and the scripts
+that generate every number, table and figure in this article are maintained in
+a version-controlled
+\href{https://github.com/senolali/reasoning-monitor-3501}{GitHub repository}.
+The repository is private during manuscript preparation. A public archival
+release with a persistent DOI, derived data and provider-permitted model
+responses will be made no later than publication.
 
 \section*{Acknowledgements}
 This work was supported by the Scientific and Technological Research Council of

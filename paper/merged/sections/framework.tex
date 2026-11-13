@@ -1,55 +1,148 @@
 \section{Monitoring framework and evaluation design}
 \label{sec:framework}
 
-Across both studies, a context policy determines what the model sees. Responses
-are mapped to per-turn quality signals, smoothed over a trailing window and
-passed to detectors calibrated on stationary null streams. Gold answers score
-accuracy and evaluate alarms but are unavailable to the monitor.
+This section defines what both studies share: the context policies, the
+per-turn quality signals, the streaming monitor and the evidence standards
+(Figure~\ref{fig:framework}).
 
-\paragraph{Context policies.}
-At turn $t$, the \emph{dialogue-history} context is
-$(u_1,r_1,\ldots,r_{t-1},u_t)$; the \emph{fresh prefix} is
-$(u_1,\ldots,u_t)$; and the \emph{verified-state} context is
-$(s_{t-1},u_t)$, where a solver renders the exact state $s_{t-1}$. History
-versus fresh prefix estimates the net effect of retaining assistant-side text,
-including associated length and position changes. Verified state is a packaged
-mitigation--shorter context, no earlier replies and correct state--rather than a
-mechanism test. Our code packs every context into the request; server-side
-history, retrieval and prompt rewriting are disabled.
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small, >=Latex, node distance=4mm and 6mm,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=9mm,
+              inner sep=3pt, fill=#1},
+  box/.default=white]
+\node[box=gray!10, text width=27mm] (user) {User turn $u_t$\\(new information,\\question)};
+\node[box=blue!8, text width=33mm, right=of user] (policy)
+  {Context policy $\pi$\\[1pt]\footnotesize dialogue history $\cdot$ fresh prefix\\
+   \footnotesize $\cdot$ verified state summary};
+\node[box=gray!10, text width=24mm, right=of policy] (llm) {LLM\\primary reply\\+ $K{-}1$ samples\\+ $L$ rewordings};
+\node[box=orange!10, text width=26mm, below=9mm of llm] (metrics)
+  {Per-turn quality\\vector $\mathbf{q}_t$\\\footnotesize CQ CS RS LS ES SS};
+\node[box=orange!10, text width=27mm, left=of metrics] (window)
+  {Window means\\$\bar q_{m,t}$ over the last\\$W$ valid values};
+\node[box=red!8, text width=30mm, left=of window] (detect)
+  {Drift detectors\\\footnotesize CUSUM, PH, EWMA,\\\footnotesize DDM, ADWIN};
+\node[box=green!10, text width=30mm, below=8mm of detect] (alarm)
+  {Alarm time $\tau_m$\\\footnotesize compared with the change $c$};
+\node[box=green!10, text width=27mm, right=of alarm] (null)
+  {Threshold from\\stationary nulls\\\footnotesize false alarms $\le\alpha$};
+\node[box=gray!5, text width=26mm, right=of null] (gold)
+  {Exact gold $y_t$\\\footnotesize(evaluation only)};
+\draw[->] (user) -- (policy);
+\draw[->] (policy) -- (llm);
+\draw[->] (llm) -- (metrics);
+\draw[->] (metrics) -- (window);
+\draw[->] (window) -- (detect);
+\draw[->] (detect) -- (alarm);
+\draw[->, dashed] (null) -- (alarm);
+\draw[->, dashed] (gold) -- (null);
+\draw[->, dashed] (gold.north) -- (metrics.south);
+\draw[->, dotted] (llm.north) -- ++(0,4mm) -| node[pos=0.25, above, font=\footnotesize]
+  {primary reply enters later history (dialogue history only)} (policy.north);
+\end{tikzpicture}
+\caption{The monitoring framework. A context policy decides what the model
+sees at turn $t$. Responses are scored into a per-turn quality vector, smoothed
+over a window and passed to drift detectors whose thresholds are calibrated on
+stationary dialogues. Exact gold is used only to score accuracy and evaluate
+alarms, never by the monitor.}
+\label{fig:framework}
+\end{figure}
 
-\paragraph{Per-turn signals.}
-RQEval \citep{rqeval2026} yields accuracy (CQ), agreement among $K$ samples
-(CS), agreement under $L$ instruction rewordings when the primary is correct
-(RS), NLI-based step coherence (LS) \citep{he2021deberta}, correctness-adjusted
-token efficiency (ES), and BERTScore trace stability (SS)
-\citep{zhang2020bertscore}. Values lie in $[0,1]$. CQ, RS and ES require gold;
-CS requires at least two answers; LS and SS require reasoning text. Missing
-values are never imputed and every estimate reports its support.
+\subsection{Context policies}
 
-\paragraph{Streaming alarms.}
-For metric $m$, the monitor passes a trailing mean $\bar q_{m,t}$ over the last
-$W\in\{10,20,30\}$ valid values to CUSUM, Page--Hinkley, EWMA, DDM or ADWIN.
-The frozen assignments comprise a distribution-based CUSUM strategy, the
-proposal's metric-specific mapping, and an ADWIN-everywhere baseline. Thresholds
-are selected only from stationary null streams at a 5\% false-alarm target. For
-a change at $c$, alarms before $c$ are false alarms and alarms in
-$[c,c+33]$ are detections. A signal qualifies as early warning only if it is
-timely, respects the null calibration and generalises across models.
+At turn $t$ the user sends $u_t$ and the model returns a primary reply $r_t$
+from a context $C_t$ set by a policy $\pi$:
+\begin{align}
+  \text{dialogue history:}\quad & C_t = (u_1, r_1, \dots, r_{t-1}, u_t),\\
+  \text{fresh prefix:}\quad & C_t = (u_1, \dots, u_t),\\
+  \text{verified state summary:}\quad & C_t = (s_{t-1}, u_t),
+\end{align}
+where $s_{t-1}$ is the exact task state after turn $t-1$, rendered by a
+solver. Dialogue history versus fresh prefix estimates the \emph{net} effect of
+retaining assistant-side history; context length and message positions differ
+as well, so the effect is not attributed to the content of the replies alone.
+The verified state summary shortens the context, removes earlier replies and
+supplies a correct state at once; it tests mitigation, not mechanism. Our code
+packs every context into the request, with server-side memory, retrieval and
+prompt rewriting disabled, after a pilot in which a gateway silently dropped
+native message history. Every context is therefore reproducible from the
+stored records.
 
-\paragraph{Paired readiness.}
-For pre-final turns $\mathcal T$, let $a_t^{F}$ and $a_t^{D}$ indicate whether
-fresh-prefix and history arms attempt an answer. The frozen auxiliary measure
-\[
-\mathrm{CRL}=|\mathcal T|^{-1}\sum_{t\in\mathcal T}
-\max(a_t^{F}-a_t^{D},0)
-\]
-quantifies how persistently history delays readiness. It is a paired
-counterfactual signal, not an RQEval dimension.
+\subsection{Per-turn quality signals}
 
-\paragraph{Evidence standards.}
-\emph{Confirmatory} results were frozen before data; \emph{prespecified
-secondary} results were frozen but outside the primary family;
-\emph{exploratory} rules preceded computation on already-seen data; and
-\emph{post-hoc} analyses followed inspection. Protocols fix samples, prompts,
-models, scoring, missingness and tests. Hashes bind protocols and records; raw
-responses are stored before scoring and never overwritten.
+Each primary reply is accompanied by $K-1$ further samples from the same
+context and by $L$ replies to frozen rewordings of the instruction. RQEval
+\citep{rqeval2026} computes six dimensions in $[0,1]$, used unchanged:
+accuracy (CQ, the primary answer equals the gold); consistency (CS, pairwise
+agreement of the $K$ answers); robustness (RS, agreement of reworded replies
+with a correct primary answer); logical coherence (LS, absence of NLI
+contradictions between consecutive steps; \citealp{he2021deberta}); efficiency
+(ES, correctness combined with token economy); and stability (SS, BERTScore
+similarity of the $K$ traces; \citealp{zhang2020bertscore}). CQ, RS and ES
+require a final answer and gold, CS needs at least two answers, and LS and SS
+need only reasoning text. This matters for early warning: a signal that
+requires an answer is unobservable before the model is ready to give one.
+Missing values are never imputed and are reported with their support.
+
+\subsection{The streaming monitor}
+
+For each metric $m$, the monitor keeps a trailing mean $\bar q_{m,t}$ over the
+last $W\in\{10,20,30\}$ valid values ($W=20$ primary); missing values neither
+enter nor advance the window. Five detectors, CUSUM, Page--Hinkley (PH), EWMA,
+DDM and ADWIN, are paired with metrics by three strategies taken from the
+funded project design (Table~\ref{tab:strategies}). Thresholds are never tuned
+on drift data: for each metric, detector and window, we take the most
+sensitive grid value whose first-alarm rate on stationary streams does not
+exceed $\alpha$. Study~1 uses permutation nulls with family-wise
+$\alpha=0.05$ verified on disjoint permutations. Study~2 uses its stationary
+dialogues, with leave-one-out false-alarm estimates. For a change at turn $c$,
+an alarm before $c$ is a false alarm and an alarm in $[c, c+33]$ a detection.
+A signal gives \emph{early warning} only if it detects drifts in time, respects
+the null calibration and does so across models.
+
+\begin{table}[!htbp]
+\centering
+\caption{Detector assignment strategies. All monitor a decrease of the window
+mean; CQ is additionally monitored on its raw binary stream by DDM.}
+\label{tab:strategies}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+Strategy & CQ & CS & RS & LS & ES & SS\\
+\midrule
+Distribution-based & CUSUM & CUSUM & CUSUM & CUSUM & CUSUM & CUSUM\\
+Proposal mapping & CUSUM & ADWIN & DDM & PH & EWMA & ADWIN\\
+ADWIN everywhere & ADWIN & ADWIN & ADWIN & ADWIN & ADWIN & ADWIN\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A paired readiness measure}
+
+Sharded tasks allow an answer-free paired signal. Let $a_t^{\mathrm{F}}$ and
+$a_t^{\mathrm{D}}$ be 1 if the fresh-prefix and dialogue-history arms attempt an
+answer at turn $t$, and 0 if they state that more information is needed. The
+\emph{Cumulative Resolution Lag} of a task is
+\begin{equation}
+  \mathrm{CRL} = \frac{1}{|\mathcal{T}|}\sum_{t\in\mathcal{T}}
+  \max\!\left(a_t^{\mathrm{F}}-a_t^{\mathrm{D}},\,0\right),
+\end{equation}
+over the pre-final turns $\mathcal{T}$ at which both arms responded validly.
+CRL measures how persistently the history arm lags an information-matched
+counterfactual in becoming ready to answer. It was frozen as an auxiliary
+measure before the Study~1 data were collected and is not an RQEval dimension.
+
+\subsection{Evidence standards}
+
+Every result carries one of four labels. \emph{Confirmatory} results test
+hypotheses frozen before data collection; \emph{prespecified secondary}
+results are frozen but outside the confirmatory family; \emph{exploratory}
+results use rules fixed before computation on data already seen; and
+\emph{post-hoc} results were designed after inspection. Protocols fixed the
+sample, prompts, models, scoring, missing-data policy and tests, and were
+hashed together with all input records. Raw responses are stored before scoring
+and never overwritten, failed gates are reported rather than relabelled, and
+every number, table and figure is regenerated by scripts from the hashed
+inputs.

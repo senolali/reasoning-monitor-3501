@@ -1,22 +1,14 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-We studied multi-turn reasoning in two settings, both analysed under protocols
-frozen before data collection.
-
-\begin{itemize}
-  \item On short sharded math tasks, retaining the assistant's own replies
-    reduced final success relative to an information-matched context without
-    them.
-  \item In 100-turn dialogues with calibrated difficulty, accuracy collapsed
-    within about twenty turns under accumulated history, while a verified state
-    summary preserved it across all three models.
-  \item None of the examined signals gave robust, model-general early warning of
-    these failures. This covers the measurable reasoning-quality metrics, a
-    paired process measure, and single-stream drift detectors.
-\end{itemize}
-
-Long interactions can thus degrade LLM reasoning in ways that are invisible to
-single-stream quality monitoring. Compact, verified state representations and
-comparative, aggregated monitoring are the most promising directions for
-building reliable multi-turn systems.
+Across two frozen studies, retaining an LLM's own replies lowered success on
+short multi-turn tasks, and accumulated history collapsed accuracy within about
+twenty turns of 100-turn state-tracking dialogues, even at matched difficulty,
+while a verified state summary preserved it. The loss was silent: no examined
+quality metric, paired readiness measure or calibrated single-stream detector
+gave robust, model-general early warning, and coherence and stability often
+held or rose as accuracy fell. LLM-based expert systems should therefore manage
+task state explicitly and monitor across sessions or against counterfactual
+re-queries. Future work should test token-level and counterfactual uncertainty
+signals, separate the length, state-load and error components of the collapse,
+and evaluate state representations that models maintain and verify themselves.
