@@ -4,6 +4,31 @@ Real-time multi-dimensional reasoning quality monitoring for LLMs under concept 
 
 **TÜBİTAK 3501 project framework — v0.2.1**
 
+[![arXiv](https://img.shields.io/badge/arXiv-2611.20071-b31b1b.svg)](https://arxiv.org/abs/2611.20071)
+
+This repository contains the code behind **The Silent Cost of Conversation History in LLM Reasoning** ([arXiv:2611.20071](https://arxiv.org/abs/2611.20071)).
+
+## Citation
+
+If you use this code or its results, please cite:
+
+```bibtex
+@misc{senol2026silentcost,
+  title         = {The Silent Cost of Conversation History in {LLM} Reasoning},
+  author        = {{\c{S}}enol, Ali},
+  year          = {2026},
+  eprint        = {2611.20071},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  doi           = {10.48550/arXiv.2611.20071},
+  url           = {https://arxiv.org/abs/2611.20071}
+}
+```
+
+GitHub's **"Cite this repository"** button (from `CITATION.cff`) gives the same reference in APA and BibTeX.
+
+This work was supported by the Scientific and Technological Research Council of Türkiye (TÜBİTAK), 3501 program, project 126E663.
+
 ---
 
 ## Overview

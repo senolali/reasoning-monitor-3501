@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite the paper below."
+title: "reasoning-monitor: multidimensional reasoning-quality monitoring for LLM query streams under concept drift"
+type: software
+version: 0.2.1
+license: MIT
+repository-code: "https://github.com/senolali/reasoning-monitor-3501"
+keywords:
+  - large language models
+  - concept drift
+  - reasoning quality
+  - drift detection
+  - early warning
+  - multi-turn dialogue
+authors:
+  - family-names: "Şenol"
+    given-names: "Ali"
+    orcid: "https://orcid.org/0000-0003-0364-2837"
+    affiliation: "Department of Computer Engineering, Tarsus University"
+preferred-citation:
+  type: article
+  title: "The Silent Cost of Conversation History in LLM Reasoning"
+  authors:
+    - family-names: "Şenol"
+      given-names: "Ali"
+      orcid: "https://orcid.org/0000-0003-0364-2837"
+      affiliation: "Department of Computer Engineering, Tarsus University"
+  year: 2026
+  journal: "arXiv preprint"
+  doi: "10.48550/arXiv.2611.20071"
+  url: "https://arxiv.org/abs/2611.20071"
+  identifiers:
+    - type: other
+      value: "arXiv:2611.20071"
+      description: "arXiv identifier"
